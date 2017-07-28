@@ -36,4 +36,11 @@ expect "20.0" getInfoItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Em
 atualizarItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Emerald" atributo="Nome" valor="Pokemon Omega Ruby"
 expect "Pokemon Omega Ruby" getInfoItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Omega Ruby" atributo="Nome"
 
+expectError "Usuario invalido" cadastrarJogoTabuleiro nome="Silvio" telefone="74100-8520" nomeItem="Jogo da Vida" preco=50.00
+expectError "Preco invalido" cadastrarJogoTabuleiro nome="Carlos" telefone="89999-9999" nomeItem="Jogo da Vida" preco=-50.00
+expectError "Usuario invalido" atualizarItem nome="Silvio" telefone="74100-8520" nomeItem="Jogo da Vida" atributo="Preco" valor="80.00"
+expectError "Item nao encontrado" atualizarItem nome="Joao" telefone="98888-8888" nomeItem="Pokemon Black2" atributo="Preco" valor="80.00"
+expectError "Usuario invalido" removerItem nome="Silvio" telefone="74100-8520" nomeItem="Jogo da Vida"
+expectError "Item nao encontrado" removerItem nome="Josefina" telefone="77777-7777" nomeItem="Jogo da Vida"
+
 fecharSistema

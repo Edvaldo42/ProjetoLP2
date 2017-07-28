@@ -31,4 +31,8 @@ expect "mariaS2@email.com" getInfoUsuario nome="Maria" telefone="97777-7777" atr
 atualizarUsuario nome="Maria" telefone="97777-7777" atributo="Telefone" valor="96666-6666"
 expect "mariaS2@email.com" getInfoUsuario nome="Maria" telefone="96666-6666" atributo="Email"
 
+expectError "Usuario ja cadastrado" cadastrarUsuario nome="Vilmar" telefone="55555-9999" email="vilmar_vil@email.com"
+expectError "Usuario invalido" atualizarUsuario nome="Priscila" telefone="4002-8922" atributo="Email" valor="pri@email.com"
+expectError "Usuario invalido" removerUsuario nome="Priscila" telefone="4002-8922"
+
 fecharSistema
