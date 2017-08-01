@@ -1,10 +1,16 @@
 package usuario;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import item.Item;
+
 public class Usuario {
 
 	private String nome;
 	private String email;
 	private String telefone;
+	private Set<Item> itens;
 
 	public Usuario(String nome, String telefone, String email) {
 		if (!validaNome(nome)) {
@@ -20,6 +26,7 @@ public class Usuario {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
+		itens = new HashSet<>();
 	}
 
 	private boolean validaNome(String nome) {

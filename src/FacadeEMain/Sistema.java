@@ -9,6 +9,7 @@ import usuario.Usuario;
 public class Sistema {
 
 	Set<Usuario> usuarios;
+	
 
 	public Sistema() {
 		this.usuarios = new HashSet<Usuario>();
@@ -100,5 +101,7 @@ public class Sistema {
 		}
 		return true;
 	}
+	
+	public 
 
 }
