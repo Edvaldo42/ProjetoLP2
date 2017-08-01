@@ -16,8 +16,8 @@ public class Facade {
 		sistema.removerUsuario(nome, telefone);
 	}
 	
-	public void atualizarUsuario(String nome, String telefone, String email) {
-		sistema.atualizarUsuario(nome, telefone, email);
+	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
+		sistema.atualizarUsuario(nome, telefone, atributo, valor);
 	}
 	
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
