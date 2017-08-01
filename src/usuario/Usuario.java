@@ -17,9 +17,9 @@ public class Usuario {
 		if (!validaTelefone(telefone)) {
 			throw new IllegalArgumentException("Telefone invalido");
 		}
-		this.setNome(nome);
+		this.nome = nome;
 		this.email = email;
-		this.setTelefone(telefone);
+		this.telefone = telefone;
 	}
 
 	private boolean validaNome(String nome) {
