@@ -102,6 +102,18 @@ public class Sistema {
 		return true;
 	}
 	
-	public 
+	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
+
+        Usuario user = buscaUsuario(nomeDono, telefoneDono);
+
+        if (user == null) {
+
+            throw new NullPointerException("Usuario invalido");
+
+        }
+
+        return user.detalhesItem(nomeItem);
+
+    }
 
 }

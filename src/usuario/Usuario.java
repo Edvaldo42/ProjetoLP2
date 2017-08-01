@@ -132,6 +132,24 @@ public class Usuario {
 
 	}
 
+	public String detalhesItem(String nomeItem) {
+		if (itens.contains(nomeItem) == false) {
+			throw new IllegalArgumentException("Item nao encontrado");
+		}
+		return buscaItem(nomeItem).toString();
+	}
+
+	public Item buscaItem(String nomeItem) {
+		Item item = null;
+		for (Item objeto : itens) {
+			if (objeto.getNomeDoItem().equals(nomeItem)) {
+				item = objeto;
+			}
+		}
+		return item;
+
+	}
+
 	@Override
 	public String toString() {
 		return nome + ", " + email + ", " + telefone;
