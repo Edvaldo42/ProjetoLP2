@@ -5,17 +5,18 @@ public class Show extends BluRay {
 	private String nomeDoArtista;
 	private int faixas;	
 	
-	public Show(String nomeDoItem, double valor, int duracao, String classificacao, String nomeDoArtista, int faixas) {
+	public Show(String nomeDoItem, double valor, int duracao, String classificacao, int faixas, String nomeDoArtista) {
 		super(nomeDoItem, valor, duracao, classificacao);
 		
-		if (nomeDoArtista == null || nomeDoArtista.trim().equals("")) {
-			 throw new IllegalArgumentException("O nome do artista nao pode ser nulo ou vazio");
-		}
 		if (faixas < 1) { 
 			throw new IllegalArgumentException("Faixas nao podem ser menor do que 1");
 		}
-		this.nomeDoArtista = nomeDoArtista;
+		if (nomeDoArtista == null || nomeDoArtista.trim().equals("")) {
+			 throw new IllegalArgumentException("O nome do artista nao pode ser nulo ou vazio");
+		}
+		
 		this.faixas = faixas;
+		this.nomeDoArtista = nomeDoArtista;
 	}
 
 	public String getNomeDoArtista() {

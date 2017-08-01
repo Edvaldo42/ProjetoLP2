@@ -5,11 +5,11 @@ import java.time.*;
 public class Filme extends BluRay {
 	
 	private Genero genero;
-	private String lancamento;
+	private int lancamento;
 	
-	public Filme(String nomeDoItem, double valor, int duracao, String classificacao, String genero, String lancamento) {
+	public Filme(String nomeDoItem, double valor, int duracao, String classificacao, String genero, int lancamento) {
 		super(nomeDoItem, valor, duracao, classificacao);
-		this.genero = Genero.valueOf(genero);
+
 		if (genero == null || genero.trim().equals("")) {
 			throw new IllegalArgumentException("Genero nao pode ser nula ou vazia");
 		}
@@ -19,7 +19,6 @@ public class Filme extends BluRay {
 			throw new IllegalArgumentException("Genero invalida");
 		}
 		this.genero = Genero.valueOf(genero);
-		// fazer tratamento de lancamento
 		this.lancamento = lancamento;
 		}
 
@@ -31,11 +30,11 @@ public class Filme extends BluRay {
 		this.genero = genero;
 	}
 
-	public String getLancamento() {
+	public int getLancamento() {
 		return lancamento;
 	}
 
-	public void setLancamento(String lancamento) {
+	public void setLancamento(int lancamento) {
 		this.lancamento = lancamento;
 	}
 

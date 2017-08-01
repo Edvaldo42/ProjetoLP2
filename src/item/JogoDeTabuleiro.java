@@ -22,6 +22,10 @@ public class JogoDeTabuleiro extends Item{
 		
 		return msg;
 	}
+	
+	public void adicionaPecaPerdida (String nomePeca) {
+		pecasPerdidas.add(nomePeca);
+	}
 
 	@Override
 	public String toString() {

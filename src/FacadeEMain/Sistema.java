@@ -1,18 +1,25 @@
 package FacadeEMain;
 
+import java.util.Map.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.sun.javafx.collections.MappingChange.Map;
+
+import item.Item;
 import usuario.ControllerUsuario;
 import usuario.Usuario;
 
 public class Sistema {
 
 	Set<Usuario> usuarios;
+	Map<Usuario, Item> itensCadastrados;
 	
 
 	public Sistema() {
-		this.usuarios = new HashSet<Usuario>();
+		this.usuarios = new HashSet<>();
+		this.itensCadastrados = new HashMap<>();
 	}
 
 	public void cadastrarUsuario(String nome, String telefone, String email) {
@@ -102,6 +109,11 @@ public class Sistema {
 		return true;
 	}
 	
-	public 
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
+		Usuario usuario = buscaUsuario(nome, telefone);
+		if (usuario.)
+			
+			
+		}
+	}
 
-}

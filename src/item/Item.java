@@ -1,6 +1,6 @@
 package item;
 
-public class Item {
+public abstract class Item {
 	
 	private String nomeDoItem;
 	private double valor;
@@ -19,6 +19,8 @@ public class Item {
 		this.valor = valor;
 		emprestado = false;
 	}
+	
+	public abstract void adicionarPecaPerdida(String nomePeca);
 
 	public String getNomeDoItem() {
 		return nomeDoItem;

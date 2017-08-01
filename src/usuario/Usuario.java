@@ -3,7 +3,12 @@ package usuario;
 import java.util.HashSet;
 import java.util.Set;
 
+import item.Filme;
 import item.Item;
+import item.JogoDeTabuleiro;
+import item.JogoEletronico;
+import item.Serie;
+import item.Show;
 
 public class Usuario {
 
@@ -28,7 +33,87 @@ public class Usuario {
 		this.telefone = telefone;
 		itens = new HashSet<>();
 	}
+	
+	public void cadastraEletronico(String nomeItem, double preco, String plataforma) {
+		Item itemACadastrar  = new JogoEletronico(nomeItem, preco, plataforma);
 
+		if (!verificaItem(itemACadastrar)) {
+			itens.add(itemACadastrar);
+		}
+	}
+
+	public void cadastraJogoTabuleiro(String nomeItem, double preco) {
+		Item itemACadastrar  = new JogoDeTabuleiro(nomeItem, preco);
+
+		if (!verificaItem(itemACadastrar)) {
+			itens.add(itemACadastrar);
+		}
+	}
+	
+	public void adicionarPecaPerdida(String nomeItem, String nomePeca) {
+		Item itemBuscado = buscaItem(nomeItem);
+		if (itemBuscado.getNomeDoItem().equalsIgnoreCase(nomeItem) && itemBuscado.getClass().getName().equals("JogoDeTabuleiro")) {
+			itemBuscado.adicionarPecaPerdida(nomePeca);
+		}
+	}
+		
+	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
+		Item itemACadastrar = new Filme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
+		
+		if (!verificaItem(itemACadastrar)) {
+			itens.add(itemACadastrar);
+		}
+	}
+	
+	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) {
+		Item itemACadastrar = new Show(nomeItem, preco, duracao, classificacao, nomeroFaixas, artista);
+		
+		if (!verificaItem(itemACadastrar)) {
+			itens.add(itemACadastrar);
+		}
+	}
+	
+	public void cadastrarBluRaySerie(String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
+		Item itemACadastrar = new Serie(nomeItem, preco, duracao, classificacao, genero, temporada);
+		
+		if (!verificaItem(itemACadastrar)) {
+			itens.add(itemACadastrar);
+		}
+	}
+
+	
+	public void adicionarBluRay(String nomeBlurayTemporada, int duracao){
+		Item itemBuscado = buscaItem(nomeBlurayTemporada);
+		
+		
+	}
+	
+	public void removerItem(String nomeItem) {
+		sistema.removerItem(nome, telefone, nomeItem);
+	}
+	
+	public void atualizarItem(String nomeItem, String atributo, double preco) {
+		sistema.atualizarItem(nome, telefone, nomeItem, atributo, preco);
+	}
+
+	private Item buscaItem(String nomeItem) {
+		
+		for (Item item : itens) {
+			if (item.getNomeDoItem().equals(nomeItem)) {
+		
+				return item;
+			}
+		}
+		throw new IllegalArgumentException("Item nao cadastrado");	
+	}
+	
+	private boolean verificaItem(Item itemACadastrar) {
+		if (itens.contains(itemACadastrar)) {
+			throw new IllegalArgumentException("Item ja cadastrado");
+		}
+		return false;
+	}
+	
 	private boolean validaNome(String nome) {
 		if (nome == null) {
 			throw new IllegalArgumentException("Usuario nao pode ser null.");

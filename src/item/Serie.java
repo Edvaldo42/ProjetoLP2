@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Serie extends BluRay {
 
-	private List<BluRay> colecao;
+	private List<Integer> colecao;
 	private Genero genero;
 	private int temporada;
 	private final String LN = System.lineSeparator();
@@ -23,22 +23,22 @@ public class Serie extends BluRay {
 		colecao = new ArrayList<>();
 	}
 
-	public String listaColecao() {
+	/*public String listaColecao() {
 		String msg = "";
 		int contador = 1;
 		
-		for (BluRay bluRay : colecao) {
+		for (int episodio : colecao) {
 			msg += contador + " - " + bluRay.toString() + LN;
 		}
 		
 		return msg;
-	}
+	}*/
 	
 	@Override
 	public int getDuracao() {
 		int duracao = 0;
-		for (BluRay bluRay : colecao) {
-			duracao += bluRay.getDuracao();
+		for (int episodio : colecao) {
+			duracao += episodio;
 		}
 		return duracao;
 	}
@@ -71,10 +71,9 @@ public class Serie extends BluRay {
 		}
 	}
 
-
 	@Override
 	public String toString() {
-		return super.toString() + " - " + genero.getGenero() + " - " + temporada + ":" + LN + listaColecao();
+		return super.toString() + " - " + genero.getGenero() + " - " + temporada + ":" + getDuracao();
 	}
 
 }
