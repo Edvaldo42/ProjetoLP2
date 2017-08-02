@@ -1,12 +1,12 @@
 package item;
 
-public class BluRay extends Item {
+public abstract class BluRay extends Item {
 
 	private int duracao;
 	private Classificacao classificacao;
 
-	public BluRay(String nomeDoItem, double valor, int duracao, String classificacao) {
-		super(nomeDoItem, valor);
+	public BluRay(String nomeItem, double valor, int duracao, String classificacao) {
+		super(nomeItem, valor);
 		if (classificacao == null || classificacao.trim().equals("")) {
 			throw new IllegalArgumentException("Classificacao nao pode ser nula ou vazia");
 		}
@@ -42,5 +42,4 @@ public class BluRay extends Item {
 	}
 	
 	
-
 }

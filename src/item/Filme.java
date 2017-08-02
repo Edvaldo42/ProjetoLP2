@@ -1,7 +1,5 @@
 package item;
 
-import java.time.*;
-
 public class Filme extends BluRay {
 	
 	private Genero genero;

@@ -1,10 +1,10 @@
 package FacadeEMain;
 
 import java.util.Map.*;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Set;
-
+import java.util.Map;
 import item.Item;
 import usuario.ControllerUsuario;
 import usuario.Usuario;
@@ -69,10 +69,10 @@ public class Sistema {
 			if (atributo.trim().equalsIgnoreCase("nome")) {
 				info = user.getNome();
 			}
-			if (atributo.trim().equalsIgnoreCase("telefone")) {
+			else if (atributo.trim().equalsIgnoreCase("telefone")) {
 				info = user.getTelefone();
 			}
-			if (atributo.trim().equalsIgnoreCase("email")) {
+			else if (atributo.trim().equalsIgnoreCase("email")) {
 				info = user.getEmail();
 			}
 
@@ -107,43 +107,104 @@ public class Sistema {
 		return true;
 	}
 	
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.cadastraEletronico(nomeItem, preco, plataforma);
+		}
+		else {
+			throw new NullPointerException("Erro no cadastro de jogo eletronico");
+		}
+	}
+
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco, String plataforma) {
-		sistema.cadastrarJogoTabuleiro(nome, telefone, nomeItem, preco, plataforma);
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.cadastraJogoTabuleiro(nomeItem, preco);
+		}
+		else {
+			throw new NullPointerException("Erro no cadastro de jogo de tabuleiro");
+		}
 	}
 	
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
-		sistema.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.adicionarPecaPerdida(nomeItem, nomePeca);
+		}
+		else {
+			throw new NullPointerException("Erro ao adicionar peca perdida");
+		}
 	}
 	
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
-		sistema.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+		}
+		else {
+			throw new NullPointerException("Erro no cadastro de BluRay de filme");
+		}
 	}
 	
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) {
-		sistema.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, nomeroFaixas, artista, classificacao);
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao) {
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
+		}
+		else {
+			throw new NullPointerException("Erro no cadastro de BluRay de Show");
+		}
 	}
 	
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
-		sistema.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
+		}
+		else {
+			throw new NullPointerException("Erro no cadastro de BluRay de serie");
+		}
 	}
 
 	
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao){
-		sistema.adicionarBluRay(nome, telefone, nomeBlurayTemporada, duracao);
+		Usuario usuario = buscaUsuario(nomeBlurayTemporada, telefone);
+		if (usuario != null) {
+			usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
+		}
+		else {
+			throw new NullPointerException("Erro ao adicionar BluRay");
+		}
 	}
 	
 	public void removerItem(String nome, String telefone, String nomeItem) {
-		sistema.removerItem(nome, telefone, nomeItem);
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.removerItem(nomeItem);
+		}
+		else {
+			throw new NullPointerException("Erro ao remover Item");
+		}
 	}
 	
-	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, double preco) {
-		sistema.atualizarItem(nome, telefone, nomeItem, atributo, preco);
+	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.atualizarItem(nomeItem, atributo, valor);
+		}
+		else {
+			throw new NullPointerException("Erro ao atualizar Item");
+		}
 	}
 	
-	public String getInfoItem(String nome, String telefone, String atributo, double preco) {
-		return sistema.getInfoItem(nome, telefone, atributo, preco);
+/*	public String getInfoItem(String nome, String telefone, String atributo) {
+		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		if (usuario != null) {
+			usuario.detalhesItem(nomeItem);
+		}
 	}
-	
+*/	
 	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
 		Usuario user = buscaUsuario(nomeDono, telefoneDono);
 		

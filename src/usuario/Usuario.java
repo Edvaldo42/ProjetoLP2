@@ -67,9 +67,9 @@ public class Usuario {
 		}
 	}
 
-	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, int nomeroFaixas, String artista,
+	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas, String artista,
 			String classificacao) {
-		Item itemACadastrar = new Show(nomeItem, preco, duracao, classificacao, nomeroFaixas, artista);
+		Item itemACadastrar = new Show(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
 
 		if (!verificaItem(itemACadastrar)) {
 			itens.add(itemACadastrar);
@@ -88,14 +88,62 @@ public class Usuario {
 	public void adicionarBluRay(String nomeBlurayTemporada, int duracao) {
 		Item itemBuscado = buscaItem(nomeBlurayTemporada);
 
+		if (itemBuscado.getClass().getName().equals("serie")) {
+			itemBuscado.adicionarBluRay(duracao);
+		} else {
+			throw new IllegalArgumentException("Esse item nao e uma serie");
+		}
 	}
 
 	public void removerItem(String nomeItem) {
-		sistema.removerItem(nome, telefone, nomeItem);
+		Item itemARemover = buscaItem(nomeItem);
+
+		if (verificaItem(itemARemover)) {
+			itens.remove(itemARemover);
+		}
 	}
 
-	public void atualizarItem(String nomeItem, String atributo, double preco) {
-		sistema.atualizarItem(nome, telefone, nomeItem, atributo, preco);
+	public void atualizarItem(String nomeItem, String atributo, String valor) {
+		Item item = buscaItem(nomeItem);
+		
+		if (verificaItem(item)) {
+			if (atributo.trim().equalsIgnoreCase("nomeItem")) {
+				item.setNomeItem(valor);
+			}
+			else if (atributo.trim().equalsIgnoreCase("preco")) {		
+				item.setPreco(Double.parseDouble(valor));
+			}
+			else if (atributo.trim().equalsIgnoreCase("email")) {
+				item.setClassificacao(valor);
+			}
+			else if (atributo.trim().equalsIgnoreCase("duracao")){
+				item.setDuracao(Integer.parseInt(valor));
+			}
+			else if (atributo.trim().equalsIgnoreCase("genero")) {
+				item.setGenero(valor);
+			}
+			else if (atributo.trim().equalsIgnoreCase("anoLancamento")) {
+				item.setAnoLancamento(Integer.parseInt(valor));
+			}
+			else if (atributo.trim().equalsIgnoreCase("artista")) {
+				item.setNomeArtista(valor);
+			}
+			else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
+				item.setNumeroFaixas(Integer.parseInt(valor));
+			}
+			else if (atributo.trim().equalsIgnoreCase("temporada")) {
+				item.setTemporada(Integer.parseInt(valor));
+			}
+			else if (atributo.trim().equalsIgnoreCase("plataforma")) {
+				item.setPlataforma(valor);
+			}
+			else { 
+				throw new IllegalArgumentException("Atributo invalido");
+			}
+		}
+		else {
+			throw new IllegalArgumentException("Item nao cadastrado");
+		}
 	}
 
 	public String detalhesItem(String nomeItem) {
@@ -104,7 +152,7 @@ public class Usuario {
 		}
 		return buscaItem(nomeItem).toString();
 	}
-	
+
 	private Item buscaItem(String nomeItem) {
 
 		for (Item item : itens) {
@@ -116,9 +164,9 @@ public class Usuario {
 		throw new IllegalArgumentException("Item nao cadastrado");
 	}
 
-	private boolean verificaItem(Item itemACadastrar) {
-		if (itens.contains(itemACadastrar)) {
-			throw new IllegalArgumentException("Item ja cadastrado");
+	private boolean verificaItem(Item item) {
+		if (itens.contains(item)) {
+			return true;
 		}
 		return false;
 	}
@@ -226,10 +274,40 @@ public class Usuario {
 
 	}
 
-
 	@Override
 	public String toString() {
 		return nome + ", " + email + ", " + telefone;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (telefone == null) {
+			if (other.telefone != null)
+				return false;
+		} else if (!telefone.equals(other.telefone))
+			return false;
+		return true;
 	}
 
 }

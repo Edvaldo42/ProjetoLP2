@@ -2,40 +2,68 @@ package item;
 
 public abstract class Item {
 	
-	private String nomeDoItem;
-	private double valor;
+	private String nomeItem;
+	private double preco;
 	private boolean emprestado;
 
-	public Item(String nomeDoItem, double valor) {
+	public Item(String nomeItem, double preco) {
 		
-		if (nomeDoItem == null || nomeDoItem.trim().equals("")) {
+		if (nomeItem == null || nomeItem.trim().equals("")) {
 			throw new IllegalArgumentException("Nome do item nao pode ser nulo ou vazio");
 		}
-		if (valor < 0) {
+		if (preco < 0) {
 			throw new IllegalArgumentException("Valor do item nao pode ser menor que zero");
 		}
 		
-		this.nomeDoItem = nomeDoItem;
-		this.valor = valor;
+		this.nomeItem = nomeItem;
+		this.preco = preco;
 		emprestado = false;
 	}
 	
-	public abstract void adicionarPecaPerdida(String nomePeca);
+	public void adicionarPecaPerdida(String nomePeca) {
+	}
+	
+	public void adicionarBluRay(int duracao) {
+	}
+
+	public void setClassificacao(String classificacao) {
+	}
+		
+	public void setDuracao(int duracao) {
+	}
+
+	public void setGenero(String valor) {
+	}
+	
+	public void setAnoLancamento(int parseInt) {
+	}
+		
+	public void setNomeArtista(String valor) {
+	}
+	
+	public void setNumeroFaixas(int parseInt) {
+	}
+	
+	public void setTemporada(int parseInt) {
+	}
+	
+	public void setPlataforma(String valor) {
+	}
 
 	public String getNomeDoItem() {
-		return nomeDoItem;
+		return nomeItem;
 	}
 
-	public void setNomeDoItem(String nomeDoItem) {
-		this.nomeDoItem = nomeDoItem;
+	public void setNomeItem(String nomeItem) {
+		this.nomeItem = nomeItem;
 	}
 
-	public double getValor() {
-		return valor;
+	public double getPreco() {
+		return preco;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 
 	public boolean isEmprestado() {
@@ -48,12 +76,12 @@ public abstract class Item {
 
 	@Override
 	public String toString() {
-		String valorRequerido = String.format("%.2f", this.valor);
+		String valorRequerido = String.format("%.2f", this.preco);
 		if (emprestado) {
-			return this.nomeDoItem + " - R$" + valorRequerido + " - " + "Emprestado(Sim)";			
+			return this.nomeItem + " - R$" + valorRequerido + " - " + "Emprestado(Sim)";			
 		}
 		else {
-			return this.nomeDoItem + " - R$" + valorRequerido + " - " + "Emprestado(Nao)";
+			return this.nomeItem + " - R$" + valorRequerido + " - " + "Emprestado(Nao)";
 		}
 	}
 
@@ -61,7 +89,7 @@ public abstract class Item {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nomeDoItem == null) ? 0 : nomeDoItem.hashCode());
+		result = prime * result + ((nomeItem == null) ? 0 : nomeItem.hashCode());
 		return result;
 	}
 
@@ -74,13 +102,14 @@ public abstract class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (nomeDoItem == null) {
-			if (other.nomeDoItem != null)
+		if (nomeItem == null) {
+			if (other.nomeItem != null)
 				return false;
-		} else if (!nomeDoItem.equals(other.nomeDoItem))
+		} else if (!nomeItem.equals(other.nomeItem))
 			return false;
 		return true;
 	}
-	
+
+
 	
 }

@@ -35,6 +35,11 @@ public class Serie extends BluRay {
 	}*/
 	
 	@Override
+	public void adicionarBluRay(int duracao) {
+		colecao.add(duracao);		
+	}
+	
+	@Override
 	public int getDuracao() {
 		int duracao = 0;
 		for (int episodio : colecao) {
@@ -75,5 +80,28 @@ public class Serie extends BluRay {
 	public String toString() {
 		return super.toString() + " - " + genero.getGenero() + " - " + temporada + ":" + getDuracao();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + temporada;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Serie other = (Serie) obj;
+		if (temporada != other.temporada)
+			return false;
+		return true;
+	}
+
 
 }
