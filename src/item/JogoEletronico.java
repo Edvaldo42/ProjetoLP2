@@ -13,13 +13,13 @@ public class JogoEletronico extends Item {
 
 	private void validaPlataforma(String plataforma) {
 		if (plataforma == null || plataforma.trim().equals("")) {
-			throw new IllegalArgumentException("Genero nao pode ser nula ou vazia");
+			throw new IllegalArgumentException("Plataforma nao pode ser nula ou vazia");
 		}
 	
 		try {
-			Genero.valueOf(plataforma);
+			Plataforma.valueOf(plataforma);
 		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Genero invalida");
+			throw new IllegalArgumentException("Plataforma invalida");
 		}
 	}
 
