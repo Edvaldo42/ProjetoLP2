@@ -108,17 +108,17 @@ public class Sistema {
 	}
 	
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
-		if (usuario != null) {
-			usuario.cadastraEletronico(nomeItem, preco, plataforma);
+		Usuario usuario = buscaUsuario(nome, telefone);
+		if (usuario == null) {
+			throw new NullPointerException("Erro no cadastro de jogo eletronico");
 		}
 		else {
-			throw new NullPointerException("Erro no cadastro de jogo eletronico");
+			usuario.cadastraEletronico(nomeItem, preco, plataforma);
 		}
 	}
 
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco, String plataforma) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.cadastraJogoTabuleiro(nomeItem, preco);
 		}
@@ -128,7 +128,7 @@ public class Sistema {
 	}
 	
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.adicionarPecaPerdida(nomeItem, nomePeca);
 		}
@@ -138,7 +138,7 @@ public class Sistema {
 	}
 	
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 		}
@@ -148,7 +148,7 @@ public class Sistema {
 	}
 	
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 		}
@@ -158,7 +158,7 @@ public class Sistema {
 	}
 	
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 		}
@@ -169,7 +169,7 @@ public class Sistema {
 
 	
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao){
-		Usuario usuario = buscaUsuario(nomeBlurayTemporada, telefone);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
 		}
@@ -179,7 +179,7 @@ public class Sistema {
 	}
 	
 	public void removerItem(String nome, String telefone, String nomeItem) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.removerItem(nomeItem);
 		}
@@ -189,7 +189,7 @@ public class Sistema {
 	}
 	
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.atualizarItem(nomeItem, atributo, valor);
 		}
@@ -198,13 +198,14 @@ public class Sistema {
 		}
 	}
 	
-/*	public String getInfoItem(String nome, String telefone, String atributo) {
-		Usuario usuario = buscaUsuario(nomeItem, telefone);
+	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
+		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
-			usuario.detalhesItem(nomeItem);
+			String info = usuario.getInfoItem(nomeItem);
 		}
+		return atributo;
 	}
-*/	
+	
 	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
 		Usuario user = buscaUsuario(nomeDono, telefoneDono);
 		

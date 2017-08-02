@@ -310,4 +310,13 @@ public class Usuario {
 		return true;
 	}
 
+	public String getInfoItem(String nomeItem) {
+		String info = null;
+		for (Item item : itens) {
+			if (itens.contains(nomeItem)) {
+				info = String.format("%.2f", item.getPreco());
+			}	
+		} return info;
+	}
+
 }
