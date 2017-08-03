@@ -1,6 +1,8 @@
 package usuario;
 
+import java.text.NumberFormat;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import item.Filme;
@@ -16,6 +18,8 @@ public class Usuario {
 	private String email;
 	private String telefone;
 	private Set<Item> itens;
+	private Locale locale = new Locale("en", "US");
+	private NumberFormat nf = NumberFormat.getInstance(locale);
 
 	public Usuario(String nome, String telefone, String email) {
 		if (!validaNome(nome)) {
@@ -60,7 +64,7 @@ public class Usuario {
 
 	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao,
 			int anoLancamento) {
-		Item itemACadastrar = new Filme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
+		Item itemACadastrar = new Filme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 
 		if (!verificaItem(itemACadastrar)) {
 			itens.add(itemACadastrar);
@@ -87,8 +91,8 @@ public class Usuario {
 
 	public void adicionarBluRay(String nomeBlurayTemporada, int duracao) {
 		Item itemBuscado = buscaItem(nomeBlurayTemporada);
-
-		if (itemBuscado.getClass().getName().equals("serie")) {
+		
+		if (itemBuscado instanceof Serie) {
 			itemBuscado.adicionarBluRay(duracao);
 		} else {
 			throw new IllegalArgumentException("Esse item nao e uma serie");
@@ -107,7 +111,7 @@ public class Usuario {
 		Item item = buscaItem(nomeItem);
 		
 		if (verificaItem(item)) {
-			if (atributo.trim().equalsIgnoreCase("nomeItem")) {
+			if (atributo.trim().equalsIgnoreCase("nome")) {
 				item.setNomeItem(valor);
 			}
 			else if (atributo.trim().equalsIgnoreCase("preco")) {		
@@ -152,6 +156,22 @@ public class Usuario {
 		}
 		return buscaItem(nomeItem).toString();
 	}
+	public String getInfoItem(String nomeItem, String atributo) {
+		String info = "";
+		Item item = buscaItem(nomeItem);
+		if (atributo.trim().equalsIgnoreCase("preco")){
+			info += item.getPreco();
+			return info;
+		} 
+		else if (atributo.trim().equalsIgnoreCase("peca perdida")) {
+			info = item.getPecasPerdidas();
+		}
+		else if (atributo.trim().equalsIgnoreCase("nome")){
+			info = item.getNomeDoItem();
+		}
+		
+		return info;
+	}
 
 	private Item buscaItem(String nomeItem) {
 
@@ -161,21 +181,9 @@ public class Usuario {
 				return item;
 			}
 		}
-		throw new IllegalArgumentException("Item nao cadastrado");
+		throw new IllegalArgumentException("Item nao encontrado");
 	}
 	
-	public String getInfoItem(String nomeItem, String atributo) {
-		String info = null;
-		Item item = buscaItem(nomeItem);
-		if (atributo.trim().equalsIgnoreCase("preco")){
-			info = String.format("%.2f", item.getPreco());	
-		}
-//		if (atributo.trim().equalsIgnoreCase("peca perdida")) {
-//			info = item.getClass().getMethod(nomeItem, nome);S
-//		}
-		
-		return info;
-	}
 
 	private boolean verificaItem(Item item) {
 		if (itens.contains(item)) {

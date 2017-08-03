@@ -24,7 +24,7 @@ public class SistemaTest {
 
 		sistema.cadastrarUsuario("Pedro", "98888-8888", "pedro@email.com");
 		sistema.cadastrarUsuario("Paulo", "99999-9999", "paulo@email.com");
-		assertEquals("pedro@email.com", sistema.getInfoUsuario("Pedro", "98888-8888", "email"));
+		assertEquals("pedro@email.com", sistema.getInfoUsuario("Pedro", "98888-8888", "Email"));
 		assertEquals("Paulo", sistema.getInfoUsuario("Paulo", "99999-9999", "nome"));
 		assertEquals("paulo@email.com", sistema.getInfoUsuario("Paulo", "99999-9999", "email"));
 		assertEquals("99999-9999", sistema.getInfoUsuario("Paulo", "99999-9999", "telefone"));
@@ -57,7 +57,7 @@ public class SistemaTest {
 	public void testCadastrarEletronico() {
 		sistema.cadastrarEletronico("Joao", "98888-8888", "Pokemon", 9.99, "PC");
 		sistema.cadastrarEletronico("Andre", "99999-9999", "FUNCIONA", 1.11, "PC");
-		assertEquals("9,99", sistema.getInfoItem("Joao", "98888-8888", "Pokemon", "preco"));
+		assertEquals("9.99", sistema.getInfoItem("Joao", "98888-8888", "Pokemon", "preco"));
 		assertEquals("1,11", sistema.getInfoItem("Andre", "99999-9999", "FUNCIONA", "preco"));
 	}
 
@@ -70,7 +70,7 @@ public class SistemaTest {
 	@Test
 	public void testAdicionarPecaPerdida(){
 		sistema.cadastrarJogoTabuleiro("Joao", "98888-8888", "Monopoly", 115.90);
-		sistema.adicionarPecaPerdida("Joao", "98888-8888", "Monopoly", "Carinho");
+		sistema.adicionarPecaPerdida("Joao", "98888-8888", "Monopoly", "Carrinho");
 		//assertEquals()
 	}
 

@@ -1,5 +1,7 @@
 package item;
 
+import java.util.List;
+
 public abstract class Item {
 	
 	private String nomeItem;
@@ -12,7 +14,7 @@ public abstract class Item {
 			throw new IllegalArgumentException("Nome do item nao pode ser nulo ou vazio");
 		}
 		if (preco < 0) {
-			throw new IllegalArgumentException("Valor do item nao pode ser menor que zero");
+			throw new IllegalArgumentException("Preco invalido");
 		}
 		
 		this.nomeItem = nomeItem;
@@ -20,6 +22,10 @@ public abstract class Item {
 		emprestado = false;
 	}
 	
+	public String getPecasPerdidas() {
+		return "Esse item nao possui pecas";
+	}
+
 	public void adicionarPecaPerdida(String nomePeca) {
 	}
 	

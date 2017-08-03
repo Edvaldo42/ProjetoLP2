@@ -1,20 +1,21 @@
 package FacadeEMain;
 
-import java.util.Map.*;
-import java.util.Set;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+
 import item.Item;
 import usuario.ControllerUsuario;
 import usuario.Usuario;
 
 public class Sistema {
 
-	Set<Usuario> usuarios;
-	Map<Usuario, Item> itensCadastrados;
+	private Set<Usuario> usuarios;
+	private Map<Usuario, Item> itensCadastrados;
 	
-
 	public Sistema() {
 		this.usuarios = new HashSet<>();
 		this.itensCadastrados = new HashMap<>();
@@ -87,8 +88,8 @@ public class Sistema {
 				user = usuario;
 			}
 		}
-		return user;
 
+		return user;
 	}
 
 	private boolean validaUsarioNome(String valor, String telefone) {
@@ -123,7 +124,7 @@ public class Sistema {
 			usuario.cadastraJogoTabuleiro(nomeItem, preco);
 		}
 		else {
-			throw new NullPointerException("Erro no cadastro de jogo de tabuleiro");
+			throw new NullPointerException("Usuario invalido");
 		}
 	}
 	
@@ -184,7 +185,7 @@ public class Sistema {
 			usuario.removerItem(nomeItem);
 		}
 		else {
-			throw new NullPointerException("Erro ao remover Item");
+			throw new NullPointerException("Usuario invalido");
 		}
 	}
 	
@@ -194,7 +195,7 @@ public class Sistema {
 			usuario.atualizarItem(nomeItem, atributo, valor);
 		}
 		else {
-			throw new NullPointerException("Erro ao atualizar Item");
+			throw new NullPointerException("Usuario invalido");
 		}
 	}
 	
