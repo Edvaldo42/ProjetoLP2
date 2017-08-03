@@ -3,41 +3,50 @@ package item;
 public class Filme extends BluRay {
 	
 	private Genero genero;
-	private int lancamento;
+	private int anoLancamento;
 	
-	public Filme(String nomeDoItem, double valor, int duracao, String classificacao, String genero, int lancamento) {
-		super(nomeDoItem, valor, duracao, classificacao);
+	public Filme(String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
+		super(nomeItem, preco, duracao, classificacao);
 
+		validaGenero(genero);
+		if (anoLancamento < 0) {
+			throw new IllegalArgumentException("Ano de lancamento nao pode ser menor que 0");
+		}
+		
+		this.genero = Genero.valueOf(genero);
+		this.anoLancamento = anoLancamento;
+		}
+
+
+	public String getGenero() {
+		return genero.getGenero();
+	}
+
+	public void setGenero(String genero) {
+		this.genero = Genero.valueOf(genero.toUpperCase());
+	}
+
+	public int getAnoLancamento() {
+		return anoLancamento;
+	}
+
+	public void setAnoLancamento(int anoLancamento) {
+		this.anoLancamento = anoLancamento;
+	}
+
+	private void validaGenero(String genero) {
 		if (genero == null || genero.trim().equals("")) {
-			throw new IllegalArgumentException("Genero nao pode ser nula ou vazia");
+			throw new IllegalArgumentException("Genero nao pode ser nulo ou vazio");
 		}
 		try {
-			Genero.valueOf(genero);
+			Genero.valueOf(genero.toUpperCase());
 		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Genero invalida");
+			throw new IllegalArgumentException("Genero invalido");
 		}
-		this.genero = Genero.valueOf(genero);
-		this.lancamento = lancamento;
-		}
-
-	public Genero getGenero() {
-		return genero;
 	}
-
-	public void setGenero(Genero genero) {
-		this.genero = genero;
-	}
-
-	public int getLancamento() {
-		return lancamento;
-	}
-
-	public void setLancamento(int lancamento) {
-		this.lancamento = lancamento;
-	}
-
+	
 	@Override
 	public String toString() {
-		return super.toString() + " - " + this.genero.getGenero() + " - " + this.lancamento;
+		return super.toString() + " - " + this.genero.getGenero() + " - " + this.anoLancamento;
 	}	
 }

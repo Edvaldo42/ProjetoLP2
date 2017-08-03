@@ -4,24 +4,13 @@ public class JogoEletronico extends Item {
 	
 	private Plataforma plataforma;
 	
-	public JogoEletronico(String nomeDoItem, double valor, String plataforma) {
-		super(nomeDoItem, valor);
+	public JogoEletronico(String nomeItem, double preco, String plataforma) {
+		super(nomeItem, preco);
 		
 		validaPlataforma(plataforma);
 		this.plataforma = Plataforma.valueOf(plataforma);
 	}
 
-	private void validaPlataforma(String plataforma) {
-		if (plataforma == null || plataforma.trim().equals("")) {
-			throw new IllegalArgumentException("Plataforma nao pode ser nula ou vazia");
-		}
-	
-		try {
-			Plataforma.valueOf(plataforma);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Plataforma invalida");
-		}
-	}
 
 	public String getPlataforma() {
 		return plataforma.getPlataforma();
@@ -29,7 +18,19 @@ public class JogoEletronico extends Item {
 
 	public void setPlataforma(String plataforma) {
 		validaPlataforma(plataforma);
-		this.plataforma = Plataforma.valueOf(plataforma);
+		this.plataforma = Plataforma.valueOf(plataforma.toUpperCase());
+	}
+
+	private void validaPlataforma(String plataforma) {
+		if (plataforma == null || plataforma.trim().equals("")) {
+			throw new IllegalArgumentException("Plataforma nao pode ser nula ou vazia");
+		}
+		
+		try {
+			Plataforma.valueOf(plataforma.toUpperCase());
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Plataforma invalida");
+		}
 	}
 
 	@Override

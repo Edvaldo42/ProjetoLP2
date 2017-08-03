@@ -69,7 +69,7 @@ public class Usuario {
 
 	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas, String artista,
 			String classificacao) {
-		Item itemACadastrar = new Show(nomeItem, preco, duracao, classificacao, numeroFaixas, artista);
+		Item itemACadastrar = new Show(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 
 		if (!verificaItem(itemACadastrar)) {
 			itens.add(itemACadastrar);
@@ -78,7 +78,7 @@ public class Usuario {
 
 	public void cadastrarBluRaySerie(String nomeItem, double preco, String descricao, int duracao, String classificacao,
 			String genero, int temporada) {
-		Item itemACadastrar = new Serie(nomeItem, preco, duracao, classificacao, genero, temporada);
+		Item itemACadastrar = new Serie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 
 		if (!verificaItem(itemACadastrar)) {
 			itens.add(itemACadastrar);
@@ -162,6 +162,14 @@ public class Usuario {
 			}
 		}
 		throw new IllegalArgumentException("Item nao cadastrado");
+	}
+	
+	public String getInfoItem(String nomeItem) {
+		String info;
+		Item item = buscaItem(nomeItem);
+		info = String.format("%.2f", item.getPreco());
+			
+		return info;
 	}
 
 	private boolean verificaItem(Item item) {
@@ -308,15 +316,6 @@ public class Usuario {
 		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
-	}
-
-	public String getInfoItem(String nomeItem) {
-		String info = null;
-		for (Item item : itens) {
-			if (itens.contains(nomeItem)) {
-				info = String.format("%.2f", item.getPreco());
-			}	
-		} return info;
 	}
 
 }

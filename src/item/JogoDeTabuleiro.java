@@ -8,8 +8,8 @@ public class JogoDeTabuleiro extends Item{
 	private List<String> pecasPerdidas;
 	private final String LN = System.lineSeparator();
 	
-	public JogoDeTabuleiro(String nomeDoItem, double valor) {
-		super(nomeDoItem, valor);
+	public JogoDeTabuleiro(String nomeItem, double preco) {
+		super(nomeItem, preco);
 		pecasPerdidas = new ArrayList<>();
 	}
 	

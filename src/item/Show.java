@@ -2,42 +2,48 @@ package item;
 
 public class Show extends BluRay {
 
-	private String nomeDoArtista;
-	private int faixas;	
+	private String artista;
+	private int numeroFaixas;	
 	
-	public Show(String nomeDoItem, double valor, int duracao, String classificacao, int faixas, String nomeDoArtista) {
-		super(nomeDoItem, valor, duracao, classificacao);
+	public Show(String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao) {
+		super(nomeItem, preco, duracao, classificacao);
 		
-		if (faixas < 1) { 
+		if (numeroFaixas < 1) { 
 			throw new IllegalArgumentException("Faixas nao podem ser menor do que 1");
 		}
-		if (nomeDoArtista == null || nomeDoArtista.trim().equals("")) {
+		if (artista == null || artista.trim().equals("")) {
 			 throw new IllegalArgumentException("O nome do artista nao pode ser nulo ou vazio");
 		}
 		
-		this.faixas = faixas;
-		this.nomeDoArtista = nomeDoArtista;
+		this.numeroFaixas = numeroFaixas;
+		this.artista = artista;
 	}
 
-	public String getNomeDoArtista() {
-		return nomeDoArtista;
+	public String getArtista() {
+		return artista;
 	}
 
-	public void setNomeDoArtista(String nomeDoArtista) {
-		this.nomeDoArtista = nomeDoArtista;
+	public void setNomeDoArtista(String artista) {
+		if (artista == null && artista.trim().equals("")) {
+			throw new IllegalArgumentException("O nome do artista nao pode ser nulo ou vazio");
+		}
+		this.artista = artista;
 	}
 
 	public int getFaixas() {
-		return faixas;
+		return numeroFaixas;
 	}
 
 	public void setFaixas(int faixas) {
-		this.faixas = faixas;
+		if (numeroFaixas < 1) { 
+			throw new IllegalArgumentException("Faixas nao podem ser menor do que 1");
+		}
+		this.numeroFaixas = faixas;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + " - " + this.nomeDoArtista + " - " + this.faixas;
+		return super.toString() + " - " + this.artista + " - " + this.numeroFaixas;
 	}
 	
 	

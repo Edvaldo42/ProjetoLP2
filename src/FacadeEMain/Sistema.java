@@ -199,11 +199,14 @@ public class Sistema {
 	}
 	
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
+		String info= "";
 		Usuario usuario = buscaUsuario(nome, telefone);
+		
 		if (usuario != null) {
-			String info = usuario.getInfoItem(nomeItem);
+			info = usuario.getInfoItem(nomeItem);
 		}
-		return atributo;
+		
+		return info;
 	}
 	
 	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
@@ -216,6 +219,3 @@ public class Sistema {
 		return user.detalhesItem(nomeItem);
 	}
 }
-	
-	
-	

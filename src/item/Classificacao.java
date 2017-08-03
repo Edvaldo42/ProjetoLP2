@@ -2,12 +2,12 @@ package item;
 
 public enum Classificacao {
 	
-	LIVRE ("Livre"),
-	DEZ_ANOS ("10"),
-	DOZE_ANOS ("12"),
-	QUARTOZE_ANOS ("14"),
-	DEZESSEIS_ANOS ("16"),
-	DEZOITO_ANOS ("18");
+	LIVRE ("LIVRE"),
+	DEZ_ANOS ("DEZ_ANOS"),
+	DOZE_ANOS ("DOZE_ANOS"),
+	QUARTOZE_ANOS ("QUARTOZE_ANOS"),
+	DEZESSEIS_ANOS ("DEZESSEIS_ANOS"),
+	DEZOITO_ANOS ("DEZOITO_ANOS");
 	
 	private String classificacao;
 	

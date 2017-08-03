@@ -7,8 +7,8 @@ public enum Plataforma {
 	PS3 ("PS3"),
 	PS4 ("PS4"),
 	XBOX360 ("XBOX360"),
-	XBOX_ONE ("XBOX ONE"),
-	NINTENDO_3DS ("NINTENDO 3DS"),
+	XBOX_ONE ("XBOX_ONE"),
+	NINTENDO_3DS ("NINTENDO_3DS"),
 	OUTRO ("OUTRO");
 	
 	private String plataforma;

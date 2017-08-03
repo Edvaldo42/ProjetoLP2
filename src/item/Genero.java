@@ -2,21 +2,21 @@ package item;
 
 public enum Genero {
 
-	ACAO ("Acao"),
-	ANIMACAO ("Animacao"),
-	AVENTURA ("Aventura"),
-	COMEDIA ("Comedia"),
-	DOCUMENTARIO ("Documentario"),
-	DRAMA ("Drama"),
-	EROTICO ("Erotico"),
-	FAROESTE ("Faroeste"),
-	FICCAO ("Ficcao"),
-	MUSICAL ("Musical"),
-	POLICIAL ("Policial"),
-	ROMANCE ("Romance"),
-	SUSPENSE ("Suspense"),
-	TERROR ("Terror"),
-	OUTRO ("Outro");
+	ACAO ("ACAO"),
+	ANIMACAO ("ANIMACAO"),
+	AVENTURA ("AVENTURA"),
+	COMEDIA ("COMEDIA"),
+	DOCUMENTARIO ("DOCUMENTARIO"),
+	DRAMA ("DRAMA"),
+	EROTICO ("EROTICO"),
+	FAROESTE ("FAROESTE"),
+	FICCAO ("FICCAO"),
+	MUSICAL ("MUSICAL"),
+	POLICIAL ("POLICIAL"),
+	ROMANCE ("ROMANCE"),
+	SUSPENSE ("SUSPENSE"),
+	TERROR ("TERROR"),
+	OUTRO ("OUTRO");
 	
 	
 	private String genero;

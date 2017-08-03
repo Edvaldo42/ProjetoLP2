@@ -60,8 +60,8 @@ public class Facade {
 		sistema.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 	
-	public String getInfoItem(String nome, String telefone, String atributo, String valor) {
-		return sistema.getInfoItem(nome, telefone, atributo, valor);
+	public String getInfoItem(String nome, String telefone, String nomeItem,String atributo) {
+		return sistema.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
 	
 //	public String listarItensOrdenadosPorNome() {

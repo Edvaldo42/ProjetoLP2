@@ -18,8 +18,8 @@ public class SistemaTest {
 	public void test() {
 		sistema.cadastrarUsuario("Joao", "98888-8888", "joao@email.com");
 		assertEquals("joao@email.com", sistema.getInfoUsuario("Joao", "98888-8888", "email"));
-		sistema.cadastrarEletronico("Joao", "98888-8888", "Pokemon", 9.99, "pc");
-		assertEquals("9.99", sistema.getInfoItem("Joao", "98888-8888", "Pokemon", "preco"));
+		sistema.cadastrarEletronico("Joao", "98888-8888", "Pokemon", 9.99, "PC");
+		assertEquals("9,99", sistema.getInfoItem("Joao", "98888-8888", "Pokemon", "preco"));
 	}
 
 }
