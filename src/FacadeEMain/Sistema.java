@@ -117,7 +117,7 @@ public class Sistema {
 		}
 	}
 
-	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco, String plataforma) {
+	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario != null) {
 			usuario.cadastraJogoTabuleiro(nomeItem, preco);
@@ -203,7 +203,7 @@ public class Sistema {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		
 		if (usuario != null) {
-			info = usuario.getInfoItem(nomeItem);
+			info = usuario.getInfoItem(nomeItem, atributo);
 		}
 		
 		return info;

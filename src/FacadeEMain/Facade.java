@@ -28,8 +28,8 @@ public class Facade {
 		sistema.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
 	}
 
-	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco, String plataforma) {
-		sistema.cadastrarJogoTabuleiro(nome, telefone, nomeItem, preco, plataforma);
+	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) {
+		sistema.cadastrarJogoTabuleiro(nome, telefone, nomeItem, preco);
 	}
 	
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {

@@ -23,6 +23,14 @@ public class JogoDeTabuleiro extends Item{
 		return msg;
 	}
 	
+	public List<String> getPecasPerdidas() {
+		return pecasPerdidas;
+	}
+
+	public String getLN() {
+		return LN;
+	}
+
 	public void adicionaPecaPerdida (String nomePeca) {
 		if (pecasPerdidas.contains(nomePeca)) {
 			throw new IllegalArgumentException("Peca perdida ja registrada");

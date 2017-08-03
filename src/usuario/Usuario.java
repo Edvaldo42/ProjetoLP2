@@ -164,11 +164,16 @@ public class Usuario {
 		throw new IllegalArgumentException("Item nao cadastrado");
 	}
 	
-	public String getInfoItem(String nomeItem) {
-		String info;
+	public String getInfoItem(String nomeItem, String atributo) {
+		String info = null;
 		Item item = buscaItem(nomeItem);
-		info = String.format("%.2f", item.getPreco());
-			
+		if (atributo.trim().equalsIgnoreCase("preco")){
+			info = String.format("%.2f", item.getPreco());	
+		}
+//		if (atributo.trim().equalsIgnoreCase("peca perdida")) {
+//			info = item.getClass().getMethod(nomeItem, nome);S
+//		}
+		
 		return info;
 	}
 
