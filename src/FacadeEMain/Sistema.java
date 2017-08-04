@@ -1,13 +1,15 @@
 package FacadeEMain;
 
-import java.text.NumberFormat;
+import item.Item;
+
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import item.Item;
+import comparator.ordemAlfabetica;
+
 import usuario.ControllerUsuario;
 import usuario.Usuario;
 
@@ -15,6 +17,7 @@ public class Sistema {
 
 	private Set<Usuario> usuarios;
 	private Map<Usuario, Item> itensCadastrados;
+	Comparator tipoDeOrdenacao = null;
 	
 	public Sistema() {
 		this.usuarios = new HashSet<>();
@@ -24,40 +27,40 @@ public class Sistema {
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		if (buscaUsuario(nome, telefone) != null) {
 			throw new IllegalArgumentException("Usuario ja cadastrado");
-		} else {
-			usuarios.add(ControllerUsuario.cadastraUsuario(nome, telefone, email));
 		}
-
+		
+		usuarios.add(ControllerUsuario.cadastraUsuario(nome, telefone, email));
 	}
 
 	public void removerUsuario(String nome, String telefone) {
 		Usuario user = buscaUsuario(nome, telefone);
 		if (user == null) {
 			throw new NullPointerException("Usuario invalido");
-		} else {
-			usuarios.remove(user);
 		}
+		
+		usuarios.remove(user);
 	}
 
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		Usuario user = buscaUsuario(nome, telefone);
 		if (user == null) {
 			throw new NullPointerException("Usuario invalido");
-		} else {
-			if (atributo.trim().equalsIgnoreCase("nome")) {
-				if (validaUsarioNome(valor, telefone)) {
-					user.setNome(valor);
-				}
-
+		}
+		
+		if (atributo.trim().equalsIgnoreCase("nome")) {
+			if (validaUsarioNome(valor, telefone)) {
+				user.setNome(valor);
 			}
-			if (atributo.trim().equalsIgnoreCase("telefone")) {
-				if (validaUsuarioTelefone(nome, valor)) {
-					user.setTelefone(valor);
-				}
+		}
+		
+		if (atributo.trim().equalsIgnoreCase("telefone")) {
+			if (validaUsuarioTelefone(nome, valor)) {
+				user.setTelefone(valor);
 			}
-			if (atributo.trim().equalsIgnoreCase("email")) {
-				user.setEmail(valor);
-			}
+		}
+		
+		if (atributo.trim().equalsIgnoreCase("email")) {
+			user.setEmail(valor);
 		}
 	}
 
@@ -65,20 +68,19 @@ public class Sistema {
 		Usuario user = buscaUsuario(nome, telefone);
 		if (user == null) {
 			throw new NullPointerException("Usuario invalido");
-		} else {
-			String info = null;
-			if (atributo.trim().equalsIgnoreCase("nome")) {
-				info = user.getNome();
-			}
-			else if (atributo.trim().equalsIgnoreCase("telefone")) {
-				info = user.getTelefone();
-			}
-			else if (atributo.trim().equalsIgnoreCase("email")) {
-				info = user.getEmail();
-			}
-
-			return info;
 		}
+		String info = null;
+		if (atributo.trim().equalsIgnoreCase("nome")) {
+			info = user.getNome();
+		}
+		else if (atributo.trim().equalsIgnoreCase("telefone")) {
+			info = user.getTelefone();
+		}
+		else if (atributo.trim().equalsIgnoreCase("email")) {
+			info = user.getEmail();
+		}
+
+		return info;
 	}
 
 	private Usuario buscaUsuario(String nome, String telefone) {
@@ -113,94 +115,84 @@ public class Sistema {
 		if (usuario == null) {
 			throw new NullPointerException("Erro no cadastro de jogo eletronico");
 		}
-		else {
-			usuario.cadastraEletronico(nomeItem, preco, plataforma);
-		}
+		
+		usuario.cadastraEletronico(nomeItem, preco, plataforma);
 	}
 
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) {
 		Usuario usuario = buscaUsuario(nome, telefone);
-		if (usuario != null) {
-			usuario.cadastraJogoTabuleiro(nomeItem, preco);
-		}
-		else {
+		if (usuario == null) {
 			throw new NullPointerException("Usuario invalido");
 		}
+		
+		usuario.cadastraJogoTabuleiro(nomeItem, preco);
 	}
 	
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
 		Usuario usuario = buscaUsuario(nome, telefone);
-		if (usuario != null) {
-			usuario.adicionarPecaPerdida(nomeItem, nomePeca);
-		}
-		else {
+		if (usuario == null) {
 			throw new NullPointerException("Erro ao adicionar peca perdida");
 		}
+
+		usuario.adicionarPecaPerdida(nomeItem, nomePeca);
 	}
 	
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
 		Usuario usuario = buscaUsuario(nome, telefone);
-		if (usuario != null) {
-			usuario.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
-		}
-		else {
+		if (usuario == null) {
 			throw new NullPointerException("Erro no cadastro de BluRay de filme");
 		}
+		
+		usuario.cadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 	}
 	
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao) {
 		Usuario usuario = buscaUsuario(nome, telefone);
-		if (usuario != null) {
-			usuario.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
-		}
-		else {
+		if (usuario == null) {
 			throw new NullPointerException("Erro no cadastro de BluRay de Show");
 		}
+
+		usuario.cadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 	}
 	
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
 		Usuario usuario = buscaUsuario(nome, telefone);
-		if (usuario != null) {
-			usuario.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
-		}
-		else {
+		if (usuario == null) {
 			throw new NullPointerException("Erro no cadastro de BluRay de serie");
 		}
+		
+		usuario.cadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 	}
 
 	
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao){
 		Usuario usuario = buscaUsuario(nome, telefone);
-		if (usuario != null) {
-			usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
-		}
-		else {
+		if (usuario == null) {
 			throw new NullPointerException("Erro ao adicionar BluRay");
 		}
+		usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
 	}
 	
 	public void removerItem(String nome, String telefone, String nomeItem) {
 		Usuario usuario = buscaUsuario(nome, telefone);
-		if (usuario != null) {
-			usuario.removerItem(nomeItem);
-		}
-		else {
+		if (usuario == null) {
 			throw new NullPointerException("Usuario invalido");
 		}
+
+		usuario.removerItem(nomeItem);
 	}
 	
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
 		Usuario usuario = buscaUsuario(nome, telefone);
-		if (usuario != null) {
-			usuario.atualizarItem(nomeItem, atributo, valor);
-		}
-		else {
+		if (usuario == null) {
 			throw new NullPointerException("Usuario invalido");
 		}
+		
+		usuario.atualizarItem(nomeItem, atributo, valor);
 	}
 	
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
-		String info= "";
+		String info = "";
 		Usuario usuario = buscaUsuario(nome, telefone);
 		
 		if (usuario != null) {
@@ -218,5 +210,14 @@ public class Sistema {
 		}
 		
 		return user.detalhesItem(nomeItem);
+	}
+	
+	public String listarItensOrdenadosPorNome() {
+		tipoDeOrdenacao = new ordemAlfabetica();
+		return "";
+	}
+
+	public String listarItensOrdenadosPorValor() {
+		return null;
 	}
 }
