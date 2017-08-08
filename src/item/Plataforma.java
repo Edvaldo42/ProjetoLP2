@@ -1,5 +1,7 @@
 package item;
 
+import java.util.List;
+
 public enum Plataforma {
 
 	PC ("PC"),
@@ -20,7 +22,7 @@ public enum Plataforma {
 	public String getPlataforma() {
 		return this.plataforma; 
 	}
-	
+		
 	@Override
 	public String toString() {
 		return this.plataforma;

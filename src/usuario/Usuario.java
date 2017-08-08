@@ -1,6 +1,8 @@
 package usuario;
 
+import java.text.NumberFormat;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import item.Filme;
@@ -16,27 +18,17 @@ public class Usuario {
 	private String email;
 	private String telefone;
 	private Set<Item> itens;
+	private Locale locale = new Locale("en", "US");
+	private NumberFormat nf = NumberFormat.getInstance(locale);
 
 	public Usuario(String nome, String telefone, String email) {
-		if (!validaNome(nome)) {
-			throw new IllegalArgumentException("Nome invalido");
-		}
-
-		if (!validaEmail(email)) {
-			throw new IllegalArgumentException("Email invalido");
-		}
-		if (!validaTelefone(telefone)) {
-			throw new IllegalArgumentException("Telefone invalido");
-		}
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		itens = new HashSet<>();
 	}
 
-	public void cadastraEletronico(String nomeItem, double preco, String plataforma) {
-		Item itemACadastrar = new JogoEletronico(nomeItem, preco, plataforma);
-
+	public void cadastraEletronico(Item itemACadastrar) {
 		if (!verificaItem(itemACadastrar)) {
 			itens.add(itemACadastrar);
 		}
@@ -60,7 +52,7 @@ public class Usuario {
 
 	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao,
 			int anoLancamento) {
-		Item itemACadastrar = new Filme(nomeItem, preco, duracao, classificacao, genero, anoLancamento);
+		Item itemACadastrar = new Filme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 
 		if (!verificaItem(itemACadastrar)) {
 			itens.add(itemACadastrar);
@@ -87,8 +79,8 @@ public class Usuario {
 
 	public void adicionarBluRay(String nomeBlurayTemporada, int duracao) {
 		Item itemBuscado = buscaItem(nomeBlurayTemporada);
-
-		if (itemBuscado.getClass().getName().equals("serie")) {
+		
+		if (itemBuscado instanceof Serie) {
 			itemBuscado.adicionarBluRay(duracao);
 		} else {
 			throw new IllegalArgumentException("Esse item nao e uma serie");
@@ -107,7 +99,7 @@ public class Usuario {
 		Item item = buscaItem(nomeItem);
 		
 		if (verificaItem(item)) {
-			if (atributo.trim().equalsIgnoreCase("nomeItem")) {
+			if (atributo.trim().equalsIgnoreCase("nome")) {
 				item.setNomeItem(valor);
 			}
 			else if (atributo.trim().equalsIgnoreCase("preco")) {		
@@ -152,6 +144,22 @@ public class Usuario {
 		}
 		return buscaItem(nomeItem).toString();
 	}
+	public String getInfoItem(String nomeItem, String atributo) {
+		String info = "";
+		Item item = buscaItem(nomeItem);
+		if (atributo.trim().equalsIgnoreCase("preco")){
+			info += item.getPreco();
+			return info;
+		} 
+		else if (atributo.trim().equalsIgnoreCase("peca perdida")) {
+			info = item.getPecasPerdidas();
+		}
+		else if (atributo.trim().equalsIgnoreCase("nome")){
+			info = item.getNomeDoItem();
+		}
+		
+		return info;
+	}
 
 	private Item buscaItem(String nomeItem) {
 
@@ -161,16 +169,9 @@ public class Usuario {
 				return item;
 			}
 		}
-		throw new IllegalArgumentException("Item nao cadastrado");
+		throw new IllegalArgumentException("Item nao encontrado");
 	}
 	
-	public String getInfoItem(String nomeItem) {
-		String info;
-		Item item = buscaItem(nomeItem);
-		info = String.format("%.2f", item.getPreco());
-			
-		return info;
-	}
 
 	private boolean verificaItem(Item item) {
 		if (itens.contains(item)) {
@@ -179,84 +180,11 @@ public class Usuario {
 		return false;
 	}
 
-	private boolean validaNome(String nome) {
-		if (nome == null) {
-			throw new IllegalArgumentException("Usuario nao pode ser null.");
-		}
-		if (nome.trim().equals("")) {
-			throw new IllegalArgumentException("Usuario nao pode ser vazio.");
-		}
-		return true;
-	}
-
-	private boolean validaTelefone(String telefone) {
-		int hifen = 0;
-		if (telefone == null) {
-			throw new IllegalArgumentException("Telefone nao pode ser null.");
-		}
-		if (telefone.trim().equals("")) {
-			throw new IllegalArgumentException("telefone nao pode ser vazio.");
-		}
-		if ((telefone.length()) > 10 || telefone.length() < 9) {
-			throw new IllegalArgumentException("Telefone invalido");
-		}
-		if (!(telefone.charAt(5) == '-')) {
-			throw new IllegalArgumentException("Telefone invalido");
-		}
-		if (telefone.charAt(0) == '-' || telefone.charAt(telefone.length() - 1) == '-') {
-			throw new IllegalArgumentException("Telefone invalido");
-		}
-		if (telefone.charAt(5) == '-') {
-			hifen++;
-		}
-		for (int i = 0; i < telefone.length() - 1; i++) {
-			if (telefone.charAt(i) == ' ') {
-				throw new IllegalArgumentException("Telefone invalido");
-			}
-			if (telefone.charAt(i) == '-' && i != 5) {
-				throw new IllegalArgumentException("Telefone invalido");
-			}
-		}
-
-		if (hifen != 1) {
-			return false;
-		}
-		return true;
-	}
-
-	private boolean validaEmail(String email) {
-		int arrobas = 0;
-		int pontos = 0;
-
-		if (email.charAt(0) == '@' || email.charAt(email.length() - 1) == '@'
-				|| email.charAt(email.length() - 1) == '.')
-			return false;
-		for (int i = 0; i < email.length() - 1; i++) {
-			if (email.charAt(i) == ' ') {
-				return false;
-			} else if (email.charAt(i) == '@') {
-				arrobas++;
-				if (email.charAt(i + 1) == '@')
-					return false;
-			} else if (email.charAt(i) == '.' && arrobas == 1) {
-				pontos++;
-				if (email.charAt(i + 1) == '.')
-					return false;
-			}
-
-		}
-		if (arrobas != 1 || pontos < 1)
-			return false;
-
-		return true;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
-		validaEmail(email);
 		this.email = email;
 	}
 
@@ -265,10 +193,7 @@ public class Usuario {
 	}
 
 	public void setNome(String nome) {
-		if (validaNome(nome)) {
-			this.nome = nome;
-		}
-
+		this.nome = nome;
 	}
 
 	public String getTelefone() {
@@ -276,10 +201,7 @@ public class Usuario {
 	}
 
 	public void setTelefone(String telefone) {
-		if (validaTelefone(telefone)) {
-			this.telefone = telefone;
-		}
-
+		this.telefone = telefone;
 	}
 
 	@Override

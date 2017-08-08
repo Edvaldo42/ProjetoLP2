@@ -13,7 +13,7 @@ public class JogoDeTabuleiro extends Item{
 		pecasPerdidas = new ArrayList<>();
 	}
 	
-	public String listaPecas() {
+	public String getPecasPerdidas() {
 		String msg = "";
 		
 		for (String pecaPerdida : pecasPerdidas) {
@@ -22,7 +22,7 @@ public class JogoDeTabuleiro extends Item{
 		
 		return msg;
 	}
-	
+
 	public void adicionaPecaPerdida (String nomePeca) {
 		if (pecasPerdidas.contains(nomePeca)) {
 			throw new IllegalArgumentException("Peca perdida ja registrada");
@@ -32,7 +32,7 @@ public class JogoDeTabuleiro extends Item{
 
 	@Override
 	public String toString() {
-		return super.toString() + "Pecas perdidas:" + LN + listaPecas();
+		return super.toString() + "Pecas perdidas:" + LN + getPecasPerdidas();
 	}
 
 	@Override
