@@ -73,5 +73,9 @@ public class SistemaTest {
 		sistema.adicionarPecaPerdida("Joao", "98888-8888", "Monopoly", "Carrinho");
 		//assertEquals()
 	}
+	
+	// US3
+	
+	
 
 }

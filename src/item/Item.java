@@ -84,10 +84,10 @@ public abstract class Item {
 	public String toString() {
 		String valorRequerido = String.format("%.2f", this.preco);
 		if (emprestado) {
-			return this.nomeItem + " - R$" + valorRequerido + " - " + "Emprestado(Sim)";			
+			return this.nomeItem + " - R$" + valorRequerido + " - " + "Emprestado";			
 		}
 		else {
-			return this.nomeItem + " - R$" + valorRequerido + " - " + "Emprestado(Nao)";
+			return this.nomeItem + " - R$" + valorRequerido + " - " + "Nao emprestado";
 		}
 	}
 

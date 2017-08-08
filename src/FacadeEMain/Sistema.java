@@ -1,22 +1,23 @@
 package FacadeEMain;
 
-import item.Item;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import comparator.ordemAlfabetica;
-
+import item.Item;
 import usuario.ControllerUsuario;
 import usuario.Usuario;
 
 public class Sistema {
 
 	private Set<Usuario> usuarios;
-	private Map<Usuario, Item> itensCadastrados;
+	private Map<Usuario, Item> itensCadastrados; // n esta sendo usado p nd
 	Comparator tipoDeOrdenacao = null;
 	
 	public Sistema() {
@@ -212,11 +213,37 @@ public class Sistema {
 		return user.detalhesItem(nomeItem);
 	}
 	
+//	public String listarItensOrdenadosPorNome() {
+//		tipoDeOrdenacao = new ordemAlfabetica();
+//		List<Item> itens = new ArrayList<>();
+//		Collections.sort(itens, tipoDeOrdenacao);
+//		return "";
+//	}
+
 	public String listarItensOrdenadosPorNome() {
 		tipoDeOrdenacao = new ordemAlfabetica();
-		return "";
+		List<Item> itens = getItens();
+		Collections.sort(itens, tipoDeOrdenacao);
+		String retorno = "";
+		for (Item item: itens) {
+			retorno += item.toString() + "|";
+		}
+		return retorno;
 	}
-
+	
+	public List<Item> getItens() {
+		List<Item> retornoItens = new ArrayList<>();
+		for (Usuario usuario: usuarios) {
+			List<Item> itens = new ArrayList<>();
+			itens = usuario.getItens();
+			for (Item item: itens) {
+				retornoItens.add(item);
+			}
+		}
+		
+		return retornoItens;
+	}
+	
 	public String listarItensOrdenadosPorValor() {
 		return null;
 	}

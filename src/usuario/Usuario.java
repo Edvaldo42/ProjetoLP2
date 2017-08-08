@@ -1,7 +1,11 @@
 package usuario;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -295,6 +299,12 @@ public class Usuario {
 
 	}
 
+	public List<Item> getItens() {
+		List<Item> listaItens = new ArrayList<>(itens);
+		return listaItens;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return nome + ", " + email + ", " + telefone;
