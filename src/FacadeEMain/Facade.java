@@ -64,13 +64,16 @@ public class Facade {
 		return sistema.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
 	
+	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
+		return sistema.pesquisarDetalhesItem(nomeItem, nomeDono, telefoneDono);
+	}
+	
 	public String listarItensOrdenadosPorNome() {
 		return sistema.listarItensOrdenadosPorNome();
 	}
-
-//	public String listarItensOrdenadosPorValor() {
-//		return sistema.listarItensOrdenadosPorValor();
-//	}
+	public String listarItensOrdenadosPorValor() {
+		return sistema.listarItensOrdenadosPorValor();
+	}
 	
 //	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) {
 //		return sistema.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);

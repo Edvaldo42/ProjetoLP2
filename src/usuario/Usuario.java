@@ -60,9 +60,8 @@ public class Usuario {
 
 	public void adicionarPecaPerdida(String nomeItem, String nomePeca) {
 		Item itemBuscado = buscaItem(nomeItem);
-		if (itemBuscado.getNomeDoItem().equalsIgnoreCase(nomeItem)
-				&& itemBuscado.getClass().getName().equals("JogoDeTabuleiro")) {
-			itemBuscado.adicionarPecaPerdida(nomePeca);
+		if (itemBuscado instanceof JogoDeTabuleiro) {
+			((JogoDeTabuleiro) itemBuscado).adicionaPecaPerdida(nomePeca);
 		}
 	}
 

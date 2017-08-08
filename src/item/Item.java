@@ -1,6 +1,7 @@
 package item;
 
-import java.util.List;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 public abstract class Item {
 	
@@ -26,8 +27,6 @@ public abstract class Item {
 		return "Esse item nao possui pecas";
 	}
 
-	public void adicionarPecaPerdida(String nomePeca) {
-	}
 	
 	public void adicionarBluRay(int duracao) {
 	}
@@ -82,12 +81,14 @@ public abstract class Item {
 
 	@Override
 	public String toString() {
-		String valorRequerido = String.format("%.2f", this.preco);
+		//DecimalFormat formato = new DecimalFormat("#.##"); 
+		//this.preco = Double.valueOf(formato.format(preco));
+		String valorRequerido = String.format(Locale.ENGLISH, "%.2f", this.preco);
 		if (emprestado) {
-			return this.nomeItem + " - R$" + valorRequerido + " - " + "Emprestado";			
+			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
 		}
 		else {
-			return this.nomeItem + " - R$" + valorRequerido + " - " + "Nao emprestado";
+			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Nao emprestado";
 		}
 	}
 

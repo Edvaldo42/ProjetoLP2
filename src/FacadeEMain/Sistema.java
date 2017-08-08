@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import comparator.ordemAlfabetica;
+import comparator.valor;
 import item.Item;
 import usuario.ControllerUsuario;
 import usuario.Usuario;
@@ -212,13 +213,6 @@ public class Sistema {
 		
 		return user.detalhesItem(nomeItem);
 	}
-	
-//	public String listarItensOrdenadosPorNome() {
-//		tipoDeOrdenacao = new ordemAlfabetica();
-//		List<Item> itens = new ArrayList<>();
-//		Collections.sort(itens, tipoDeOrdenacao);
-//		return "";
-//	}
 
 	public String listarItensOrdenadosPorNome() {
 		tipoDeOrdenacao = new ordemAlfabetica();
@@ -228,6 +222,7 @@ public class Sistema {
 		for (Item item: itens) {
 			retorno += item.toString() + "|";
 		}
+		
 		return retorno;
 	}
 	
@@ -245,6 +240,14 @@ public class Sistema {
 	}
 	
 	public String listarItensOrdenadosPorValor() {
-		return null;
+		tipoDeOrdenacao = new valor();
+		List<Item> itens = getItens();
+		Collections.sort(itens, tipoDeOrdenacao);
+		String retorno = "";
+		for (Item item: itens) {
+			retorno += item.toString() + "|";
+		}
+		
+		return retorno;
 	}
 }
