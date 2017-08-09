@@ -9,14 +9,6 @@ public abstract class Item {
 	private boolean emprestado;
 
 	public Item(String nomeItem, double preco) {
-		
-		if (nomeItem == null || nomeItem.trim().equals("")) {
-			throw new IllegalArgumentException("Nome do item nao pode ser nulo ou vazio");
-		}
-		if (preco < 0) {
-			throw new IllegalArgumentException("Preco invalido");
-		}
-		
 		this.nomeItem = nomeItem;
 		this.preco = preco;
 		emprestado = false;
@@ -28,14 +20,17 @@ public abstract class Item {
 
 	public void adicionarPecaPerdida(String nomePeca) {
 	}
-	
+
 	public void adicionarBluRay(int duracao) {
 	}
-
-	public void setClassificacao(String classificacao) {
+	
+	public void setPlataforma(String valor) {
 	}
-		
+
 	public void setDuracao(int duracao) {
+	}
+	
+	public void setClassificacao(String classificacao) {
 	}
 
 	public void setGenero(String valor) {
@@ -50,11 +45,12 @@ public abstract class Item {
 	public void setNumeroFaixas(int parseInt) {
 	}
 	
+	public void setDescricao(String descricao) {
+	}
+	
 	public void setTemporada(int parseInt) {
 	}
 	
-	public void setPlataforma(String valor) {
-	}
 
 	public String getNomeDoItem() {
 		return nomeItem;

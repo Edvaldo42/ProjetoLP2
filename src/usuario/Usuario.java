@@ -28,52 +28,40 @@ public class Usuario {
 		itens = new HashSet<>();
 	}
 
-	public void cadastraEletronico(Item itemACadastrar) {
-		if (!verificaItem(itemACadastrar)) {
-			itens.add(itemACadastrar);
+	public void cadastraEletronico(Item item) {
+		if (!verificaItem(item)) {
+			itens.add(item);
 		}
 	}
 
-	public void cadastraJogoTabuleiro(String nomeItem, double preco) {
-		Item itemACadastrar = new JogoDeTabuleiro(nomeItem, preco);
-
-		if (!verificaItem(itemACadastrar)) {
-			itens.add(itemACadastrar);
+	public void cadastraJogoTabuleiro(Item item) {
+		if (!verificaItem(item)) {
+			itens.add(item);
 		}
 	}
 
 	public void adicionarPecaPerdida(String nomeItem, String nomePeca) {
 		Item itemBuscado = buscaItem(nomeItem);
-		if (itemBuscado.getNomeDoItem().equalsIgnoreCase(nomeItem)
-				&& itemBuscado.getClass().getName().equals("JogoDeTabuleiro")) {
+		if (itemBuscado.getClass().getName().equals("JogoDeTabuleiro")) {
 			itemBuscado.adicionarPecaPerdida(nomePeca);
 		}
 	}
 
-	public void cadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao,
-			int anoLancamento) {
-		Item itemACadastrar = new Filme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
-
-		if (!verificaItem(itemACadastrar)) {
-			itens.add(itemACadastrar);
+	public void cadastrarBluRayFilme(Item item) {
+		if (!verificaItem(item)) {
+			itens.add(item);
 		}
 	}
 
-	public void cadastrarBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas, String artista,
-			String classificacao) {
-		Item itemACadastrar = new Show(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
-
-		if (!verificaItem(itemACadastrar)) {
-			itens.add(itemACadastrar);
+	public void cadastrarBluRayShow(Item item) {
+		if (!verificaItem(item)) {
+			itens.add(item);
 		}
 	}
 
-	public void cadastrarBluRaySerie(String nomeItem, double preco, String descricao, int duracao, String classificacao,
-			String genero, int temporada) {
-		Item itemACadastrar = new Serie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
-
-		if (!verificaItem(itemACadastrar)) {
-			itens.add(itemACadastrar);
+	public void cadastrarBluRaySerie(Item item) {
+		if (!verificaItem(item)) {
+			itens.add(item);
 		}
 	}
 
@@ -105,7 +93,7 @@ public class Usuario {
 			else if (atributo.trim().equalsIgnoreCase("preco")) {		
 				item.setPreco(Double.parseDouble(valor));
 			}
-			else if (atributo.trim().equalsIgnoreCase("email")) {
+			else if (atributo.trim().equalsIgnoreCase("classificacao")) {
 				item.setClassificacao(valor);
 			}
 			else if (atributo.trim().equalsIgnoreCase("duracao")){
@@ -129,9 +117,6 @@ public class Usuario {
 			else if (atributo.trim().equalsIgnoreCase("plataforma")) {
 				item.setPlataforma(valor);
 			}
-			else { 
-				throw new IllegalArgumentException("Atributo invalido");
-			}
 		}
 		else {
 			throw new IllegalArgumentException("Item nao cadastrado");
@@ -144,6 +129,7 @@ public class Usuario {
 		}
 		return buscaItem(nomeItem).toString();
 	}
+	
 	public String getInfoItem(String nomeItem, String atributo) {
 		String info = "";
 		Item item = buscaItem(nomeItem);
@@ -165,7 +151,6 @@ public class Usuario {
 
 		for (Item item : itens) {
 			if (item.getNomeDoItem().equals(nomeItem)) {
-
 				return item;
 			}
 		}

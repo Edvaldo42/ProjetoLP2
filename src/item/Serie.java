@@ -13,31 +13,12 @@ public class Serie extends BluRay {
 	
 	public Serie(String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
 		super(nomeItem, preco, duracao, classificacao);
-		
-		validaGenero(genero);
-		if (descricao == null || descricao.trim().equals("")) {
-			throw new IllegalArgumentException("Descricao nao pode ser nula ou vazia");
-		}
-		if (temporada < 1) {
-			throw new IllegalArgumentException("Temporada nao pode ser menor do que 1");
-		}
 		this.descricao = descricao;
 		this.genero = Genero.valueOf(genero);
 		this.temporada = temporada;
 		colecao = new ArrayList<>();
 	}
 
-	/*public String listaColecao() {
-		String msg = "";
-		int contador = 1;
-		
-		for (int episodio : colecao) {
-			msg += contador + " - " + bluRay.toString() + LN;
-		}
-		
-		return msg;
-	}*/
-	
 	@Override
 	public void adicionarBluRay(int duracao) {
 		colecao.add(duracao);
@@ -58,7 +39,6 @@ public class Serie extends BluRay {
 	}
 
 	public void setGenero(String genero) {
-		validaGenero(genero);
 		this.genero = Genero.valueOf(genero);
 	}
 
@@ -67,23 +47,7 @@ public class Serie extends BluRay {
 	}
 
 	public void setTemporada(int temporada) {
-		if (temporada > 1) {
-			this.temporada = temporada;			
-		}
-		else {
-			throw new IllegalArgumentException("Temporada nao pode ser menor do que 1");
-		}
-	}
-	
-	private void validaGenero(String genero) {
-		if (genero == null || genero.trim().equals("")) {
-			throw new IllegalArgumentException("Genero nao pode ser nula ou vazia");
-		}
-		try {
-			Genero.valueOf(genero);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Genero invalida");
-		}
+		this.temporada = temporada;
 	}
 
 	@Override
