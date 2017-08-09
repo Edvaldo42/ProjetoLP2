@@ -60,13 +60,13 @@ public class SistemaTest {
 		sistema.cadastrarEletronico("Joao", "98888-8888", "Pokemon", 9.99, "PC");
 		sistema.cadastrarEletronico("Andre", "99999-9999", "FUNCIONA", 1.11, "PC");
 		assertEquals("9.99", sistema.getInfoItem("Joao", "98888-8888", "Pokemon", "preco"));
-		assertEquals("1,11", sistema.getInfoItem("Andre", "99999-9999", "FUNCIONA", "preco"));
+		assertEquals("1.11", sistema.getInfoItem("Andre", "99999-9999", "FUNCIONA", "preco"));
 	}
 
 	@Test
 	public void testCadastrarJogoTabuleiro() {
 		sistema.cadastrarJogoTabuleiro("Andre", "99999-9999", "War", 99.99);
-		assertEquals("99,99", sistema.getInfoItem("Andre", "99999-9999", "War", "Preco"));
+		assertEquals("99.99", sistema.getInfoItem("Andre", "99999-9999", "War", "Preco"));
 	}
 	
 	@Test
