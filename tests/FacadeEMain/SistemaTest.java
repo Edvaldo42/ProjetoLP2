@@ -76,6 +76,12 @@ public class SistemaTest {
 	
 	// US3
 	
+	@Test
+	public void pesquisarDetalhesItem() {		
+		sistema.cadastrarUsuario("Maria", "96666-6666", "mariaS2@email.com");
+		sistema.cadastrarBluRayFilme("Maria", "96666-6666", "Crepusculo", 1.99, 120, "ROMANCE", "QUATORZE_ANOS", 2008);
+		sistema.pesquisarDetalhesItem("Maria", "96666-6666", "Crepusculo");
+	}
 	
 
 }

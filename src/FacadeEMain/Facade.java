@@ -64,8 +64,8 @@ public class Facade {
 		return sistema.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
 	
-	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
-		return sistema.pesquisarDetalhesItem(nomeItem, nomeDono, telefoneDono);
+	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem) {
+		return sistema.pesquisarDetalhesItem(nomeDono, telefoneDono, nomeItem);
 	}
 	
 	public String listarItensOrdenadosPorNome() {

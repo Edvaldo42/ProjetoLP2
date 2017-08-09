@@ -154,10 +154,7 @@ public class Usuario {
 	}
 
 	public String detalhesItem(String nomeItem) {
-		if (itens.contains(nomeItem) == false) {
-			throw new IllegalArgumentException("Item nao encontrado");
-		}
-		return buscaItem(nomeItem).toString();
+			return buscaItem(nomeItem).toString();
 	}
 	public String getInfoItem(String nomeItem, String atributo) {
 		String info = "";

@@ -204,7 +204,7 @@ public class Sistema {
 		return info;
 	}
 	
-	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
+	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem) {
 		Usuario user = buscaUsuario(nomeDono, telefoneDono);
 		
 		if (user == null) {
@@ -212,18 +212,6 @@ public class Sistema {
 		}
 		
 		return user.detalhesItem(nomeItem);
-	}
-
-	public String listarItensOrdenadosPorNome() {
-		tipoDeOrdenacao = new ordemAlfabetica();
-		List<Item> itens = getItens();
-		Collections.sort(itens, tipoDeOrdenacao);
-		String retorno = "";
-		for (Item item: itens) {
-			retorno += item.toString() + "|";
-		}
-		
-		return retorno;
 	}
 	
 	public List<Item> getItens() {
@@ -237,6 +225,18 @@ public class Sistema {
 		}
 		
 		return retornoItens;
+	}
+	
+	public String listarItensOrdenadosPorNome() {
+		tipoDeOrdenacao = new ordemAlfabetica();
+		List<Item> itens = getItens();
+		Collections.sort(itens, tipoDeOrdenacao);
+		String retorno = "";
+		for (Item item: itens) {
+			retorno += item.toString() + "|";
+		}
+		
+		return retorno;
 	}
 	
 	public String listarItensOrdenadosPorValor() {

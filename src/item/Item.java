@@ -81,13 +81,19 @@ public abstract class Item {
 
 	@Override
 	public String toString() {
-		//DecimalFormat formato = new DecimalFormat("#.##"); 
-		//this.preco = Double.valueOf(formato.format(preco));
-		String valorRequerido = String.format(Locale.ENGLISH, "%.2f", this.preco);
-		if (emprestado) {
-			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
-		}
-		else {
+		if (this.preco % 1 == 0) {
+			String valorRequerido = String.format(Locale.ENGLISH, "%.1f", this.preco);
+			if (emprestado) {
+				return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
+			}
+			
+			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Nao emprestado";
+		} else {
+			String valorRequerido = String.format(Locale.ENGLISH, "%.2f", this.preco);
+			if (emprestado) {
+				return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
+			}
+			
 			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Nao emprestado";
 		}
 	}
