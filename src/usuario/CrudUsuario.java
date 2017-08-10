@@ -181,7 +181,7 @@ public class CrudUsuario {
 		return usuario.getInfoItem(nomeItem, atributo);
 	}
 	
-	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) throws UsuarioInvalidoException, ItemNaoEncontradoException {
+	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario user = buscaUsuario(nomeDono, telefoneDono);
 		
 		if (user == null) {

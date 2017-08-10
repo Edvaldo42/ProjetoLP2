@@ -1,9 +1,10 @@
 package item;
 
-import java.util.List;
+import java.text.DecimalFormat;
+import java.util.Locale;
 
 public abstract class Item {
-	
+
 	private String nomeItem;
 	private double preco;
 	private boolean emprestado;
@@ -13,44 +14,40 @@ public abstract class Item {
 		this.preco = preco;
 		emprestado = false;
 	}
-	
+
 	public String getPecasPerdidas() {
 		return "Esse item nao possui pecas";
 	}
 
-	public void adicionarPecaPerdida(String nomePeca) {
-	}
-
 	public void adicionarBluRay(int duracao) {
 	}
-	
+
 	public void setPlataforma(String valor) {
 	}
 
 	public void setDuracao(int duracao) {
 	}
-	
+
 	public void setClassificacao(String classificacao) {
 	}
 
 	public void setGenero(String valor) {
 	}
-	
+
 	public void setAnoLancamento(int parseInt) {
 	}
-		
+
 	public void setNomeArtista(String valor) {
 	}
-	
+
 	public void setNumeroFaixas(int parseInt) {
 	}
-	
+
 	public void setDescricao(String descricao) {
 	}
-	
+
 	public void setTemporada(int parseInt) {
 	}
-	
 
 	public String getNomeDoItem() {
 		return nomeItem;
@@ -78,14 +75,22 @@ public abstract class Item {
 
 	@Override
 	public String toString() {
-		String valorRequerido = String.format("%.2f", this.preco);
-		if (emprestado) {
-			return this.nomeItem + " - R$" + valorRequerido + " - " + "Emprestado(Sim)";			
+		if (this.preco % 1 == 0) {
+			String valorRequerido = String.format(Locale.ENGLISH, "%.1f", this.preco);
+			if (emprestado) {
+				return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
+			}
+			
+			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Nao emprestado";
+		} else {
+			String valorRequerido = String.format(Locale.ENGLISH, "%.2f", this.preco);
+			if (emprestado) {
+				return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
+			}
+			
+			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Nao emprestado";
 		}
-		else {
-			return this.nomeItem + " - R$" + valorRequerido + " - " + "Emprestado(Nao)";
-		}
-	}
+}
 
 	@Override
 	public int hashCode() {
@@ -111,5 +116,5 @@ public abstract class Item {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -79,5 +79,15 @@ public class SistemaTest {
 		sistema.adicionarPecaPerdida("Joao", "98888-8888", "Monopoly", "Carrinho");
 		//assertEquals()
 	}
+	
+	// US3
+	
+	@Test
+	public void pesquisarDetalhesItem() throws StringInvalidaException, UsuarioCadastradoException, ItemNaoEncontradoException {		
+		sistema.cadastrarUsuario("Maria", "96666-6666", "mariaS2@email.com");
+		sistema.cadastrarBluRayFilme("Maria", "96666-6666", "Crepusculo", 1.99, 120, "ROMANCE", "QUATORZE_ANOS", 2008);
+		sistema.pesquisarDetalhesItem("Maria", "96666-6666", "Crepusculo");
+	}
+	
 
 }

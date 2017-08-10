@@ -30,6 +30,6 @@ public class Filme extends BluRay {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " - " + this.genero.getGenero() + " - " + this.anoLancamento;
+		return "FILME: " + super.toString() + ", " + this.genero.getGenero() + ", " + this.anoLancamento;
 	}	
 }

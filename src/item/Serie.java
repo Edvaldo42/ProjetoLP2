@@ -22,7 +22,7 @@ public class Serie extends BluRay {
 	@Override
 	public void adicionarBluRay(int duracao) {
 		colecao.add(duracao);
-		super.setDuracao(super.getDuracao() + duracao);
+		super.setDuracao(super.getDuracao());
 	}
 	
 	@Override
@@ -47,12 +47,28 @@ public class Serie extends BluRay {
 	}
 
 	public void setTemporada(int temporada) {
-		this.temporada = temporada;
+		if (temporada >= 1) {
+			this.temporada = temporada;			
+		}
+		else {
+			throw new IllegalArgumentException("Temporada nao pode ser menor do que 1");
+		}
+	}
+	
+	private void validaGenero(String genero) {
+		if (genero == null || genero.trim().equals("")) {
+			throw new IllegalArgumentException("Genero nao pode ser nula ou vazia");
+		}
+		try {
+			Genero.valueOf(genero);
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Genero invalida");
+		}
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + " - " + genero.getGenero() + " - " + temporada + ":" + getDuracao();
+		return "SERIE: " + super.toString() + ", " + genero.getGenero() + ", Temporada " + temporada;
 	}
 
 	@Override

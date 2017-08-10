@@ -18,6 +18,8 @@ import exception.UsuarioCadastradoException;
 import item.CrudItem;
 import item.Item;
 import usuario.CrudUsuario;
+import comparator.valor;
+import item.Item;
 import usuario.Usuario;
 
 public class Sistema {
@@ -26,8 +28,9 @@ public class Sistema {
 	private CrudItem crudItem;
 	private Set<Usuario> usuarios;
 	private Map<Usuario, Item> itensCadastrados;
-	private Comparator tipoDeOrdenacao = null;
 
+	Comparator tipoDeOrdenacao = null;
+	
 	public Sistema() {
 		this.crudUsuario = new CrudUsuario();
 		this.crudItem = new CrudItem();
@@ -126,34 +129,42 @@ public class Sistema {
 
 		return info;
 	}
-
+	
+	
+	public List<Item> getItens() {
+		List<Item> retornoItens = new ArrayList<>();
+		for (Usuario usuario: usuarios) {
+			List<Item> itens = new ArrayList<>();
+			itens = usuario.getItens();
+			for (Item item: itens) {
+				retornoItens.add(item);
+			}
+		}
+		
+		return retornoItens;
+	}
+	
 	public String listarItensOrdenadosPorNome() {
 		tipoDeOrdenacao = new ordemAlfabetica();
 		List<Item> itens = getItens();
 		Collections.sort(itens, tipoDeOrdenacao);
 		String retorno = "";
-		for (Item item : itens) {
+		for (Item item: itens) {
 			retorno += item.toString() + "|";
 		}
-
+		
 		return retorno;
 	}
-
-	private List<Item> getItens() {
-		List<Item> retornoItens = new ArrayList<>();
-		for (Usuario usuario : usuarios) {
-			List<Item> itens = new ArrayList<>();
-			itens = usuario.getItens();
-			for (Item item : itens) {
-				retornoItens.add(item);
-			}
-		}
-
-		return retornoItens;
-
-	}
-
+	
 	public String listarItensOrdenadosPorValor() {
-		return null;
-	}
+		tipoDeOrdenacao = new valor();
+		List<Item> itens = getItens();
+		Collections.sort(itens, tipoDeOrdenacao);
+		String retorno = "";
+		for (Item item: itens) {
+			retorno += item.toString() + "|";
+		}
+		
+		return retorno;
+}
 }

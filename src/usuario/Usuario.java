@@ -2,6 +2,8 @@ package usuario;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -45,8 +47,8 @@ public class Usuario {
 
 	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeItem);
-		if (itemBuscado.getClass().getName().equals("JogoDeTabuleiro")) {
-			itemBuscado.adicionarPecaPerdida(nomePeca);
+		if (itemBuscado instanceof JogoDeTabuleiro) {
+			((JogoDeTabuleiro) itemBuscado).adicionaPecaPerdida(nomePeca);
 		}
 	}
 
@@ -127,10 +129,7 @@ public class Usuario {
 	}
 
 	public String detalhesItem(String nomeItem) throws ItemNaoEncontradoException {
-		if (itens.contains(nomeItem) == false) {
-			throw new IllegalArgumentException("Item nao encontrado");
-		}
-		return buscaItem(nomeItem).toString();
+			return buscaItem(nomeItem).toString();
 	}
 	
 	public String getInfoItem(String nomeItem, String atributo) throws ItemNaoEncontradoException {
@@ -192,6 +191,12 @@ public class Usuario {
 		this.telefone = telefone;
 	}
 
+	public List<Item> getItens() {
+		List<Item> listaItens = new ArrayList<>(itens);
+		return listaItens;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return nome + ", " + email + ", " + telefone;
@@ -226,11 +231,6 @@ public class Usuario {
 		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
-	}
-
-	public List<Item> getItens() {
-		List<Item> listaItens = new ArrayList<>(itens);
-			return listaItens;
 	}
 
 }

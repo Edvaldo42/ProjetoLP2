@@ -76,15 +76,17 @@ public class Facade {
 	public String listarItensOrdenadosPorNome() {
 		return sistema.listarItensOrdenadosPorNome();
 	}
-//
-//	public String listarItensOrdenadosPorValor() {
-//		return sistema.listarItensOrdenadosPorValor();
-//	}
-//	
+
+	public String listarItensOrdenadosPorValor() {
+		return sistema.listarItensOrdenadosPorValor();
+	}
+	
+
+	
 //	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) {
 //		return sistema.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
 //	}
-//	
+	
 //	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) {
 //		return sistema.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 //	}
