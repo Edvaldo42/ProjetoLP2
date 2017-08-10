@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import comparator.ordemAlfabetica;
+<<<<<<< HEAD
 import exception.UsuarioInvalidoException;
 import exception.ItemNaoEncontradoException;
 import exception.PecaPerdidaException;
@@ -18,6 +19,11 @@ import exception.UsuarioCadastradoException;
 import item.CrudItem;
 import item.Item;
 import usuario.CrudUsuario;
+=======
+import comparator.valor;
+import item.Item;
+import usuario.ControllerUsuario;
+>>>>>>> us3
 import usuario.Usuario;
 
 public class Sistema {
@@ -25,9 +31,15 @@ public class Sistema {
 	private CrudUsuario crudUsuario;
 	private CrudItem crudItem;
 	private Set<Usuario> usuarios;
+<<<<<<< HEAD
+	private Map<Usuario, Item> itensCadastrados;
+	private Comparator tipoDeOrdenacao = null;
+
+=======
 	private Map<Usuario, Item> itensCadastrados; // n esta sendo usado p nd
 	Comparator tipoDeOrdenacao = null;
 	
+>>>>>>> us3
 	public Sistema() {
 		this.crudUsuario = new CrudUsuario();
 		this.crudItem = new CrudItem();
@@ -132,6 +144,7 @@ public class Sistema {
 		List<Item> itens = getItens();
 		Collections.sort(itens, tipoDeOrdenacao);
 		String retorno = "";
+<<<<<<< HEAD
 		for (Item item : itens) {
 			retorno += item.toString() + "|";
 		}
@@ -151,6 +164,26 @@ public class Sistema {
 
 		return retornoItens;
 
+=======
+		for (Item item: itens) {
+			retorno += item.toString() + "|";
+		}
+		
+		return retorno;
+>>>>>>> us3
+	}
+	
+	public List<Item> getItens() {
+		List<Item> retornoItens = new ArrayList<>();
+		for (Usuario usuario: usuarios) {
+			List<Item> itens = new ArrayList<>();
+			itens = usuario.getItens();
+			for (Item item: itens) {
+				retornoItens.add(item);
+			}
+		}
+		
+		return retornoItens;
 	}
 	
 	public String listarItensOrdenadosPorValor() {

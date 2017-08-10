@@ -10,14 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import comparator.ordemAlfabetica;
-import exception.UsuarioInvalidoException;
-import exception.ItemNaoEncontradoException;
-import exception.PecaPerdidaException;
-import exception.StringInvalidaException;
-import exception.UsuarioCadastradoException;
-import item.CrudItem;
-import item.Item;
-import usuario.CrudUsuario;
+
+import usuario.ControllerUsuario;
 import usuario.Usuario;
 
 public class Sistema {
@@ -26,6 +20,9 @@ public class Sistema {
 	private CrudItem crudItem;
 	private Set<Usuario> usuarios;
 	private Map<Usuario, Item> itensCadastrados; // n esta sendo usado p nd
+	Comparator tipoDeOrdenacao = null;
+	
+	private Map<Usuario, Item> itensCadastrados;
 	Comparator tipoDeOrdenacao = null;
 	
 	public Sistema() {

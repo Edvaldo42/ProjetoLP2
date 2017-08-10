@@ -2,8 +2,11 @@ package usuario;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
 import java.util.Collections;
 import java.util.Comparator;
+>>>>>>> us3
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -47,8 +50,13 @@ public class Usuario {
 
 	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeItem);
+<<<<<<< HEAD
+		if (itemBuscado.getClass().getName().equals("JogoDeTabuleiro")) {
+			itemBuscado.adicionarPecaPerdida(nomePeca);
+=======
 		if (itemBuscado instanceof JogoDeTabuleiro) {
 			((JogoDeTabuleiro) itemBuscado).adicionaPecaPerdida(nomePeca);
+>>>>>>> us3
 		}
 	}
 
@@ -192,8 +200,6 @@ public class Usuario {
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
 	}
 
 	public List<Item> getItens() {

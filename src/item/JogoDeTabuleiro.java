@@ -32,7 +32,11 @@ public class JogoDeTabuleiro extends Item{
 
 	@Override
 	public String toString() {
-		return super.toString() + "Pecas perdidas:" + LN + getPecasPerdidas();
+		if (pecasPerdidas.isEmpty()) {
+			return "JOGO DE TABULEIRO: " + super.toString() + ", COMPLETO";
+		}
+		
+		return "JOGO DE TABULEIRO: " + super.toString() + ", COM PECAS PERDIDAS";
 	}
 
 	@Override

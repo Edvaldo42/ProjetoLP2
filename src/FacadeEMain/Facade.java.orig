@@ -73,6 +73,7 @@ public class Facade {
 			return sistema.pesquisarDetalhesItem(nomeDono, telefoneDono, nomeItem);
 		 	}
 	
+<<<<<<< HEAD
 	public String listarItensOrdenadosPorNome() {
 		return sistema.listarItensOrdenadosPorNome();
 	}
@@ -81,6 +82,19 @@ public class Facade {
 //		return sistema.listarItensOrdenadosPorValor();
 //	}
 //	
+=======
+	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
+		return sistema.pesquisarDetalhesItem(nomeItem, nomeDono, telefoneDono);
+	}
+	
+	public String listarItensOrdenadosPorNome() {
+		return sistema.listarItensOrdenadosPorNome();
+	}
+	public String listarItensOrdenadosPorValor() {
+		return sistema.listarItensOrdenadosPorValor();
+	}
+	
+>>>>>>> us3
 //	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) {
 //		return sistema.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
 //	}

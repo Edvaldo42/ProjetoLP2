@@ -19,7 +19,7 @@ public class JogoEletronico extends Item {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " - " +  plataforma.getPlataforma();
+		return "JOGO ELETRONICO: " + super.toString() + ", " +  plataforma.getPlataforma();
 	}
 
 	@Override

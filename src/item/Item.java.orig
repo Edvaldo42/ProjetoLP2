@@ -19,9 +19,13 @@ public abstract class Item {
 		return "Esse item nao possui pecas";
 	}
 
+<<<<<<< HEAD
 	public void adicionarPecaPerdida(String nomePeca) {
 	}
 
+=======
+	
+>>>>>>> us3
 	public void adicionarBluRay(int duracao) {
 	}
 	

@@ -25,9 +25,9 @@ public class Sistema {
 	private CrudUsuario crudUsuario;
 	private CrudItem crudItem;
 	private Set<Usuario> usuarios;
-	private Map<Usuario, Item> itensCadastrados; // n esta sendo usado p nd
-	Comparator tipoDeOrdenacao = null;
-	
+	private Map<Usuario, Item> itensCadastrados;
+	private Comparator tipoDeOrdenacao = null;
+
 	public Sistema() {
 		this.crudUsuario = new CrudUsuario();
 		this.crudItem = new CrudItem();
@@ -152,16 +152,8 @@ public class Sistema {
 		return retornoItens;
 
 	}
-	
+
 	public String listarItensOrdenadosPorValor() {
-		tipoDeOrdenacao = new valor();
-		List<Item> itens = getItens();
-		Collections.sort(itens, tipoDeOrdenacao);
-		String retorno = "";
-		for (Item item: itens) {
-			retorno += item.toString() + "|";
-		}
-		
-		return retorno;
+		return null;
 	}
 }

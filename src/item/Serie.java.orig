@@ -47,6 +47,9 @@ public class Serie extends BluRay {
 	}
 
 	public void setTemporada(int temporada) {
+<<<<<<< HEAD
+		this.temporada = temporada;
+=======
 		if (temporada >= 1) {
 			this.temporada = temporada;			
 		}
@@ -64,6 +67,7 @@ public class Serie extends BluRay {
 		} catch (IllegalArgumentException e) {
 			throw new IllegalArgumentException("Genero invalida");
 		}
+>>>>>>> us3
 	}
 
 	@Override
