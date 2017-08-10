@@ -1,5 +1,9 @@
 package FacadeEMain;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import emprestimo.Emprestimo;
 import exception.ItemNaoEncontradoException;
 import exception.StringInvalidaException;
 import exception.UsuarioCadastradoException;
@@ -11,14 +15,12 @@ public class Sistema {
 
 	private CrudUsuario crudUsuario;
 	private CrudItem crudItem;
-	// private Map<Usuario, Item> itensCadastrados;
-
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 
 	public Sistema() {
 		this.crudUsuario = new CrudUsuario();
 		this.crudItem = new CrudItem();
-		// this.itensCadastrados = new HashMap<>();
 
 	}
 
@@ -281,5 +283,16 @@ public class Sistema {
 
 	public String listarItensOrdenadosPorValor() {
 		return crudUsuario.listarItensOrdenadosPorValor();
+	}
+
+	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
+			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException {
+	    
+		LocalDate data = LocalDate.parse(dataEmprestimo, formatter);
+
+	    Emprestimo emprestimo =  new Emprestimo(crudUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+	    		nomeItem, data, periodo);
+		crudUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente,
+				telefoneRequerente, emprestimo);
 	}
 }

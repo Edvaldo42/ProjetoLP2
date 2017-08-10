@@ -10,6 +10,7 @@ import java.util.Set;
 import FacadeEMain.Validacoes;
 import comparator.ordemAlfabetica;
 import comparator.valor;
+import emprestimo.Emprestimo;
 import exception.AtributoInvalidoException;
 import exception.ItemNaoEncontradoException;
 import exception.PecaPerdidaException;
@@ -249,21 +250,36 @@ public class CrudUsuario {
 	}
 
 	
-	private Usuario buscaUsuario(String nome, String telefone) {
+	public Usuario buscaUsuario(String nome, String telefone) {
 		Usuario user = null;
 		for (Usuario usuario : usuarios) {
 			if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
 				user = usuario;
 			}
 		}
-
+		
 		return user;
 	}
-
 
 
 	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}
+
+	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
+			String telefoneRequerente, Emprestimo emprestimo) throws UsuarioInvalidoException, ItemNaoEncontradoException {
+		
+		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
+		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
+		
+		if (dono == null || requerente == null) {
+			throw new UsuarioInvalidoException();
+		}
+		
+		dono.registrarEmprestimo(emprestimo);
+		requerente.registrarEmprestimo(emprestimo);
+		dono.alteraStatusItem(emprestimo.getItemEmprestado());
+	}
+
 	
 }

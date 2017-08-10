@@ -3,6 +3,7 @@ package usuario;
 import java.util.HashSet;
 import java.util.Set;
 
+import emprestimo.Emprestimo;
 import exception.ItemNaoEncontradoException;
 import item.Item;
 import item.JogoDeTabuleiro;
@@ -14,12 +15,14 @@ public class Usuario {
 	private String email;
 	private String telefone;
 	private Set<Item> itens;
-
+	private Set<Emprestimo> emprestimos;
+	
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		itens = new HashSet<>();
+		emprestimos = new HashSet<>();
 	}
 	
 	/**
@@ -222,7 +225,7 @@ public class Usuario {
 		}
 		throw new ItemNaoEncontradoException();
 	}
-	
+		
 	/**
 	 * 
 	 * @param item
@@ -237,7 +240,16 @@ public class Usuario {
 		return false;
 	}
 
-
+	public void alteraStatusItem(String nomeItem) throws ItemNaoEncontradoException {
+		Item itemBuscado = buscaItem(nomeItem);
+		if (itemBuscado.isEmprestado()) {
+			throw new IllegalArgumentException("Item emprestado no momento");
+		}
+		else {
+			itemBuscado.setEmprestado(true);
+		}
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -266,7 +278,6 @@ public class Usuario {
 		return this.itens;
 		
 	}
-	
 	
 	@Override
 	public String toString() {
@@ -302,6 +313,10 @@ public class Usuario {
 		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
+	}
+
+	public void registrarEmprestimo(Emprestimo emprestimo) {
+		emprestimos.add(emprestimo);
 	}
 
 }

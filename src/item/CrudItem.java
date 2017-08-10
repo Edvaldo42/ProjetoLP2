@@ -61,6 +61,8 @@ public class CrudItem {
 		
 		return serie;
 	}
+	
+	
 
 	/*public static Item atualizaItem(Item item, String atributo, String valor) {
 	
