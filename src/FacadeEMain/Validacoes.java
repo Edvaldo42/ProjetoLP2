@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import exception.EmailInvalidoException;
+import exception.NomeInvalidoException;
+import exception.StringInvalidaException;
+import exception.TelefoneInvalidoException;
+
 public class Validacoes {
 
 	private static List<String> plataformas = new ArrayList<>(
@@ -16,41 +21,38 @@ public class Validacoes {
 			Arrays.asList("ACAO", "ANIMACAO", "AVENTURA", "COMEDIA", "DOCUMENTARIO", "DRAMA", "EROTICO", "FAROESTE",
 					"FICCAO", "MUSICAL", "POLICIAL", "ROMANCE", "SUSPENSE", "TERROR"));
 
-	public static void validaCadastrarUsuario(String nome, String telefone, String email) {
+	public static void validaCadastrarUsuario(String nome, String telefone, String email)
+			throws StringInvalidaException {
 		String msg = "Erro ao cadastrar usuario: ";
 
 		if (!validaNome(nome)) {
-			throw new IllegalArgumentException(msg + "Nome invalido");
+			throw new NomeInvalidoException(msg);
 		}
 		if (!validaEmail(email)) {
-			throw new IllegalArgumentException(msg + "Email invalido");
+			throw new EmailInvalidoException(msg);
 		}
 		if (!validaTelefone(telefone)) {
-			throw new IllegalArgumentException(msg + "Telefone invalido");
+			throw new TelefoneInvalidoException(msg);
 		}
 	}
 
-	public static void validaAtualizarUsuario(String atributo, String valor) {
+	public static void validaAtualizarUsuario(String atributo, String valor) throws StringInvalidaException {
 		String msg = "Erro ao atualizar usuario: ";
-
 
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			if (!validaNome(valor)) {
-				throw new IllegalArgumentException(msg + "Nome invalido");
+				throw new NomeInvalidoException(msg);
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("telefone")) {
+		} else if (atributo.trim().equalsIgnoreCase("email")) {
+			if (!validaEmail(valor)) {
+				throw new EmailInvalidoException(msg);
+			}
+		} else if (atributo.trim().equalsIgnoreCase("telefone")) {
 			if (!validaTelefone(valor)) {
-				throw new IllegalArgumentException(msg + "Telefone invalido");
+				throw new TelefoneInvalidoException(msg);
 			}
 		}
 
-		else if (atributo.trim().equalsIgnoreCase("email")) {
-			if (!validaEmail(valor)) {
-				throw new IllegalArgumentException(msg + "Email invalido");
-			}
-		}
-		
 		else {
 			throw new IllegalArgumentException("Atributo invalido");
 		}
@@ -123,8 +125,8 @@ public class Validacoes {
 		}
 	}
 
-	public static void validaCadastrarBluRaySerie(String nomeItem, double preco, String descricao, int duracao, String classificacao,
-			String genero, int temporada) {
+	public static void validaCadastrarBluRaySerie(String nomeItem, double preco, String descricao, int duracao,
+			String classificacao, String genero, int temporada) {
 		String msg = "Erro ao cadastrar BluRay de Serie: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -150,10 +152,10 @@ public class Validacoes {
 
 		return existe;
 	}
-	
+
 	public static void validaAdicionarBluRay(String nomeBlurayTemporada, int duracao) {
 		String msg = "Erro ao adicionar BluRay: ";
-		
+
 		if (nomeBlurayTemporada == null || nomeBlurayTemporada.trim().equals("")) {
 			throw new IllegalArgumentException(msg + "Nome do item nao pode ser nulo ou vazio");
 		}
@@ -164,63 +166,52 @@ public class Validacoes {
 
 	public static void validaAtualizarItem(String atributo, String valor) {
 		String msg = "Erro na atualizacao de item: ";
-		
+
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			if (valor == null || valor.trim().equals("")) {
 				throw new IllegalArgumentException(msg + "Nome do item nao pode ser nulo ou vazio");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("preco")) {
+		} else if (atributo.trim().equalsIgnoreCase("preco")) {
 			if (Double.parseDouble(valor) < 0) {
 				throw new IllegalArgumentException(msg + "Preco invalido");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("plataforma")) {
+		} else if (atributo.trim().equalsIgnoreCase("plataforma")) {
 			if (valor == null || valor.trim().equals("")) {
 				throw new IllegalArgumentException(msg + "Plataforma nao pode ser nula ou vazia");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("duracao")) {
+		} else if (atributo.trim().equalsIgnoreCase("duracao")) {
 			if (Integer.parseInt(valor) < 0) {
-				throw new IllegalArgumentException(msg + "Duracao nao pode ser menor do que 0");	
+				throw new IllegalArgumentException(msg + "Duracao nao pode ser menor do que 0");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("classificacao")) {
+		} else if (atributo.trim().equalsIgnoreCase("classificacao")) {
 			if (valor == null || valor.trim().equals("")) {
 				throw new IllegalArgumentException(msg + "Classificacao nao pode ser nula ou vazia");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("genero")) {
+		} else if (atributo.trim().equalsIgnoreCase("genero")) {
 			if (valor == null || valor.trim().equals("")) {
 				throw new IllegalArgumentException(msg + "Genero nao pode ser nulo ou vazio");
-			}			
-		}
-		else if (atributo.trim().equalsIgnoreCase("anoLancamento")) {
+			}
+		} else if (atributo.trim().equalsIgnoreCase("anoLancamento")) {
 			if (Integer.parseInt(valor) < 0) {
 				throw new IllegalArgumentException(msg + "Ano de lancamento nao pode ser menor do que 0");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("artista")) {
+		} else if (atributo.trim().equalsIgnoreCase("artista")) {
 			if (valor == null || valor.trim().equals("")) {
 				throw new IllegalArgumentException(msg + "Nome do artista nao pode ser nulo ou vazio");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
+		} else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
 			if (Integer.parseInt(valor) < 0) {
 				throw new IllegalArgumentException(msg + "Numero de faixas nao pode ser menor do que 0");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("descricao")) {
+		} else if (atributo.trim().equalsIgnoreCase("descricao")) {
 			if (valor == null || valor.trim().equals("")) {
 				throw new IllegalArgumentException(msg + "Descricao nao pode ser nula ou vazia");
 			}
-		}
-		else if (atributo.trim().equalsIgnoreCase("temporada")) {
+		} else if (atributo.trim().equalsIgnoreCase("temporada")) {
 			if (Integer.parseInt(valor) < 0) {
 				throw new IllegalArgumentException(msg + "Temporada nao pode ser menor do que 0");
 			}
-		}
-		else {	
+		} else {
 			throw new IllegalArgumentException("Atributo invalido");
 		}
 	}

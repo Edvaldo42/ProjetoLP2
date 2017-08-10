@@ -8,13 +8,17 @@ import org.junit.internal.runners.statements.ExpectException;
 import org.junit.rules.ExpectedException;
 
 import FacadeEMain.Sistema;
+import exception.ItemNaoEncontradoException;
+import exception.StringInvalidaException;
+import exception.UsuarioCadastradoException;
+import exception.UsuarioInvalidoException;
 
 public class SistemaTest {
 
 	Sistema sistema;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws StringInvalidaException, UsuarioCadastradoException {
 		sistema = new Sistema();
 		sistema.cadastrarUsuario("Joao", "98888-8888", "joao@email.com");
 		sistema.cadastrarUsuario("Andre", "99999-9999", "andre@email.com");
@@ -22,7 +26,7 @@ public class SistemaTest {
 
 	// ----------------------------------------------------------US1----------------------------------------------------------
 	@Test
-	public void testCadastrarUsuario() {
+	public void testCadastrarUsuario() throws Exception {
 
 		sistema.cadastrarUsuario("Pedro", "98888-8888", "pedro@email.com");
 		sistema.cadastrarUsuario("Paulo", "99999-9999", "paulo@email.com");
@@ -35,7 +39,7 @@ public class SistemaTest {
 	}
 
 	@Test
-	public void testAtualizarCadastro() {
+	public void testAtualizarCadastro() throws Exception  {
 		sistema.cadastrarUsuario("Pedro", "98888-8888", "pedro@email.com");
 		sistema.atualizarUsuario("Pedro", "98888-8888", "nome", "Pedrinho");
 		assertEquals("Pedrinho", sistema.getInfoUsuario("Pedrinho", "98888-8888", "nome"));
@@ -48,7 +52,7 @@ public class SistemaTest {
 	}
 
 	@Test
-	public void testRemoverUsuario() {
+	public void testRemoverUsuario() throws Exception {
 		sistema.removerUsuario("Joao", "98888-8888");
 		sistema.removerUsuario("Andre", "99999-9999");
 	}
@@ -56,7 +60,7 @@ public class SistemaTest {
 	// ----------------------------------------------------------US2----------------------------------------------------------
 
 	@Test
-	public void testCadastrarEletronico() {
+	public void testCadastrarEletronico() throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		sistema.cadastrarEletronico("Joao", "98888-8888", "Pokemon", 9.99, "PC");
 		sistema.cadastrarEletronico("Andre", "99999-9999", "FUNCIONA", 1.11, "PC");
 		assertEquals("9.99", sistema.getInfoItem("Joao", "98888-8888", "Pokemon", "preco"));
@@ -64,13 +68,13 @@ public class SistemaTest {
 	}
 
 	@Test
-	public void testCadastrarJogoTabuleiro() {
+	public void testCadastrarJogoTabuleiro() throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		sistema.cadastrarJogoTabuleiro("Andre", "99999-9999", "War", 99.99);
 		assertEquals("99.99", sistema.getInfoItem("Andre", "99999-9999", "War", "Preco"));
 	}
 	
 	@Test
-	public void testAdicionarPecaPerdida(){
+	public void testAdicionarPecaPerdida() throws Exception{
 		sistema.cadastrarJogoTabuleiro("Joao", "98888-8888", "Monopoly", 115.90);
 		sistema.adicionarPecaPerdida("Joao", "98888-8888", "Monopoly", "Carrinho");
 		//assertEquals()

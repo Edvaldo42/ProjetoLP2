@@ -4,6 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import FacadeEMain.Validacoes;
+import exception.AtributoInvalidoException;
+import exception.ItemNaoEncontradoException;
+import exception.PecaPerdidaException;
+import exception.StringInvalidaException;
+import exception.UsuarioCadastradoException;
+import exception.UsuarioInvalidoException;
 import item.Item;
 
 public class CrudUsuario {
@@ -14,32 +20,32 @@ public class CrudUsuario {
 		usuarios = new HashSet<>();
 	}
 
-	public void cadastraUsuario(String nome, String telefone, String email) {
+	public void cadastraUsuario(String nome, String telefone, String email) throws UsuarioCadastradoException, StringInvalidaException {
 		Validacoes.validaCadastrarUsuario(nome, telefone, email);
 
 		if (buscaUsuario(nome, telefone) != null) {
-			throw new IllegalArgumentException("Usuario ja cadastrado");
+			throw new UsuarioCadastradoException();
 		}
 		Usuario usuario = new Usuario(nome, telefone, email);
 		usuarios.add(usuario);			
 	}
 	
-	public void removerUsuario(String nome, String telefone) {
+	public void removerUsuario(String nome, String telefone) throws UsuarioInvalidoException {
 		Usuario user = buscaUsuario(nome, telefone);
 		if (user == null) {
-			throw new NullPointerException("Usuario invalido");
+			throw new UsuarioInvalidoException();
 		}
 		
 		usuarios.remove(user);
 	}
 	
-	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
+	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) throws StringInvalidaException {
 		Validacoes.validaAtualizarUsuario(atributo, valor);
 
 		Usuario user = buscaUsuario(nome, telefone);
 		
 		if (user == null) {
-			throw new NullPointerException("Usuario invalido");
+			throw new UsuarioInvalidoException();
 		}
 		
 		if (atributo.trim().equalsIgnoreCase("nome")) {
@@ -54,11 +60,11 @@ public class CrudUsuario {
 		}
 	}
 	
-	public String getInfoUsuario(String nome, String telefone, String atributo) {
+	public String getInfoUsuario(String nome, String telefone, String atributo) throws StringInvalidaException {
 		Usuario user = buscaUsuario(nome, telefone);
 		
 		if (user == null) {
-			throw new NullPointerException("Usuario invalido");
+			throw new UsuarioInvalidoException();
 		}
 		String info = null;
 		if (atributo.trim().equalsIgnoreCase("nome")) {
@@ -71,34 +77,34 @@ public class CrudUsuario {
 			info = user.getEmail();
 		}
 		else {
-			throw new IllegalArgumentException("Atributo invalido");
+			throw new AtributoInvalidoException();
 		}
 
 		return info;
 	}
 	
-	public void cadastrarEletronico(String nome, String telefone, Item item ) {
+	public void cadastrarEletronico(String nome, String telefone, Item item ) throws UsuarioInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario == null) {
-			throw new NullPointerException("Erro no cadastro de jogo eletronico");
+			throw new UsuarioInvalidoException();
 		}         
 		
 		usuario.cadastraEletronico(item);
 	}
 	
-	public void cadastrarJogoTabuleiro(String nome, String telefone,Item item) {
+	public void cadastrarJogoTabuleiro(String nome, String telefone,Item item) throws UsuarioInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario == null) {
-			throw new NullPointerException("Usuario invalido");
+			throw new UsuarioInvalidoException();
 		}
 		
 		usuario.cadastraJogoTabuleiro(item);
 	}
 	
-	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario == null) {
-			throw new NullPointerException("Erro ao adicionar peca perdida");
+			throw new PecaPerdidaException();
 		}
 
 		usuario.adicionarPecaPerdida(nomeItem, nomePeca);
@@ -114,50 +120,50 @@ public class CrudUsuario {
 		usuario.cadastrarBluRayFilme(item);
 	}
 	
-	public void cadastrarBluRayShow(String nome, String telefone,Item item) {
+	public void cadastrarBluRayShow(String nome, String telefone,Item item) throws UsuarioInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario == null) {
-			throw new NullPointerException("Erro no cadastro de BluRay de Show");
+			throw new UsuarioInvalidoException();
 		}
 
 		usuario.cadastrarBluRayShow(item);
 	}
 	
-	public void cadastrarBluRaySerie(String nome, String telefone, Item item) {
+	public void cadastrarBluRaySerie(String nome, String telefone, Item item) throws UsuarioInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		
 		if (usuario == null) {
-			throw new NullPointerException("Erro no cadastro de BluRay de serie");
+			throw new UsuarioInvalidoException();
 		}
 		
 		usuario.cadastrarBluRaySerie(item);
 	}
 
-	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao) {
+	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		
 		if (usuario == null) {
-			throw new NullPointerException("Erro no cadastro de BluRay de serie");
+			throw new UsuarioInvalidoException();
 		}
 		
 		usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
 	}
 	
-	public void removerItem(String nome, String telefone, String nomeItem) {
+	public void removerItem(String nome, String telefone, String nomeItem) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		
 		if (usuario == null) {
-			throw new NullPointerException("Erro no cadastro de BluRay de serie");
+			throw new UsuarioInvalidoException();
 		}
 		
 		usuario.removerItem(nomeItem);
 	}
 
-	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) {
+	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		
 		if (usuario == null) {
-			throw new NullPointerException("Erro no cadastro de BluRay de serie");
+			throw new UsuarioInvalidoException();
 		}
 		
 		Validacoes.validaAtualizarItem(atributo, valor);
@@ -165,21 +171,21 @@ public class CrudUsuario {
 		usuario.atualizarItem(nomeItem, atributo, valor);
 	}
 	
-	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) {
+	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		
 		if (usuario == null) {
-			throw new NullPointerException("Erro no cadastro de BluRay de serie");
+			throw new UsuarioInvalidoException();
 		}
 		
 		return usuario.getInfoItem(nomeItem, atributo);
 	}
 	
-	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) {
+	public String pesquisarDetalhesItem(String nomeItem, String nomeDono, String telefoneDono) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario user = buscaUsuario(nomeDono, telefoneDono);
 		
 		if (user == null) {
-			throw new NullPointerException("Usuario invalido");
+			throw new UsuarioInvalidoException();
 		}
 		
 		return user.detalhesItem(nomeItem);

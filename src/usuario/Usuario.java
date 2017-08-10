@@ -1,10 +1,13 @@
 package usuario;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import exception.ItemNaoEncontradoException;
 import item.Filme;
 import item.Item;
 import item.JogoDeTabuleiro;
@@ -40,7 +43,7 @@ public class Usuario {
 		}
 	}
 
-	public void adicionarPecaPerdida(String nomeItem, String nomePeca) {
+	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeItem);
 		if (itemBuscado.getClass().getName().equals("JogoDeTabuleiro")) {
 			itemBuscado.adicionarPecaPerdida(nomePeca);
@@ -65,7 +68,7 @@ public class Usuario {
 		}
 	}
 
-	public void adicionarBluRay(String nomeBlurayTemporada, int duracao) {
+	public void adicionarBluRay(String nomeBlurayTemporada, int duracao) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeBlurayTemporada);
 		
 		if (itemBuscado instanceof Serie) {
@@ -75,7 +78,7 @@ public class Usuario {
 		}
 	}
 
-	public void removerItem(String nomeItem) {
+	public void removerItem(String nomeItem) throws ItemNaoEncontradoException {
 		Item itemARemover = buscaItem(nomeItem);
 
 		if (verificaItem(itemARemover)) {
@@ -83,7 +86,7 @@ public class Usuario {
 		}
 	}
 
-	public void atualizarItem(String nomeItem, String atributo, String valor) {
+	public void atualizarItem(String nomeItem, String atributo, String valor) throws ItemNaoEncontradoException {
 		Item item = buscaItem(nomeItem);
 		
 		if (verificaItem(item)) {
@@ -123,14 +126,14 @@ public class Usuario {
 		}
 	}
 
-	public String detalhesItem(String nomeItem) {
+	public String detalhesItem(String nomeItem) throws ItemNaoEncontradoException {
 		if (itens.contains(nomeItem) == false) {
 			throw new IllegalArgumentException("Item nao encontrado");
 		}
 		return buscaItem(nomeItem).toString();
 	}
 	
-	public String getInfoItem(String nomeItem, String atributo) {
+	public String getInfoItem(String nomeItem, String atributo) throws ItemNaoEncontradoException {
 		String info = "";
 		Item item = buscaItem(nomeItem);
 		if (atributo.trim().equalsIgnoreCase("preco")){
@@ -147,14 +150,14 @@ public class Usuario {
 		return info;
 	}
 
-	private Item buscaItem(String nomeItem) {
+	private Item buscaItem(String nomeItem) throws ItemNaoEncontradoException {
 
 		for (Item item : itens) {
 			if (item.getNomeDoItem().equals(nomeItem)) {
 				return item;
 			}
 		}
-		throw new IllegalArgumentException("Item nao encontrado");
+		throw new ItemNaoEncontradoException();
 	}
 	
 
@@ -223,6 +226,11 @@ public class Usuario {
 		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
+	}
+
+	public List<Item> getItens() {
+		List<Item> listaItens = new ArrayList<>(itens);
+			return listaItens;
 	}
 
 }
