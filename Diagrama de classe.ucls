@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.0" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+<class-diagram version="1.2.0" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="FacadeEMain.Validacoes" project="ProjetoLP2" 
     file="/ProjetoLP2/src/FacadeEMain/Validacoes.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="437" width="378" x="911" y="694"/>    
+    <position height="437" width="378" x="800" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="item.CrudItem" project="ProjetoLP2" file="/ProjetoLP2/src/item/CrudItem.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="673" y="1781"/>    
+    <position height="167" width="320" x="117" y="973"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="item.BluRay" project="ProjetoLP2" file="/ProjetoLP2/src/item/BluRay.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="185" width="177" x="1298" y="3205"/>    
+    <position height="185" width="177" x="503" y="2638"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="FacadeEMain.Sistema" project="ProjetoLP2" 
     file="/ProjetoLP2/src/FacadeEMain/Sistema.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1790" y="1358"/>    
+    <position height="419" width="410" x="297" y="514"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <enumeration id="5" language="java" name="item.Plataforma" project="ProjetoLP2" 
     file="/ProjetoLP2/src/item/Plataforma.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="275" width="169" x="1884" y="3448"/>    
+    <position height="275" width="169" x="36" y="2881"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </enumeration>  
   <class id="6" language="java" name="usuario.CrudUsuario" project="ProjetoLP2" 
     file="/ProjetoLP2/src/usuario/CrudUsuario.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1907" y="1817"/>    
+    <position height="473" width="338" x="477" y="973"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="item.Serie" project="ProjetoLP2" file="/ProjetoLP2/src/item/Serie.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="329" width="243" x="1113" y="3448"/>    
+    <position height="329" width="243" x="498" y="2881"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="item.Item" project="ProjetoLP2" file="/ProjetoLP2/src/item/Item.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1595" y="2915"/>    
+    <position height="491" width="169" x="358" y="2107"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   </class>  
   <class id="9" language="java" name="item.JogoDeTabuleiro" project="ProjetoLP2" 
     file="/ProjetoLP2/src/item/JogoDeTabuleiro.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="203" width="187" x="1515" y="3205"/>    
+    <position height="203" width="187" x="276" y="2638"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -84,181 +84,214 @@
   </class>  
   <class id="10" language="java" name="item.Show" project="ProjetoLP2" file="/ProjetoLP2/src/item/Show.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="203" width="214" x="859" y="3448"/>    
+    <position height="203" width="214" x="781" y="2881"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="FacadeEMain.Main" project="ProjetoLP2" 
+  <class id="11" language="java" name="emprestimo.Emprestimo" project="ProjetoLP2" 
+    file="/ProjetoLP2/src/emprestimo/Emprestimo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="347" width="375" x="855" y="973"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="FacadeEMain.Main" project="ProjetoLP2" 
     file="/ProjetoLP2/src/FacadeEMain/Main.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="95" width="114" x="1382" y="694"/>    
+    <position height="95" width="114" x="90" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="12" language="java" name="item.Classificacao" project="ProjetoLP2" 
+  <enumeration id="13" language="java" name="item.Classificacao" project="ProjetoLP2" 
     file="/ProjetoLP2/src/item/Classificacao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="221" width="195" x="1649" y="3448"/>    
+    <position height="221" width="195" x="1035" y="2881"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <enumeration id="13" language="java" name="item.Genero" project="ProjetoLP2" file="/ProjetoLP2/src/item/Genero.java" 
+  <enumeration id="14" language="java" name="item.Genero" project="ProjetoLP2" file="/ProjetoLP2/src/item/Genero.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="383" width="159" x="1254" y="3817"/>    
+    <position height="383" width="159" x="372" y="3250"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="14" language="java" name="item.JogoEletronico" project="ProjetoLP2" 
+  <class id="15" language="java" name="item.JogoEletronico" project="ProjetoLP2" 
     file="/ProjetoLP2/src/item/JogoEletronico.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="167" width="200" x="1742" y="3205"/>    
+    <position height="167" width="200" x="36" y="2638"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="usuario.Usuario" project="ProjetoLP2" file="/ProjetoLP2/src/usuario/Usuario.java" 
+  <class id="16" language="java" name="usuario.Usuario" project="ProjetoLP2" file="/ProjetoLP2/src/usuario/Usuario.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1749" y="2357"/>    
+    <position height="581" width="222" x="855" y="1486"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="item.Filme" project="ProjetoLP2" file="/ProjetoLP2/src/item/Filme.java" 
+  <class id="17" language="java" name="item.Filme" project="ProjetoLP2" file="/ProjetoLP2/src/item/Filme.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="185" width="213" x="1396" y="3448"/>    
+    <position height="185" width="213" x="245" y="2881"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="FacadeEMain.Facade" project="ProjetoLP2" 
+  <class id="18" language="java" name="FacadeEMain.Facade" project="ProjetoLP2" 
     file="/ProjetoLP2/src/FacadeEMain/Facade.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="419" width="410" x="1589" y="694"/>    
+    <position height="437" width="410" x="297" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="18">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="19" name="usuarios"/>      
-      <multiplicity id="20" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="21">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="22" name="genero"/>      
-      <multiplicity id="23" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="24">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <association id="25">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="26" name="classificacao"/>      
-      <multiplicity id="27" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="28">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <association id="29">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="30" name="sistema"/>      
-      <multiplicity id="31" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="32">    
-    <bendpoint x="1467" y="2085"/>    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="33" name="itensDoSistema"/>      
-      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="35">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <generalization id="36">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="8"/>  
-  </generalization>  
-  <generalization id="37">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <association id="38">    
-    <end type="SOURCE" refId="15" navigable="false">      
-      <attribute id="39" name="itens"/>      
-      <multiplicity id="40" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="41">    
+  <association id="19">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="42" name="crudItem"/>      
-      <multiplicity id="43" minimum="0" maximum="1"/>    
+      <attribute id="20" name="crudItem"/>      
+      <multiplicity id="21" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="44">    
-    <end type="SOURCE" refId="16"/>    
+  <association id="22">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="23" name="requerente"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="26">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="27" name="dono"/>      
+      <multiplicity id="28" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="30" name="genero"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="33">    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <association id="45">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="46" name="crudUsuario"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
+  <generalization id="34">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <association id="35">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="36" name="sistema"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="48">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="49" name="plataforma"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="51">    
-    <end type="SOURCE" refId="16" navigable="false">      
-      <attribute id="52" name="genero"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
+  <association id="38">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="39" name="classificacao"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="13" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="42" name="plataforma"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="44">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="45" name="genero"/>      
+      <multiplicity id="46" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="48" name="itens"/>      
+      <multiplicity id="49" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <bendpoint x="247" y="1486"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="51" name="itensDoSistema"/>      
+      <multiplicity id="52" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="54" name="emprestimos"/>      
+      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="57" name="crudUsuario"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="60" name="usuarios"/>      
+      <multiplicity id="61" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="62">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="63">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

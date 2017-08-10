@@ -61,44 +61,4 @@ public class CrudItem {
 		
 		return serie;
 	}
-	
-	
-
-	/*public static Item atualizaItem(Item item, String atributo, String valor) {
-	
-		if (atributo.trim().equalsIgnoreCase("nome")) {
-			item.setNomeItem(valor);
-		}
-		else if (atributo.trim().equalsIgnoreCase("preco")) {		
-			item.setPreco(Double.parseDouble(valor));
-		}
-		else if (atributo.trim().equalsIgnoreCase("duracao")){
-			item.setDuracao(Integer.parseInt(valor));
-		}
-		else if (atributo.trim().equalsIgnoreCase("classificacao")) {
-			item.setClassificacao(valor);
-		}
-		else if (atributo.trim().equalsIgnoreCase("genero")) {
-			item.setGenero(valor);
-		}
-		else if (atributo.trim().equalsIgnoreCase("anoLancamento")) {
-			item.setAnoLancamento(Integer.parseInt(valor));
-		}
-		else if (atributo.trim().equalsIgnoreCase("artista")) {
-			item.setNomeArtista(valor);
-		}
-		else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
-			item.setNumeroFaixas(Integer.parseInt(valor));
-		}
-		else if (atributo.trim().equalsIgnoreCase("descricao")) {
-			item.setDescricao(valor);
-		}
-		else if (atributo.trim().equalsIgnoreCase("temporada")) {
-			item.setTemporada(Integer.parseInt(valor));
-		}
-		else if (atributo.trim().equalsIgnoreCase("plataforma")) {
-			item.setPlataforma(valor);
-		}
-	}*/
-	
 }

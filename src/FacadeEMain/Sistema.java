@@ -287,12 +287,22 @@ public class Sistema {
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException {
-	    
-		LocalDate data = LocalDate.parse(dataEmprestimo, formatter);
-
 	    Emprestimo emprestimo =  new Emprestimo(crudUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
-	    		nomeItem, data, periodo);
+	    		nomeItem, dataEmprestimo, periodo);
 		crudUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente,
 				telefoneRequerente, emprestimo);
 	}
+
+	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
+			String nomeItem, String dataEmprestimo, String dataDevolucao) {
+		
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 }

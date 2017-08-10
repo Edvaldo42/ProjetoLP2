@@ -12,11 +12,11 @@ public class Emprestimo {
 	private Usuario dono;
 	private Usuario requerente;
 	private String itemEmprestado;
-	private LocalDate dataEmprestimo;
+	private String dataEmprestimo;
 	private int periodo;
 	
 	public Emprestimo(CrudUsuario crudUsuario, String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
-			String nomeItem, LocalDate data, int periodo) throws ItemNaoEncontradoException {
+			String nomeItem, String data, int periodo) throws ItemNaoEncontradoException {
 		this.dono = crudUsuario.buscaUsuario(nomeDono, telefoneDono);
 		this.requerente = crudUsuario.buscaUsuario(nomeRequerente, telefoneRequerente);
 		this.itemEmprestado = nomeItem;
@@ -48,11 +48,11 @@ public class Emprestimo {
 		this.itemEmprestado = itemEmprestado;
 	}
 
-	public LocalDate getDataEmprestimo() {
+	public String getDataEmprestimo() {
 		return dataEmprestimo;
 	}
 
-	public void setDataEmprestimo(LocalDate dataEmprestimo) {
+	public void setDataEmprestimo(String dataEmprestimo) {
 		this.dataEmprestimo = dataEmprestimo;
 	}
 
