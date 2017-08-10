@@ -1,9 +1,15 @@
 package usuario;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import FacadeEMain.Validacoes;
+import comparator.ordemAlfabetica;
+import comparator.valor;
 import exception.AtributoInvalidoException;
 import exception.ItemNaoEncontradoException;
 import exception.PecaPerdidaException;
@@ -15,11 +21,12 @@ import item.Item;
 public class CrudUsuario {
 	
 	private Set<Usuario> usuarios;
+	private Comparator<Item> tipoDeOrdenacao;
 	
 	public CrudUsuario() {
 		usuarios = new HashSet<>();
 	}
-
+	
 	public void cadastraUsuario(String nome, String telefone, String email) throws UsuarioCadastradoException, StringInvalidaException {
 		Validacoes.validaCadastrarUsuario(nome, telefone, email);
 
@@ -190,7 +197,58 @@ public class CrudUsuario {
 		
 		return user.detalhesItem(nomeItem);
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 
+	private List<Item> getItens() {
+		List<Item> retornoItens = new ArrayList<>();
+		for (Usuario usuario : getUsuarios()) {
+			for (Item item : usuario.getItens()) {
+				retornoItens.add(item);
+			}
+		}
+
+		return retornoItens;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+
+	public String listarItensOrdenadosPorNome() {
+		tipoDeOrdenacao = new ordemAlfabetica();
+		List<Item> itens = getItens();
+		Collections.sort(itens, tipoDeOrdenacao);
+		String retorno = "";
+		for (Item item : itens) {
+			retorno += item.toString() + "|";
+		}
+
+		return retorno;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+
+	public String listarItensOrdenadosPorValor() {
+		tipoDeOrdenacao = new valor();
+		List<Item> itens = getItens();
+		Collections.sort(itens, tipoDeOrdenacao);
+		String retorno = "";
+		for (Item item : itens) {
+			retorno += item.toString() + "|";
+		}
+
+		return retorno;
+	}
+
+	
 	private Usuario buscaUsuario(String nome, String telefone) {
 		Usuario user = null;
 		for (Usuario usuario : usuarios) {
@@ -200,6 +258,12 @@ public class CrudUsuario {
 		}
 
 		return user;
+	}
+
+
+
+	public Set<Usuario> getUsuarios() {
+		return usuarios;
 	}
 	
 }

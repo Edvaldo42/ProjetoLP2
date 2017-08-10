@@ -1,21 +1,12 @@
 package usuario;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import exception.ItemNaoEncontradoException;
-import item.Filme;
 import item.Item;
 import item.JogoDeTabuleiro;
-import item.JogoEletronico;
 import item.Serie;
-import item.Show;
 
 public class Usuario {
 
@@ -23,8 +14,6 @@ public class Usuario {
 	private String email;
 	private String telefone;
 	private Set<Item> itens;
-	private Locale locale = new Locale("en", "US");
-	private NumberFormat nf = NumberFormat.getInstance(locale);
 
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
@@ -32,18 +21,35 @@ public class Usuario {
 		this.telefone = telefone;
 		itens = new HashSet<>();
 	}
+	
+	/**
+	 * 
+	 * @param item
+	 */
 
 	public void cadastraEletronico(Item item) {
 		if (!verificaItem(item)) {
 			itens.add(item);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param item
+	 */
 
 	public void cadastraJogoTabuleiro(Item item) {
 		if (!verificaItem(item)) {
 			itens.add(item);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param nomeItem
+	 * @param nomePeca
+	 * @throws ItemNaoEncontradoException
+	 */
 
 	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeItem);
@@ -51,24 +57,46 @@ public class Usuario {
 			((JogoDeTabuleiro) itemBuscado).adicionaPecaPerdida(nomePeca);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param item
+	 */
 
 	public void cadastrarBluRayFilme(Item item) {
 		if (!verificaItem(item)) {
 			itens.add(item);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param item
+	 */
 
 	public void cadastrarBluRayShow(Item item) {
 		if (!verificaItem(item)) {
 			itens.add(item);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param item
+	 */
 
 	public void cadastrarBluRaySerie(Item item) {
 		if (!verificaItem(item)) {
 			itens.add(item);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param nomeBlurayTemporada
+	 * @param duracao
+	 * @throws ItemNaoEncontradoException
+	 */
 
 	public void adicionarBluRay(String nomeBlurayTemporada, int duracao) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeBlurayTemporada);
@@ -79,6 +107,12 @@ public class Usuario {
 			throw new IllegalArgumentException("Esse item nao e uma serie");
 		}
 	}
+	
+	/**
+	 * 
+	 * @param nomeItem
+	 * @throws ItemNaoEncontradoException
+	 */
 
 	public void removerItem(String nomeItem) throws ItemNaoEncontradoException {
 		Item itemARemover = buscaItem(nomeItem);
@@ -87,6 +121,14 @@ public class Usuario {
 			itens.remove(itemARemover);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param nomeItem
+	 * @param atributo
+	 * @param valor
+	 * @throws ItemNaoEncontradoException
+	 */
 
 	public void atualizarItem(String nomeItem, String atributo, String valor) throws ItemNaoEncontradoException {
 		Item item = buscaItem(nomeItem);
@@ -127,10 +169,25 @@ public class Usuario {
 			throw new IllegalArgumentException("Item nao cadastrado");
 		}
 	}
+	
+	/**
+	 * 
+	 * @param nomeItem
+	 * @return
+	 * @throws ItemNaoEncontradoException
+	 */
 
 	public String detalhesItem(String nomeItem) throws ItemNaoEncontradoException {
 			return buscaItem(nomeItem).toString();
 	}
+	
+	/**
+	 * 
+	 * @param nomeItem
+	 * @param atributo
+	 * @return
+	 * @throws ItemNaoEncontradoException
+	 */
 	
 	public String getInfoItem(String nomeItem, String atributo) throws ItemNaoEncontradoException {
 		String info = "";
@@ -148,6 +205,13 @@ public class Usuario {
 		
 		return info;
 	}
+	
+	/**
+	 * 
+	 * @param nomeItem
+	 * @return
+	 * @throws ItemNaoEncontradoException
+	 */
 
 	private Item buscaItem(String nomeItem) throws ItemNaoEncontradoException {
 
@@ -159,6 +223,12 @@ public class Usuario {
 		throw new ItemNaoEncontradoException();
 	}
 	
+	/**
+	 * 
+	 * @param item
+	 * @return
+	 */
+	
 
 	private boolean verificaItem(Item item) {
 		if (itens.contains(item)) {
@@ -166,6 +236,7 @@ public class Usuario {
 		}
 		return false;
 	}
+
 
 	public String getEmail() {
 		return email;
@@ -191,9 +262,9 @@ public class Usuario {
 		this.telefone = telefone;
 	}
 
-	public List<Item> getItens() {
-		List<Item> listaItens = new ArrayList<>(itens);
-		return listaItens;
+	public Set<Item> getItens() {
+		return this.itens;
+		
 	}
 	
 	
