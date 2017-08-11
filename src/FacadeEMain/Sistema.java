@@ -1,7 +1,6 @@
 package FacadeEMain;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+//import java.time.format.DateTimeFormatter;
 
 import emprestimo.Emprestimo;
 import exception.ItemNaoEncontradoException;
@@ -15,7 +14,7 @@ public class Sistema {
 
 	private CrudUsuario crudUsuario;
 	private CrudItem crudItem;
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	//private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 
 	public Sistema() {
@@ -84,6 +83,7 @@ public class Sistema {
 	 * @param preco
 	 * @param plataforma
 	 * @throws UsuarioInvalidoException
+	 * @throws UsuarioCadastradoException 
 	 */
 
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma)
@@ -294,9 +294,10 @@ public class Sistema {
 	}
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
-			String nomeItem, String dataEmprestimo, String dataDevolucao) {
+			String nomeItem, String dataEmprestimo, String dataDevolucao) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		
-	
+		crudUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
+		
 	}
 	
 	

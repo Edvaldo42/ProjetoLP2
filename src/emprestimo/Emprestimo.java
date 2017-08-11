@@ -14,6 +14,7 @@ public class Emprestimo {
 	private String itemEmprestado;
 	private String dataEmprestimo;
 	private int periodo;
+	private String dataDevolucao;
 	
 	public Emprestimo(CrudUsuario crudUsuario, String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String data, int periodo) throws ItemNaoEncontradoException {
@@ -22,7 +23,28 @@ public class Emprestimo {
 		this.itemEmprestado = nomeItem;
 		this.dataEmprestimo = data;
 		this.periodo = periodo;
+		this.dataDevolucao = "";
 	}
+	
+
+
+	/**
+	 * @return the dataDevolucao
+	 */
+	public String getDataDevolucao() {
+		return dataDevolucao;
+	}
+
+
+
+	/**
+	 * @param dataDevolucao the dataDevolucao to set
+	 */
+	public void setDataDevolucao(String dataDevolucao) {
+		this.dataDevolucao = dataDevolucao;
+	}
+
+
 
 	public Usuario getDono() {
 		return dono;

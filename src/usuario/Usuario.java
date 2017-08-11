@@ -25,17 +25,26 @@ public class Usuario {
 		emprestimos = new HashSet<>();
 	}
 	
-	/**
-	 * 
-	 * @param item
-	 */
 
-	public void cadastraEletronico(Item item) {
-		if (!verificaItem(item)) {
-			itens.add(item);
+	public Emprestimo buscaEmprestimo(String nomeItem, String data, Usuario requerente){
+		Emprestimo emprestimoBuscado = null;
+		for (Emprestimo emprestimo : emprestimos) {
+			String itemEmprestado = emprestimo.getItemEmprestado();
+			String dataEmprestimo = emprestimo.getDataEmprestimo();
+			Usuario requerenteEmprestimo = emprestimo.getRequerente();
+			if (itemEmprestado.equals(nomeItem) && dataEmprestimo.equals(data) && requerenteEmprestimo.equals(requerente)){
+				emprestimoBuscado = emprestimo; 
+			}
 		}
+		return emprestimoBuscado;
 	}
-	
+	/**
+	 * @return the emprestimos
+	 */
+	public Set<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
 	/**
 	 * 
 	 * @param item
@@ -240,13 +249,31 @@ public class Usuario {
 		return false;
 	}
 
-	public void alteraStatusItem(String nomeItem) throws ItemNaoEncontradoException {
+	public void emprestaItem(String nomeItem) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeItem);
 		if (itemBuscado.isEmprestado()) {
 			throw new IllegalArgumentException("Item emprestado no momento");
 		}
 		else {
 			itemBuscado.setEmprestado(true);
+		}
+	}
+	
+	public void devolveItem(Usuario dono, String nomeItem, String dataDevolucao) throws ItemNaoEncontradoException {
+		Item itemBuscado = 	dono.buscaItem(nomeItem);	
+		if (!itemBuscado.isEmprestado()) {
+		}
+		itemBuscado.setEmprestado(false);
+	}
+	
+	/**
+	 * 
+	 * @param item
+	 */
+
+	public void cadastraEletronico(Item item) {
+		if (!verificaItem(item)) {
+			itens.add(item);
 		}
 	}
 	

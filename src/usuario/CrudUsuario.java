@@ -276,9 +276,25 @@ public class CrudUsuario {
 			throw new UsuarioInvalidoException();
 		}
 		
+		dono.emprestaItem(emprestimo.getItemEmprestado());
 		dono.registrarEmprestimo(emprestimo);
 		requerente.registrarEmprestimo(emprestimo);
-		dono.alteraStatusItem(emprestimo.getItemEmprestado());
+	}
+
+	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
+			String nomeItem, String dataEmprestimo, String dataDevolucao) throws UsuarioInvalidoException, ItemNaoEncontradoException {
+
+		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
+		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
+		
+		if (dono == null || requerente == null) {
+			throw new UsuarioInvalidoException();
+		}
+		
+		if (dono.buscaEmprestimo(nomeItem, dataEmprestimo, requerente) == null) {
+			throw new IllegalArgumentException("Emprestimo nao encontrado");		
+		}
+		requerente.devolveItem(dono, nomeItem, dataDevolucao);		
 	}
 
 	
