@@ -256,6 +256,7 @@ public class Usuario {
 		}
 		else {
 			itemBuscado.setEmprestado(true);
+			itemBuscado.addVezEmprestada();
 		}
 	}
 	
@@ -271,10 +272,16 @@ public class Usuario {
 	 * @param item
 	 */
 
-	public void cadastraEletronico(Item item) {
+//	public void cadastraEletronico(Item item) {
+//		if (!verificaItem(item)) {
+//			itens.add(item);
+//		}
+//	}
+	
+	public void cadastrarItem(Item item) {
 		if (!verificaItem(item)) {
 			itens.add(item);
-		}
+		}		
 	}
 	
 	public String getEmail() {
@@ -345,5 +352,4 @@ public class Usuario {
 	public void registrarEmprestimo(Emprestimo emprestimo) {
 		emprestimos.add(emprestimo);
 	}
-
 }

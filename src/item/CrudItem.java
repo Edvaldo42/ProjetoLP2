@@ -45,8 +45,8 @@ public class CrudItem {
 
 	public static Item criaBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas, String artista,
 			String classificacao) {
-		Item show = new Show(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
-		return show;
+		Item item = new Show(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
+		return item;
 	}
 
 	public static Item criaBluRaySerie(String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {

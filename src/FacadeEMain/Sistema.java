@@ -89,7 +89,7 @@ public class Sistema {
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma)
 			throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarEletronico(nomeItem, preco, plataforma.toUpperCase());
-		crudUsuario.cadastrarEletronico(nome, telefone,
+		crudUsuario.cadastrarItem(nome, telefone,
 				crudItem.criaEletronico(nomeItem, preco, plataforma.toUpperCase()));
 	}
 
@@ -105,7 +105,7 @@ public class Sistema {
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco)
 			throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarJogoTabuleiro(nomeItem, preco);
-		crudUsuario.cadastrarJogoTabuleiro(nome, telefone, crudItem.criaJogoTabuleiro(nomeItem, preco));
+		crudUsuario.cadastrarItem(nome, telefone, crudItem.criaJogoTabuleiro(nomeItem, preco));
 	}
 
 	/**
@@ -132,12 +132,13 @@ public class Sistema {
 	 * @param genero
 	 * @param classificacao
 	 * @param anoLancamento
+	 * @throws UsuarioInvalidoException 
 	 */
 
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao,
-			String genero, String classificacao, int anoLancamento) {
+			String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
-		crudUsuario.cadastrarBluRayFilme(nome, telefone,
+		crudUsuario.cadastrarItem(nome, telefone,
 				crudItem.criaBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento));
 	}
 
@@ -157,7 +158,7 @@ public class Sistema {
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
 			int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
-		crudUsuario.cadastrarBluRayShow(nome, telefone,
+		crudUsuario.cadastrarItem(nome, telefone,
 				crudItem.criaBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao));
 	}
 
@@ -178,7 +179,7 @@ public class Sistema {
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
 			int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
-		crudUsuario.cadastrarBluRaySerie(nome, telefone,
+		crudUsuario.cadastrarItem(nome, telefone,
 				crudItem.criaBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada));
 	}
 

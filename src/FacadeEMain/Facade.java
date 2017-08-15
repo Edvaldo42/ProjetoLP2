@@ -114,9 +114,10 @@ public class Facade {
 	 * @param genero
 	 * @param classificacao
 	 * @param anoLancamento
+	 * @throws UsuarioInvalidoException 
 	 */
 	
-	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) {
+	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException {
 		sistema.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 	}
 	

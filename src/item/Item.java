@@ -1,6 +1,5 @@
 package item;
 
-import java.text.DecimalFormat;
 import java.util.Locale;
 
 public abstract class Item {
@@ -8,11 +7,13 @@ public abstract class Item {
 	private String nomeItem;
 	private double preco;
 	private boolean emprestado;
-
+	private int quantidadeEmprestado;
+	
 	public Item(String nomeItem, double preco) {
 		this.nomeItem = nomeItem;
 		this.preco = preco;
 		emprestado = false;
+		quantidadeEmprestado = 0;
 	}
 
 	public String getPecasPerdidas() {
@@ -115,6 +116,10 @@ public abstract class Item {
 		} else if (!nomeItem.equals(other.nomeItem))
 			return false;
 		return true;
+	}
+
+	public void addVezEmprestada() {
+		this.quantidadeEmprestado++;
 	}
 
 }
