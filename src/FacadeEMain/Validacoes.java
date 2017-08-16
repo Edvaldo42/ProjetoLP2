@@ -9,6 +9,10 @@ import exception.NomeInvalidoException;
 import exception.StringInvalidaException;
 import exception.TelefoneInvalidoException;
 
+/**
+ * 
+ *
+ */
 public class Validacoes {
 
 	private static List<String> plataformas = new ArrayList<>(
@@ -21,6 +25,13 @@ public class Validacoes {
 			Arrays.asList("ACAO", "ANIMACAO", "AVENTURA", "COMEDIA", "DOCUMENTARIO", "DRAMA", "EROTICO", "FAROESTE",
 					"FICCAO", "MUSICAL", "POLICIAL", "ROMANCE", "SUSPENSE", "TERROR"));
 
+	/**
+	 * Valida o cadastro de um usuario
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @param email O email do usuario
+	 * @throws StringInvalidaException Caso alguma string seja nula ou vazia
+	 */
 	public static void validaCadastrarUsuario(String nome, String telefone, String email)
 			throws StringInvalidaException {
 		String msg = "Erro ao cadastrar usuario: ";
@@ -36,6 +47,12 @@ public class Validacoes {
 		}
 	}
 
+	/**
+	 * Valida a atualizacao de um usuario
+	 * @param atributo O atributo a ser mudado 
+	 * @param valor O novo valor do atributo
+	 * @throws StringInvalidaException Caso alguma string seja nula ou vazia
+	 */
 	public static void validaAtualizarUsuario(String atributo, String valor) throws StringInvalidaException {
 		String msg = "Erro ao atualizar usuario: ";
 
@@ -58,8 +75,15 @@ public class Validacoes {
 		}
 
 	}
-
-	public static void validaCadastrarEletronico(String nomeItem, double preco, String plataforma) {
+	
+	/**
+	 * Valida o cadastro de jogos eletronicos
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 * @param plataforma A plataforma do jogo
+	 * @throws IllegalArgumentException Caso a plataforma seja nula ou vazia
+	 */
+	public static void validaCadastrarEletronico(String nomeItem, double preco, String plataforma) throws IllegalArgumentException {
 		String msg = "Erro ao cadastrar Jogo Eletronico: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -69,22 +93,32 @@ public class Validacoes {
 		}
 	}
 
+	/**
+	 * Valida a plataforma 
+	 * @param plataforma A plataforma do jogo 
+	 * @return True se a plataforma existe e False caso contrario
+	 */
 	public static boolean validaPlataforma(String plataforma) {
-		boolean existe = false;
-
-		if (plataformas.contains(plataforma.toUpperCase())) {
-			existe = true;
-		}
-
-		return existe;
+		return plataformas.contains(plataforma.toUpperCase());
 	}
 
+	/**
+	 * Valida o cadastro de um jogo de tabuleiro
+	 * @param nomeItem O nome do jogo
+	 * @param preco O preco do jogo
+	 */
 	public static void validaCadastrarJogoTabuleiro(String nomeItem, double preco) {
 		String msg = "Erro ao cadastrar Jogo de Tabuleiro: ";
 		validaItem(nomeItem, preco, msg);
 	}
 
-	public static void validaAdicionarPecaPerdida(String nomeItem, String nomePeca) {
+	/**
+	 * Valida a acao de add uma peca perdida a um jogo
+	 * @param nomeItem O nome do jogo
+	 * @param nomePeca O nome da peca perdida
+	 * @throws IllegalArgumentException Caso o nome do item ou da peca seja nulo ou vazio
+	 */
+	public static void validaAdicionarPecaPerdida(String nomeItem, String nomePeca) throws IllegalArgumentException {
 		String msg = "Erro ao adicionar Peca Perdida: ";
 
 		if (nomeItem == null || nomeItem.trim().equals("")) {
@@ -95,8 +129,18 @@ public class Validacoes {
 		}
 	}
 
+	/**
+	 * Valida o cadastro de um filme BluRay
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 * @param duracao A duracao do filme
+	 * @param genero O genero do filme
+	 * @param classificacao A classificacao etaria do filme
+	 * @param anoLancamento O ano de lancamento do filme
+	 * @throws IllegalArgumentException Caso o genero seja nulo ou vazio ou caso o ano de lancamento seja invalido
+	 */
 	public static void validaCadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero,
-			String classificacao, int anoLancamento) {
+			String classificacao, int anoLancamento) throws IllegalArgumentException {
 		String msg = "Erro ao cadastrar BluRay de Filme: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -110,8 +154,18 @@ public class Validacoes {
 		}
 	}
 
+	/**
+	 * Valida o cadastro de um show BluRay
+	 * @param nomeItem O nome do show
+	 * @param preco O preco do item
+	 * @param duracao A duracao do show
+	 * @param numeroFaixas O numero de faixas do show
+	 * @param artista O artista do show
+	 * @param classificacao A classificacao etaria do show
+	 * @throws IllegalArgumentException Caso o nome seja nulo ou vazio ou o numero de faixas seja invalido
+	 */
 	public static void validaCadastrarBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas,
-			String artista, String classificacao) {
+			String artista, String classificacao) throws IllegalArgumentException {
 		String msg = "Erro ao cadastrar BluRay de Show: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -125,8 +179,19 @@ public class Validacoes {
 		}
 	}
 
+	/**
+	 * Valida o cadastro de uma serie BluRay
+	 * @param nomeItem O nome da serie
+	 * @param preco O preco do BluRay
+	 * @param descricao A descricao da serie 
+	 * @param duracao A duracao da temporada 
+	 * @param classificacao A classificacao etaria da serie
+	 * @param genero O genero da serie
+	 * @param temporada A temporada da serie
+	 * @throws IllegalArgumentException Caso algum parametro seja nulo ou vazio ou a temporada seja invalida
+	 */
 	public static void validaCadastrarBluRaySerie(String nomeItem, double preco, String descricao, int duracao,
-			String classificacao, String genero, int temporada) {
+			String classificacao, String genero, int temporada) throws IllegalArgumentException {
 		String msg = "Erro ao cadastrar BluRay de Serie: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -143,17 +208,22 @@ public class Validacoes {
 		}
 	}
 
+	/**
+	 * Valida o genero de um BluRay
+	 * @param genero O genero do item
+	 * @return true se o genero existe e false caso contrario
+	 */
 	public static boolean validaGenero(String genero) {
-		boolean existe = false;
-
-		if (generos.contains(genero.toUpperCase())) {
-			existe = true;
-		}
-
-		return existe;
+		return generos.contains(genero.toUpperCase());
 	}
 
-	public static void validaAdicionarBluRay(String nomeBlurayTemporada, int duracao) {
+	/**
+	 * Valida a acao de adicionar BluRay
+	 * @param nomeBlurayTemporada O nome da temporada
+	 * @param duracao A duracao da temporada
+	 * @throws IllegalArgumentException Caso o nome ou duracao seja invalida
+	 */
+	public static void validaAdicionarBluRay(String nomeBlurayTemporada, int duracao) throws IllegalArgumentException {
 		String msg = "Erro ao adicionar BluRay: ";
 
 		if (nomeBlurayTemporada == null || nomeBlurayTemporada.trim().equals("")) {
@@ -164,7 +234,13 @@ public class Validacoes {
 		}
 	}
 
-	public static void validaAtualizarItem(String atributo, String valor) {
+	/**
+	 * Valida uma atualizacao de item
+	 * @param atributo O atributo que sera atualizado
+	 * @param valor O novo valor do atributo
+	 * @throws IllegalArgumentException Caso algum parametro seja invalido
+	 */
+	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException {
 		String msg = "Erro na atualizacao de item: ";
 
 		if (atributo.trim().equalsIgnoreCase("nome")) {
@@ -216,7 +292,14 @@ public class Validacoes {
 		}
 	}
 
-	private static void validaBluRay(int duracao, String classificacao, String msg) {
+	/**
+	 * Valida um BluRay
+	 * @param duracao A duracao do BluRay
+	 * @param classificacao A classificacao etaria do BluRay
+	 * @param msg A msg que sera exibida na excecao
+	 * @throws IllegalArgumentException Caso a duracao ou classificacao seja invalida
+	 */
+	private static void validaBluRay(int duracao, String classificacao, String msg) throws IllegalArgumentException {
 
 		if (duracao < 0) {
 			throw new IllegalArgumentException(msg + "Duracao nao pode ser menor do que 0");
@@ -230,7 +313,14 @@ public class Validacoes {
 
 	}
 
-	private static void validaItem(String nomeItem, double preco, String msg) {
+	/**
+	 * Valida um item
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 * @param msg A msg que sera exibida na excecao
+	 * @throws IllegalArgumentException Caso o nome seja nulo ou vazio ou caso o preco seja invalido
+	 */
+	private static void validaItem(String nomeItem, double preco, String msg) throws IllegalArgumentException {
 		if (nomeItem == null || nomeItem.trim().equals("")) {
 			throw new IllegalArgumentException("Nome do item nao pode ser nulo ou vazio");
 		}
@@ -239,7 +329,13 @@ public class Validacoes {
 		}
 	}
 
-	private static boolean validaNome(String nome) {
+	/**
+	 * Valida o nome de um usuario
+	 * @param nome O nome do usuario
+	 * @return true se o nome eh valido
+	 * @throws IllegalArgumentException Caso o nome seja nulo ou vazio
+	 */
+	private static boolean validaNome(String nome) throws IllegalArgumentException {
 		if (nome == null) {
 			throw new IllegalArgumentException("Nome nao pode ser null.");
 		}
@@ -249,7 +345,13 @@ public class Validacoes {
 		return true;
 	}
 
-	private static boolean validaTelefone(String telefone) {
+	/**
+	 * Valida o telefone de um usuario
+	 * @param telefone O telefone do usuario
+	 * @return true se o telefone eh valido e false caso contrario
+	 * @throws IllegalArgumentException Caso o telefone seja nulo ou vazio
+	 */
+	private static boolean validaTelefone(String telefone) throws IllegalArgumentException {
 		int hifen = 0;
 		if (telefone == null) {
 			throw new IllegalArgumentException("Telefone nao pode ser null.");
@@ -283,14 +385,20 @@ public class Validacoes {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * Valida o email do usuario
+	 * @param email O email do usuario
+	 * @return true se o email eh valido e false caso contrario
+	 */
 	private static boolean validaEmail(String email) {
 		int arrobas = 0;
 		int pontos = 0;
 
 		if (email.charAt(0) == '@' || email.charAt(email.length() - 1) == '@'
-				|| email.charAt(email.length() - 1) == '.')
+				|| email.charAt(email.length() - 1) == '.') {
 			return false;
+		}
 		for (int i = 0; i < email.length() - 1; i++) {
 			if (email.charAt(i) == ' ') {
 				return false;
@@ -300,13 +408,15 @@ public class Validacoes {
 					return false;
 			} else if (email.charAt(i) == '.' && arrobas == 1) {
 				pontos++;
-				if (email.charAt(i + 1) == '.')
+				if (email.charAt(i + 1) == '.') {
 					return false;
+				}
 			}
 
 		}
-		if (arrobas != 1 || pontos < 1)
+		if (arrobas != 1 || pontos < 1) {
 			return false;
+		}
 
 		return true;
 	}

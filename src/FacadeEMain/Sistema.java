@@ -10,82 +10,89 @@ import exception.UsuarioInvalidoException;
 import item.CrudItem;
 import usuario.CrudUsuario;
 
+/**
+ * 
+ *
+ */
 public class Sistema {
 
 	private CrudUsuario crudUsuario;
 	private CrudItem crudItem;
 	//private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
-
+	/**
+	 * Construtor do Sistema
+	 */
 	public Sistema() {
 		this.crudUsuario = new CrudUsuario();
 		this.crudItem = new CrudItem();
 
 	}
 
-	/**
+	/** Envia para o CRUD do usuario as informacoes de um usuario que devera ser cadastrado no sistema 
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param email
-	 * @throws UsuarioCadastradoException
-	 * @throws StringInvalidaException
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @param email O email do usuario
+	 * @throws UsuarioCadastradoException Caso o usuario ja esteja cadastrado
+	 * @throws StringInvalidaException Caso alguma string seja invalida
 	 */
-
 	public void cadastrarUsuario(String nome, String telefone, String email)
 			throws UsuarioCadastradoException, StringInvalidaException {
 		crudUsuario.cadastraUsuario(nome, telefone, email);
 	}
 
 	/**
+	 * Remove um usuario do Sistema
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @throws UsuarioInvalidoException
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
-
 	public void removerUsuario(String nome, String telefone) throws UsuarioInvalidoException {
 		crudUsuario.removerUsuario(nome, telefone);
 	}
 
 	/**
+	 * Atualiza um usuario no Sistema
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param atributo
-	 * @param valor
-	 * @throws StringInvalidaException
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @param atributo O atributo que sera mudado
+	 * @param valor O novo valor do atributo
+	 * @throws StringInvalidaException Caso alguma string seja invalida
 	 */
-
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor)
 			throws StringInvalidaException {
 		crudUsuario.atualizarUsuario(nome, telefone, atributo, valor);
 	}
 
 	/**
+	 * Exibe as informações do usuario solicitado
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param atributo
-	 * @return
-	 * @throws StringInvalidaException
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @param atributo O atributo que sera mudado
+	 * @param valor O novo valor do atributo
+	 * @return Informacoes do usuario no formato:
+	 * "nome, email, telefone"
+	 * @throws StringInvalidaException Caso alguma string seja invalida
 	 */
-
 	public String getInfoUsuario(String nome, String telefone, String atributo) throws StringInvalidaException {
 		return crudUsuario.getInfoUsuario(nome, telefone, atributo);
 	}
 
 	/**
+	 * Cadastra um jogo eletronico
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @param preco
-	 * @param plataforma
-	 * @throws UsuarioInvalidoException
-	 * @throws UsuarioCadastradoException 
+	 * @param nome O nome do dono do jogo
+	 * @param telefone O telefone do dono do jogo
+	 * @param nomeItem O nome do jogo
+	 * @param preco O preco do jogo
+	 * @param plataforma A plataforma em que o jogo esta
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws UsuarioCadastradoException Caso o usuario nao esteja cadastrado
 	 */
-
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma)
 			throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarEletronico(nomeItem, preco, plataforma.toUpperCase());
@@ -94,14 +101,14 @@ public class Sistema {
 	}
 
 	/**
+	 * Cadastra um jogo de tabuleiro
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @param preco
-	 * @throws UsuarioInvalidoException
+	 * @param nome O nome do dono do jogo
+	 * @param telefone O telefone do dono do jogo
+	 * @param nomeItem O nome do jogo
+	 * @param preco O preco do jogo
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
-
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco)
 			throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarJogoTabuleiro(nomeItem, preco);
@@ -109,32 +116,32 @@ public class Sistema {
 	}
 
 	/**
+	 * Adiciona uma peca perdida a um jogo de tabuleiro
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @param nomePeca
-	 * @throws Exception
+	 * @param nome O nome do dono do jogo
+	 * @param telefone O telefone do dono do jogo
+	 * @param nomeItem O nome do jogo
+	 * @param nomePeca O nome da peca
+	 * @throws Exception Caso haja alguma excecao
 	 */
-
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
 		Validacoes.validaAdicionarPecaPerdida(nomeItem, nomePeca);
 		crudUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
 
 	/**
+	 * Cadastra o BluRay de um filme
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @param preco
-	 * @param duracao
-	 * @param genero
-	 * @param classificacao
-	 * @param anoLancamento
-	 * @throws UsuarioInvalidoException 
+	 * @param nome O nome do dono do filme
+	 * @param telefone O telefone do dono do filme
+	 * @param nomeItem O nome do filme
+	 * @param preco O preco do filme
+	 * @param duracao A duracao do filme
+	 * @param genero O genero do filme
+	 * @param classificacao A classificacao etaria do filme
+	 * @param anoLancamento O ano de lancamento do filme
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
-
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao,
 			String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
@@ -143,18 +150,18 @@ public class Sistema {
 	}
 
 	/**
+	 * Cadastra um BluRay de show
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @param preco
-	 * @param duracao
-	 * @param numeroFaixas
-	 * @param artista
-	 * @param classificacao
-	 * @throws UsuarioInvalidoException
+	 * @param nome O nome do dono do item
+	 * @param telefone O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 * @param duracao A duracao do item
+	 * @param nomeroFaixas O numero de faixas do show
+	 * @param artista O nome do artista
+	 * @param classificacao A classificacao etaria do show
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
-
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
 			int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
@@ -163,19 +170,19 @@ public class Sistema {
 	}
 
 	/**
+	 * Cadastra um BluRay de serie
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @param preco
-	 * @param descricao
-	 * @param duracao
-	 * @param classificacao
-	 * @param genero
-	 * @param temporada
-	 * @throws UsuarioInvalidoException
+	 * @param nome O nome do dono do item
+	 * @param telefone O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 * @param descricao A descricao da serie
+	 * @param duracao A duracao da temporada
+	 * @param classificacao A classificacao etaria da serie
+	 * @param genero O genero da serie
+	 * @param temporada A temporada da serie
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
-
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
 			int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
@@ -184,15 +191,15 @@ public class Sistema {
 	}
 
 	/**
+	 * Adiciona um BluRay de serie
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeBlurayTemporada
-	 * @param duracao
-	 * @throws UsuarioInvalidoException
-	 * @throws ItemNaoEncontradoException
+	 * @param nome O nome do dono do item
+	 * @param telefone O telefone do dono do item
+	 * @param nomeBlurayTemporada O nome da temporada
+	 * @param duracao A duracao da temporada
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 */
-
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Validacoes.validaAdicionarBluRay(nomeBlurayTemporada, duracao);
@@ -200,46 +207,46 @@ public class Sistema {
 	}
 
 	/**
+	 * Remove um item do sistema 
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @throws UsuarioInvalidoException
-	 * @throws ItemNaoEncontradoException
+	 * @param nome O nome do dono do item
+	 * @param telefone O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 */
-
 	public void removerItem(String nome, String telefone, String nomeItem)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		crudUsuario.removerItem(nome, telefone, nomeItem);
 	}
 
 	/**
+	 * Atualiza o item de algum usuario
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @param atributo
-	 * @param valor
-	 * @throws UsuarioInvalidoException
-	 * @throws ItemNaoEncontradoException
+	 * @param nome O nome do dono do item
+	 * @param telefone O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @param atributo O atributo que será mudado
+	 * @param valor O novo valor do atributo
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 */
-
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		crudUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 
 	/**
+	 * Exibe uma informacao do item
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeItem
-	 * @param atributo
-	 * @return
-	 * @throws UsuarioInvalidoException
-	 * @throws ItemNaoEncontradoException
+	 * @param nome O nome do dono do item
+	 * @param telefone O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @param atributo A informacao desejada
+	 * @return A informacao pedida do item
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 */
-
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		String info = "";
@@ -250,15 +257,15 @@ public class Sistema {
 	}
 
 	/**
+	 * Exibe os detalhes de um item
 	 * 
-	 * @param nomeDono
-	 * @param telefoneDono
-	 * @param nomeItem
-	 * @return
-	 * @throws UsuarioInvalidoException
-	 * @throws ItemNaoEncontradoException
+	 * @param nomeDono O nome do dono do item
+	 * @param telefoneDono O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @return As informacoes do item desejado
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 */
-
 	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		String info = "";
@@ -269,23 +276,36 @@ public class Sistema {
 	}
 
 	/**
+	 * Lista todos os itens em ordem alfabetica
 	 * 
-	 * @return
+	 * @return A lista ordenada dos itens
 	 */
-
 	public String listarItensOrdenadosPorNome() {
 		return crudUsuario.listarItensOrdenadosPorNome();
 	}
 
 	/**
+	 * Lista todos os itens por ordem de valor
 	 * 
-	 * @return
+	 * @return A lista ordenada dos itens
 	 */
-
 	public String listarItensOrdenadosPorValor() {
 		return crudUsuario.listarItensOrdenadosPorValor();
 	}
-
+	
+	/**
+	 * Registra o emprestimo de um item
+	 * 
+	 * @param nomeDono O nome do dono do item
+	 * @param telefoneDono O telefone do dono do item
+	 * @param nomeRequerente O nome do requerente
+	 * @param telefoneRequerente O telefone do requerente
+	 * @param nomeItem O nome do item
+	 * @param dataEmprestimo A data em que o emprestimo foi realizado
+	 * @param periodo O periodo que o item sera emprestado
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 */
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException {
 	    Emprestimo emprestimo =  new Emprestimo(crudUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
@@ -294,17 +314,24 @@ public class Sistema {
 				telefoneRequerente, emprestimo);
 	}
 
+	/**
+	 * Devolve um item emprestado para o dono
+	 * 
+	 * @param nomeDono O nome do dono do item
+	 * @param telefoneDono O telefone do dono do item
+	 * @param nomeRequerente O nome do requerente
+	 * @param telefoneRequerente O telefone do requerente
+	 * @param nomeItem O nome do item
+	 * @param dataEmprestimo A data em que o emprestimo foi realizado
+	 * @param dataDevolucao A data em que o item foi devolvido
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 */
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		
 		crudUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 		
 	}
-	
-	
-	
-	
-	
-	
 	
 }
