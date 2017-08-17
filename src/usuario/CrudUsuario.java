@@ -1,6 +1,7 @@
 package usuario;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class CrudUsuario {
 
 	private Set<Usuario> usuarios;
 	private Comparator<Item> tipoDeOrdenacao;
+	private Comparator<Emprestimo> ordenaUsuario;
 
 	public CrudUsuario() {
 		usuarios = new HashSet<>();
@@ -180,6 +182,17 @@ public class CrudUsuario {
 
 		return retornoItens;
 	}
+	
+	private List<Emprestimo> getItensEmprestadosDono() {
+		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
+		for (Usuario usuario : getUsuarios()) {
+			for (Emprestimo emprestimo : usuario.getEmprestimosDono()) {
+				retornoEmprestimos.add( emprestimo);
+			}
+		}
+
+		return retornoEmprestimos;
+	}
 
 	/**
 	 * 
@@ -197,7 +210,7 @@ public class CrudUsuario {
 
 		return retorno;
 	}
-
+	
 	/**
 	 * 
 	 * @return
@@ -242,8 +255,8 @@ public class CrudUsuario {
 		}
 
 		dono.emprestaItem(emprestimo.getItemEmprestado());
-		dono.registrarEmprestimo(emprestimo);
-		requerente.registrarEmprestimo(emprestimo);
+		dono.registrarEmprestimoDono(emprestimo);
+		requerente.registrarEmprestimoRequerente(emprestimo);
 	}
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
@@ -252,7 +265,7 @@ public class CrudUsuario {
 
 		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
-
+		Emprestimo emprestimo = dono.buscaEmprestimo(nomeItem, dataEmprestimo, requerente);
 		if (dono == null || requerente == null) {
 			throw new UsuarioInvalidoException();
 		}
@@ -261,6 +274,20 @@ public class CrudUsuario {
 			throw new IllegalArgumentException("Emprestimo nao encontrado");
 		}
 		requerente.devolveItem(dono, nomeItem, dataDevolucao);
+		if (emprestimo.getDataDevolucao().trim().equals("Emprestimo em andamento")){
+			emprestimo.setDataDevolucao(dataDevolucao);	
+		}
+	}
+
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
+		Usuario user = buscaUsuario(nome, telefone);
+		tipoDeOrdenacao = new ordemAlfabetica();
+		String retorno = "Emprestimos: ";
+		for (Emprestimo emprestimo : getItensEmprestadosDono()) {
+			retorno += emprestimo.toString() + "|";
+		}
+			return retorno;
 	}
 
 }
+

@@ -15,20 +15,22 @@ public class Usuario {
 	private String email;
 	private String telefone;
 	private Set<Item> itens;
-	private Set<Emprestimo> emprestimos;
+	private Set<Emprestimo> emprestimosDono;
+	private Set<Emprestimo> emprestimosRequerente;
 	
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		itens = new HashSet<>();
-		emprestimos = new HashSet<>();
+		emprestimosDono = new HashSet<>();
+		emprestimosRequerente = new HashSet<>();
 	}
 	
 
 	public Emprestimo buscaEmprestimo(String nomeItem, String data, Usuario requerente){
 		Emprestimo emprestimoBuscado = null;
-		for (Emprestimo emprestimo : emprestimos) {
+		for (Emprestimo emprestimo : emprestimosDono) {
 			String itemEmprestado = emprestimo.getItemEmprestado();
 			String dataEmprestimo = emprestimo.getDataEmprestimo();
 			Usuario requerenteEmprestimo = emprestimo.getRequerente();
@@ -37,12 +39,6 @@ public class Usuario {
 			}
 		}
 		return emprestimoBuscado;
-	}
-	/**
-	 * @return the emprestimos
-	 */
-	public Set<Emprestimo> getEmprestimos() {
-		return emprestimos;
 	}
 
 	/**
@@ -272,12 +268,6 @@ public class Usuario {
 	 * @param item
 	 */
 
-//	public void cadastraEletronico(Item item) {
-//		if (!verificaItem(item)) {
-//			itens.add(item);
-//		}
-//	}
-	
 	public void cadastrarItem(Item item) {
 		if (!verificaItem(item)) {
 			itens.add(item);
@@ -313,6 +303,28 @@ public class Usuario {
 		
 	}
 	
+	public Set<Emprestimo> getItensEmprestadosDono() {
+		return this.emprestimosDono;
+		
+	
+	}
+	
+	/**
+	 * Retorna a lista de emprestimos que o usuario fez
+	 * @return the emprestimosDono
+	 */
+	public Set<Emprestimo> getEmprestimosDono() {
+		return emprestimosDono;
+	}
+	
+	/**
+	 * Retorna a lista de emprestimos que o usuario tomou como emprestado
+	 * @return the emprestimosDono
+	 */
+	public Set<Emprestimo> getEmprestimosRequerente() {
+		return emprestimosRequerente;
+	}
+
 	@Override
 	public String toString() {
 		return nome + ", " + email + ", " + telefone;
@@ -349,7 +361,19 @@ public class Usuario {
 		return true;
 	}
 
-	public void registrarEmprestimo(Emprestimo emprestimo) {
-		emprestimos.add(emprestimo);
+	/**
+	 * Adiciona o emprestimo ao dono
+	 * @param emprestimo
+	 */
+	public void registrarEmprestimoDono(Emprestimo emprestimo) {
+		emprestimosDono.add(emprestimo);
+	}
+	
+	/**
+	 * Adiciona o emprestimo ao requerente
+	 * @param emprestimo
+	 */
+	public void registrarEmprestimoRequerente(Emprestimo emprestimo) {
+		emprestimosRequerente.add(emprestimo);
 	}
 }

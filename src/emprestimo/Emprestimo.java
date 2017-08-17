@@ -9,6 +9,15 @@ import usuario.Usuario;
 
 public class Emprestimo {
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EMPRESTIMO - De: " + dono.getNome() + ", Para: " + requerente.getNome() + ", " + itemEmprestado
+				+ ", " + dataEmprestimo + ", " + periodo +" dias" + ", ENTREGA: " + dataDevolucao;
+	}
+
 	private Usuario dono;
 	private Usuario requerente;
 	private String itemEmprestado;
@@ -23,7 +32,7 @@ public class Emprestimo {
 		this.itemEmprestado = nomeItem;
 		this.dataEmprestimo = data;
 		this.periodo = periodo;
-		this.dataDevolucao = "";
+		this.dataDevolucao = "Emprestimo em andamento";
 	}
 	
 
@@ -34,8 +43,6 @@ public class Emprestimo {
 	public String getDataDevolucao() {
 		return dataDevolucao;
 	}
-
-
 
 	/**
 	 * @param dataDevolucao the dataDevolucao to set

@@ -307,6 +307,18 @@ public class Facade {
 	}
 	
 	/**
+	 * Lista todos os itens emprestados por determinado usuario
+	 * 
+	 * @param nome
+	 * @param telefone
+	 * @return
+	 */
+	
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone){
+		return sistema.listarEmprestimosUsuarioEmprestando(nome, telefone);
+	}
+	
+	/**
 	 * Fecha o sistema
 	 */
 	public void fecharSistema() {

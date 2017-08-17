@@ -1,5 +1,6 @@
 package item;
 
+
 public enum Classificacao {
 	
 	LIVRE ("LIVRE"),
@@ -10,11 +11,19 @@ public enum Classificacao {
 	DEZOITO_ANOS ("DEZOITO_ANOS");
 	
 	private String classificacao;
-	
+
+	/**
+	 * Contrutor de Classificacao
+	 * @param classificacao
+	 */
 	private Classificacao(String classificacao) {
 		this.classificacao = classificacao;
 	}
 	
+	/**
+	 * Retorna a classificao como ENUM
+	 * @return
+	 */
 	public String getClassificacao() {
 		return this.classificacao; 
 	}

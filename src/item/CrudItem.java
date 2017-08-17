@@ -9,10 +9,21 @@ public class CrudItem {
 
 	List<Item> itensDoSistema;
 
+	/**
+	 * Inicia a lista de itens no CRUD de itens
+	 */
 	public CrudItem() {
 		itensDoSistema = new ArrayList<>();
 	}
 
+	/**
+	 * Cria um Object jogo eletronico
+	 * 
+	 * @param nomeItem
+	 * @param preco
+	 * @param plataforma
+	 * @return
+	 */
 	public Item criaEletronico(String nomeItem, double preco, String plataforma) {
 		Item jogoEletronico;
 
@@ -25,10 +36,28 @@ public class CrudItem {
 		return jogoEletronico;
 	}
 
+	/**
+	 * Cria um Object jogo de tabuleiro
+	 * 
+	 * @param nomeItem
+	 * @param preco
+	 * @return
+	 */
 	public static Item criaJogoTabuleiro(String nomeItem, double preco) {
 		Item jogoTabuleiro = new JogoDeTabuleiro(nomeItem, preco);
 		return jogoTabuleiro;
 	}
+	
+	/**
+	 * Cria um Object do tipo BlueRay de Filme
+	 * @param nomeItem
+	 * @param preco
+	 * @param duracao
+	 * @param genero
+	 * @param classificacao
+	 * @param anoLancamento
+	 * @return
+	 */
 
 	public static Item criaBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao,
 			int anoLancamento) {
@@ -49,16 +78,16 @@ public class CrudItem {
 		return item;
 	}
 
-	public static Item criaBluRaySerie(String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
+	public static Item criaBluRaySerie(String nomeItem, double preco, String descricao, int duracao,
+			String classificacao, String genero, int temporada) {
 		Item serie;
-		
+
 		if (Validacoes.validaGenero(genero)) {
 			serie = new Serie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
-		}
-		else {
+		} else {
 			serie = new Serie(nomeItem, preco, descricao, duracao, classificacao, "OUTRO", temporada);
 		}
-		
+
 		return serie;
 	}
 }

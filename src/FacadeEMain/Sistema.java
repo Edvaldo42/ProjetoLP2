@@ -333,5 +333,10 @@ public class Sistema {
 		crudUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 		
 	}
+
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
+		return crudUsuario.listarEmprestimosUsuarioEmprestando(nome, telefone);
+		 
+	}
 	
 }
