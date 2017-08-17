@@ -319,6 +319,21 @@ public class Facade {
 	}
 	
 	/**
+	 * Lista todos os itens pegos por determinado usuario
+	 * 
+	 * @param nome
+	 * @param telefone
+	 * @return
+	 */
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
+		return sistema.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+	}
+	
+	public String listarEmprestimosItem(String nomeItem) {
+		return sistema.listarEmprestimosItem(nomeItem);
+	}
+
+	/**
 	 * Fecha o sistema
 	 */
 	public void fecharSistema() {

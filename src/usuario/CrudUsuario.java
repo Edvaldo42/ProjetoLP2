@@ -22,6 +22,7 @@ import item.Item;
 
 public class CrudUsuario {
 
+	private static final String nome = null;
 	private Set<Usuario> usuarios;
 	private Comparator<Item> tipoDeOrdenacao;
 	private Comparator<Emprestimo> ordenaUsuario;
@@ -106,18 +107,17 @@ public class CrudUsuario {
 		if (usuario == null) {
 			throw new UsuarioInvalidoException();
 		}
-	usuario.cadastrarItem(item);
+		usuario.cadastrarItem(item);
 	}
-	
 
-
-	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao) throws UsuarioInvalidoException, ItemNaoEncontradoException {
+	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao)
+			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
-		
+
 		if (usuario == null) {
 			throw new UsuarioInvalidoException();
 		}
-		
+
 		usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
 	}
 
@@ -182,15 +182,35 @@ public class CrudUsuario {
 
 		return retornoItens;
 	}
-	
-	private List<Emprestimo> getItensEmprestadosDono() {
+
+	/**
+	 * Retorn
+	 * 
+	 * @param user
+	 * 
+	 * @param user
+	 * @return
+	 */
+
+	private List<Emprestimo> getItensEmprestadosDono(Usuario user) {
 		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
-		for (Usuario usuario : getUsuarios()) {
-			for (Emprestimo emprestimo : usuario.getEmprestimosDono()) {
-				retornoEmprestimos.add( emprestimo);
-			}
+		for (Emprestimo emprestimo : user.getEmprestimosDono()) {
+			retornoEmprestimos.add(emprestimo);
 		}
 
+		return retornoEmprestimos;
+	}
+
+	/**
+	 * Retorna os itens que foram pegos emprestados por 1 usuario
+	 * 
+	 * @return
+	 */
+	private List<Emprestimo> getItensEmprestadosRequerente(Usuario user) {
+		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
+		for (Emprestimo emprestimo : user.getEmprestimosRequerente()) {
+			retornoEmprestimos.add(emprestimo);
+		}
 		return retornoEmprestimos;
 	}
 
@@ -210,7 +230,7 @@ public class CrudUsuario {
 
 		return retorno;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -274,20 +294,58 @@ public class CrudUsuario {
 			throw new IllegalArgumentException("Emprestimo nao encontrado");
 		}
 		requerente.devolveItem(dono, nomeItem, dataDevolucao);
-		if (emprestimo.getDataDevolucao().trim().equals("Emprestimo em andamento")){
-			emprestimo.setDataDevolucao(dataDevolucao);	
+		if (emprestimo.getDataDevolucao().trim().equals("Emprestimo em andamento")) {
+			emprestimo.setDataDevolucao(dataDevolucao);
 		}
 	}
 
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
 		Usuario user = buscaUsuario(nome, telefone);
 		tipoDeOrdenacao = new ordemAlfabetica();
-		String retorno = "Emprestimos: ";
-		for (Emprestimo emprestimo : getItensEmprestadosDono()) {
-			retorno += emprestimo.toString() + "|";
-		}
-			return retorno;
+		String retorno = "Nenhum item emprestado";
+		if (!getItensEmprestadosDono(user).isEmpty()) {
+			retorno = "Emprestimos: ";
+			for (Emprestimo emprestimo : getItensEmprestadosDono(user)) {
+				retorno += emprestimo.toString() + "|";
+			}
+			
+		}return retorno;
 	}
 
-}
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+		Usuario user = buscaUsuario(nome, telefone);
+		tipoDeOrdenacao = new ordemAlfabetica();
+		String retorno = "Nenhum item pego emprestado";
+		if (!getItensEmprestadosRequerente(user).isEmpty()) {
+			retorno = "Emprestimos pegos: ";
+			for (Emprestimo emprestimo : getItensEmprestadosRequerente(user)) {
+				retorno += emprestimo.toString() + "|";
+			}
 
+		}
+		return retorno;
+	}
+
+	public String listarEmprestimosItem(String nomeItem) {
+		tipoDeOrdenacao = new ordemAlfabetica();
+		List<Item> itens = getItem(nomeItem);
+		Collections.sort(itens, tipoDeOrdenacao);
+		String retorno = "";
+		for (Item item : getItens()) {
+			retorno += item.toString() + "|";
+		}
+
+		return retorno;
+	}
+
+	private List<Item> getItem(String nomeItem) {
+		List<Item> retornoItens = new ArrayList<>();
+		for (Usuario usuario : getUsuarios()) {
+			if (usuario.getItens().contains(nomeItem));{
+				retornoItens.addAll(getItens());
+			}
+			
+		}
+		return retornoItens;
+	}
+}

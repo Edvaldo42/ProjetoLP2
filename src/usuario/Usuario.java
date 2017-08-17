@@ -314,7 +314,8 @@ public class Usuario {
 	 * @return the emprestimosDono
 	 */
 	public Set<Emprestimo> getEmprestimosDono() {
-		return emprestimosDono;
+		
+		return getItensEmprestadosDono();
 	}
 	
 	/**
@@ -376,4 +377,6 @@ public class Usuario {
 	public void registrarEmprestimoRequerente(Emprestimo emprestimo) {
 		emprestimosRequerente.add(emprestimo);
 	}
+
+
 }

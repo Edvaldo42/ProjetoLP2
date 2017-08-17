@@ -338,5 +338,13 @@ public class Sistema {
 		return crudUsuario.listarEmprestimosUsuarioEmprestando(nome, telefone);
 		 
 	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+		return crudUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+		}
+
+	public String listarEmprestimosItem(String nomeItem) {
+		return crudUsuario.listarEmprestimosItem(nomeItem);
+	}
 	
 }
