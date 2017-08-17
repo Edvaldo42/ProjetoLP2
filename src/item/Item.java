@@ -73,6 +73,14 @@ public abstract class Item {
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = emprestado;
 	}
+	
+	public void addVezEmprestada() {
+		this.quantidadeEmprestado++;
+	}
+	
+	public int getVezesEmprestado() {
+		return this.quantidadeEmprestado;
+	}
 
 	@Override
 	public String toString() {
@@ -116,10 +124,6 @@ public abstract class Item {
 		} else if (!nomeItem.equals(other.nomeItem))
 			return false;
 		return true;
-	}
-
-	public void addVezEmprestada() {
-		this.quantidadeEmprestado++;
 	}
 
 }

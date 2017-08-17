@@ -259,8 +259,10 @@ public class Usuario {
 	public void devolveItem(Usuario dono, String nomeItem, String dataDevolucao) throws ItemNaoEncontradoException {
 		Item itemBuscado = 	dono.buscaItem(nomeItem);	
 		if (!itemBuscado.isEmprestado()) {
+			return;
 		}
 		itemBuscado.setEmprestado(false);
+		
 	}
 	
 	/**

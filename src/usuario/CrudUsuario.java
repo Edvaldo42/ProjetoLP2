@@ -26,9 +26,11 @@ public class CrudUsuario {
 	private Set<Usuario> usuarios;
 	private Comparator<Item> tipoDeOrdenacao;
 	private Comparator<Emprestimo> ordenaUsuario;
+	private List<Emprestimo> emprestimos; 
 
 	public CrudUsuario() {
 		usuarios = new HashSet<>();
+		emprestimos = new ArrayList<>();
 	}
 
 	public void cadastraUsuario(String nome, String telefone, String email)
@@ -277,6 +279,7 @@ public class CrudUsuario {
 		dono.emprestaItem(emprestimo.getItemEmprestado());
 		dono.registrarEmprestimoDono(emprestimo);
 		requerente.registrarEmprestimoRequerente(emprestimo);
+		this.emprestimos.add(emprestimo);
 	}
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
@@ -285,18 +288,21 @@ public class CrudUsuario {
 
 		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
-		Emprestimo emprestimo = dono.buscaEmprestimo(nomeItem, dataEmprestimo, requerente);
+		Emprestimo emprestimo = buscaEmprestimo(dono, requerente, nomeItem, dataEmprestimo);
 		if (dono == null || requerente == null) {
 			throw new UsuarioInvalidoException();
 		}
 
-		if (dono.buscaEmprestimo(nomeItem, dataEmprestimo, requerente) == null) {
+		if (emprestimo == null) {
 			throw new IllegalArgumentException("Emprestimo nao encontrado");
 		}
+		
 		requerente.devolveItem(dono, nomeItem, dataDevolucao);
 		if (emprestimo.getDataDevolucao().trim().equals("Emprestimo em andamento")) {
 			emprestimo.setDataDevolucao(dataDevolucao);
+			
 		}
+		
 	}
 
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
@@ -347,5 +353,17 @@ public class CrudUsuario {
 			
 		}
 		return retornoItens;
+	}
+	
+	private Emprestimo buscaEmprestimo(Usuario dono, Usuario requerente, String nomeItem, String data){
+		Emprestimo emprestimoBuscado = null;
+		for (Emprestimo emprestimo : emprestimos) {
+			if (emprestimo.getDono().equals(dono) && emprestimo.getRequerente().equals(requerente) &&
+			emprestimo.getItemEmprestado().equals(nomeItem) && emprestimo.getDataEmprestimo().equals(data)) {
+				emprestimoBuscado = emprestimo;
+			}
+		}
+			
+		return emprestimoBuscado;
 	}
 }
