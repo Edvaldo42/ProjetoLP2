@@ -2,14 +2,16 @@ package item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import exception.ItemNaoEncontradoException;
 import facadeEMain.Validacoes;
 
 /**
  * 
  *
  */
-public class CrudItem {
+public class CRUDItem {
 
 	List<Item> itensDoSistema;
 
@@ -17,7 +19,7 @@ public class CrudItem {
 	 * Construtor do CRUDItem
 	 * Inicia a lista de itens no CRUD de itens
 	 */
-	public CrudItem() {
+	public CRUDItem() {
 		itensDoSistema = new ArrayList<>();
 	}
 
@@ -113,4 +115,49 @@ public class CrudItem {
 		Item serie = new Serie(nomeItem, preco, descricao, duracao, classificacao, "OUTRO", temporada);
 		return serie;
 	}
+	
+	
+	public static String getInfoItem(Item item, String atributo) {
+		String info = "";
+		if (atributo.trim().equalsIgnoreCase("preco")){
+			info += item.getPreco();
+		} 
+		else if (atributo.trim().equalsIgnoreCase("peca perdida")) {
+			info = item.getPecasPerdidas();
+		}
+		else if (atributo.trim().equalsIgnoreCase("nome")){
+			info = item.getNomeDoItem();
+		}
+		
+		return info;
+	}
+	
+	public static void atualizarItem(Item item, String atributo, String valor) {
+		if (atributo.trim().equalsIgnoreCase("nome")) {
+			item.setNomeItem(valor);
+		} else if (atributo.trim().equalsIgnoreCase("preco")) {
+			item.setPreco(Double.parseDouble(valor));
+		} else if (atributo.trim().equalsIgnoreCase("classificacao")) {
+			item.setClassificacao(valor);
+		} else if (atributo.trim().equalsIgnoreCase("duracao")) {
+			item.setDuracao(Integer.parseInt(valor));
+		} else if (atributo.trim().equalsIgnoreCase("genero")) {
+			item.setGenero(valor);
+		} else if (atributo.trim().equalsIgnoreCase("anoLancamento")) {
+			item.setAnoLancamento(Integer.parseInt(valor));
+		} else if (atributo.trim().equalsIgnoreCase("artista")) {
+			item.setNomeArtista(valor);
+		} else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
+			item.setNumeroFaixas(Integer.parseInt(valor));
+		} else if (atributo.trim().equalsIgnoreCase("temporada")) {
+			item.setTemporada(Integer.parseInt(valor));
+		} else if (atributo.trim().equalsIgnoreCase("plataforma")) {
+			item.setPlataforma(valor);
+		}
+	}
+
+	public static void removerItem(Item item, Set<Item> itens) {
+		itens.remove(item);
+	}
+	
 }

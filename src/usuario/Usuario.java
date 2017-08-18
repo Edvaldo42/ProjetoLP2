@@ -5,6 +5,7 @@ import java.util.Set;
 
 import emprestimo.Emprestimo;
 import exception.ItemNaoEncontradoException;
+import item.CRUDItem;
 import item.Item;
 import item.JogoDeTabuleiro;
 import item.Serie;
@@ -39,45 +40,24 @@ public class Usuario {
 	}
 	
 	/**
-	 * Verifica se um emprestimo existe
+	 * Cadastra um Item
 	 * 
-	 * @param nomeItem O nome do item
-	 * @param data A data em que o item esta sendo pego emprestado
-	 * @param requerente O nome do requerente
-	 * @return O emprestimo, caso exista, null caso contrario
+	 * @param item Pode ser um jogo de tabuleiro, jogo eletronico, ou um BluRay
 	 */
-	public Emprestimo buscaEmprestimo(String nomeItem, String data, Usuario requerente){
-		Emprestimo emprestimoBuscado = null;
-		for (Emprestimo emprestimo : emprestimosDono) {
-			String itemEmprestado = emprestimo.getItemEmprestado();
-			String dataEmprestimo = emprestimo.getDataEmprestimo();
-			Usuario requerenteEmprestimo = emprestimo.getRequerente();
-			if (itemEmprestado.equals(nomeItem) && dataEmprestimo.equals(data) && requerenteEmprestimo.equals(requerente)){
-				emprestimoBuscado = emprestimo; 
-			}
-		}
-		return emprestimoBuscado;
-	}
-
-	/**
-	 * Cadastra um Jogo de Tabuleiro
-	 * 
-	 * @param item O jogo de tabuleiro
-	 */
-
-	public void cadastraJogoTabuleiro(Item item) {
-		if (!verificaItem(item)) {
-			itens.add(item);
-		}
+	
+	public void cadastrarItem(Item item) {
+		if (!itens.add(item)) {
+			throw new IllegalArgumentException("Item ja cadastrado");
+		}		
 	}
 	
 	/**
+	 * Adiciona uma peca perdida á um jogo de tabuleiro
 	 * 
-	 * @param nomeItem
-	 * @param nomePeca
+	 * @param nomeItem Nome do jogo de tabuleiro
+	 * @param nomePeca Nome da peca perdida
 	 * @throws ItemNaoEncontradoException
 	 */
-
 	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeItem);
 		if (itemBuscado instanceof JogoDeTabuleiro) {
@@ -86,42 +66,9 @@ public class Usuario {
 	}
 	
 	/**
-	 * 
-	 * @param item
-	 */
-
-	public void cadastrarBluRayFilme(Item item) {
-		if (!verificaItem(item)) {
-			itens.add(item);
-		}
-	}
-	
-	/**
-	 * 
-	 * @param item
-	 */
-
-	public void cadastrarBluRayShow(Item item) {
-		if (!verificaItem(item)) {
-			itens.add(item);
-		}
-	}
-	
-	/**
-	 * 
-	 * @param item
-	 */
-
-	public void cadastrarBluRaySerie(Item item) {
-		if (!verificaItem(item)) {
-			itens.add(item);
-		}
-	}
-	
-	/**
-	 * 
-	 * @param nomeBlurayTemporada
-	 * @param duracao
+	 * Adiciona um EP ao box
+	 * @param nomeBlurayTemporada Nome do BluRay Série
+	 * @param duracao Duracao do EP
 	 * @throws ItemNaoEncontradoException
 	 */
 
@@ -143,10 +90,7 @@ public class Usuario {
 
 	public void removerItem(String nomeItem) throws ItemNaoEncontradoException {
 		Item itemARemover = buscaItem(nomeItem);
-
-		if (verificaItem(itemARemover)) {
-			itens.remove(itemARemover);
-		}
+		CRUDItem.removerItem(itemARemover, itens);
 	}
 	
 	/**
@@ -159,42 +103,7 @@ public class Usuario {
 
 	public void atualizarItem(String nomeItem, String atributo, String valor) throws ItemNaoEncontradoException {
 		Item item = buscaItem(nomeItem);
-		
-		if (verificaItem(item)) {
-			if (atributo.trim().equalsIgnoreCase("nome")) {
-				item.setNomeItem(valor);
-			}
-			else if (atributo.trim().equalsIgnoreCase("preco")) {		
-				item.setPreco(Double.parseDouble(valor));
-			}
-			else if (atributo.trim().equalsIgnoreCase("classificacao")) {
-				item.setClassificacao(valor);
-			}
-			else if (atributo.trim().equalsIgnoreCase("duracao")){
-				item.setDuracao(Integer.parseInt(valor));
-			}
-			else if (atributo.trim().equalsIgnoreCase("genero")) {
-				item.setGenero(valor);
-			}
-			else if (atributo.trim().equalsIgnoreCase("anoLancamento")) {
-				item.setAnoLancamento(Integer.parseInt(valor));
-			}
-			else if (atributo.trim().equalsIgnoreCase("artista")) {
-				item.setNomeArtista(valor);
-			}
-			else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
-				item.setNumeroFaixas(Integer.parseInt(valor));
-			}
-			else if (atributo.trim().equalsIgnoreCase("temporada")) {
-				item.setTemporada(Integer.parseInt(valor));
-			}
-			else if (atributo.trim().equalsIgnoreCase("plataforma")) {
-				item.setPlataforma(valor);
-			}
-		}
-		else {
-			throw new IllegalArgumentException("Item nao cadastrado");
-		}
+		CRUDItem.atualizarItem(item, atributo, valor);
 	}
 	
 	/**
@@ -217,20 +126,8 @@ public class Usuario {
 	 */
 	
 	public String getInfoItem(String nomeItem, String atributo) throws ItemNaoEncontradoException {
-		String info = "";
 		Item item = buscaItem(nomeItem);
-		if (atributo.trim().equalsIgnoreCase("preco")){
-			info += item.getPreco();
-			return info;
-		} 
-		else if (atributo.trim().equalsIgnoreCase("peca perdida")) {
-			info = item.getPecasPerdidas();
-		}
-		else if (atributo.trim().equalsIgnoreCase("nome")){
-			info = item.getNomeDoItem();
-		}
-		
-		return info;
+		return CRUDItem.getInfoItem(item, atributo);
 	}
 	
 	/**
@@ -241,7 +138,7 @@ public class Usuario {
 	 */
 
 	private Item buscaItem(String nomeItem) throws ItemNaoEncontradoException {
-
+		
 		for (Item item : itens) {
 			if (item.getNomeDoItem().equals(nomeItem)) {
 				return item;
@@ -255,14 +152,6 @@ public class Usuario {
 	 * @param item
 	 * @return
 	 */
-	
-
-	private boolean verificaItem(Item item) {
-		if (itens.contains(item)) {
-			return true;
-		}
-		return false;
-	}
 
 	public void emprestaItem(String nomeItem) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeItem);
@@ -289,11 +178,6 @@ public class Usuario {
 	 * @param item
 	 */
 
-	public void cadastrarItem(Item item) {
-		if (!verificaItem(item)) {
-			itens.add(item);
-		}		
-	}
 	
 	public String getEmail() {
 		return email;
@@ -326,8 +210,6 @@ public class Usuario {
 	
 	public Set<Emprestimo> getItensEmprestadosDono() {
 		return this.emprestimosDono;
-		
-	
 	}
 	
 	/**
@@ -339,6 +221,27 @@ public class Usuario {
 		return getItensEmprestadosDono();
 	}
 	
+	/**
+	 * Verifica se um emprestimo existe
+	 * 
+	 * @param nomeItem O nome do item
+	 * @param data A data em que o item esta sendo pego emprestado
+	 * @param requerente O nome do requerente
+	 * @return O emprestimo, caso exista, null caso contrario
+	 */
+	public Emprestimo buscaEmprestimo(String nomeItem, String data, Usuario requerente){
+		Emprestimo emprestimoBuscado = null;
+		for (Emprestimo emprestimo : emprestimosDono) {
+			String itemEmprestado = emprestimo.getItemEmprestado();
+			String dataEmprestimo = emprestimo.getDataEmprestimo();
+			Usuario requerenteEmprestimo = emprestimo.getRequerente();
+			if (itemEmprestado.equals(nomeItem) && dataEmprestimo.equals(data) && requerenteEmprestimo.equals(requerente)){
+				emprestimoBuscado = emprestimo; 
+			}
+		}
+		return emprestimoBuscado;
+	}
+
 	/**
 	 * Retorna a lista de emprestimos que o usuario tomou como emprestado
 	 * @return O conjunto de emprestimos que o requerente pegou por um tempo.

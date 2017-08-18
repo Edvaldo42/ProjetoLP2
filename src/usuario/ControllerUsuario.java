@@ -199,7 +199,7 @@ public class ControllerUsuario {
 		return CRUDUsuario.buscaUsuario(nome, telefone, this.usuarios);
 	}
 
-	public void validaUsuario(Usuario user) throws UsuarioInvalidoException {
+	private void validaUsuario(Usuario user) throws UsuarioInvalidoException {
 		CRUDUsuario.validaUsuario(user);
 	}
 	

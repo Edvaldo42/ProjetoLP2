@@ -7,7 +7,7 @@ import exception.ItemNaoEncontradoException;
 import exception.StringInvalidaException;
 import exception.UsuarioCadastradoException;
 import exception.UsuarioInvalidoException;
-import item.CrudItem;
+import item.CRUDItem;
 import usuario.ControllerUsuario;
 
 /**
@@ -17,7 +17,7 @@ import usuario.ControllerUsuario;
 public class Sistema {
 
 	private ControllerUsuario ControllerUsuario;
-	private CrudItem crudItem;
+	private CRUDItem crudItem;
 	//private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	/**
@@ -25,10 +25,10 @@ public class Sistema {
 	 */
 	public Sistema() {
 		this.ControllerUsuario = new ControllerUsuario();
-		this.crudItem = new CrudItem();
+		this.crudItem = new CRUDItem();
 	}
 
-	/** Envia para o CRUD do usuario as informacoes de um usuario que devera ser cadastrado no sistema 
+	/** Envia para o ControllerUsuario as informacoes de um usuario que devera ser cadastrado no sistema 
 	 * 
 	 * @param nome O nome do usuario
 	 * @param telefone O telefone do usuario
@@ -41,8 +41,8 @@ public class Sistema {
 		ControllerUsuario.cadastraUsuario(nome, telefone, email);
 	}
 
-	/**
-	 * Remove um usuario do Sistema
+	/** Remove um usuario do Sistema
+
 	 * 
 	 * @param nome O nome do usuario
 	 * @param telefone O telefone do usuario
@@ -52,8 +52,7 @@ public class Sistema {
 		ControllerUsuario.removerUsuario(nome, telefone);
 	}
 
-	/**
-	 * Atualiza um usuario no Sistema
+	/** Atualiza um usuario no Sistema
 	 * 
 	 * @param nome O nome do usuario
 	 * @param telefone O telefone do usuario

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import exception.AtributoInvalidoException;
 import exception.EmailInvalidoException;
 import exception.NomeInvalidoException;
 import exception.StringInvalidaException;
@@ -71,7 +72,7 @@ public class Validacoes {
 		}
 
 		else {
-			throw new IllegalArgumentException("Atributo invalido");
+			throw new AtributoInvalidoException();
 		}
 
 	}
