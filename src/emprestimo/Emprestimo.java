@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import exception.ItemNaoEncontradoException;
 import item.Item;
-import usuario.CrudUsuario;
+import usuario.ControllerUsuario;
 import usuario.Usuario;
 
 public class Emprestimo {
@@ -25,7 +25,7 @@ public class Emprestimo {
 	private int periodo;
 	private String dataDevolucao;
 	
-	public Emprestimo(CrudUsuario crudUsuario, String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
+	public Emprestimo(ControllerUsuario crudUsuario, String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String data, int periodo) throws ItemNaoEncontradoException {
 		this.dono = crudUsuario.buscaUsuario(nomeDono, telefoneDono);
 		this.requerente = crudUsuario.buscaUsuario(nomeRequerente, telefoneRequerente);

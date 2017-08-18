@@ -9,6 +9,7 @@ import exception.ItemNaoEncontradoException;
 import exception.StringInvalidaException;
 import exception.UsuarioCadastradoException;
 import exception.UsuarioInvalidoException;
+import facadeEMain.Sistema;
 
 public class SistemaTest {
 

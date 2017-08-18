@@ -1,4 +1,4 @@
-package FacadeEMain;
+package facadeEMain;
 
 import exception.ItemNaoEncontradoException;
 import exception.StringInvalidaException;

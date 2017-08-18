@@ -1,4 +1,4 @@
-package FacadeEMain;
+package facadeEMain;
 
 import java.util.ArrayList;
 import java.util.Arrays;

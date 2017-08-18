@@ -1,26 +1,24 @@
 package usuario;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import FacadeEMain.Validacoes;
 import comparator.ordemAlfabetica;
 import comparator.valor;
 import emprestimo.Emprestimo;
-import exception.AtributoInvalidoException;
 import exception.ItemNaoEncontradoException;
 import exception.PecaPerdidaException;
 import exception.StringInvalidaException;
 import exception.UsuarioCadastradoException;
 import exception.UsuarioInvalidoException;
+import facadeEMain.Validacoes;
 import item.Item;
 
-public class CrudUsuario {
+public class ControllerUsuario {
 
 	private static final String nome = null;
 	private Set<Usuario> usuarios;
@@ -28,7 +26,7 @@ public class CrudUsuario {
 	private Comparator<Emprestimo> ordenaUsuario;
 	private List<Emprestimo> emprestimos; 
 
-	public CrudUsuario() {
+	public ControllerUsuario() {
 		usuarios = new HashSet<>();
 		emprestimos = new ArrayList<>();
 	}
@@ -36,62 +34,21 @@ public class CrudUsuario {
 	public void cadastraUsuario(String nome, String telefone, String email)
 			throws UsuarioCadastradoException, StringInvalidaException {
 		Validacoes.validaCadastrarUsuario(nome, telefone, email);
-
-		if (buscaUsuario(nome, telefone) != null) {
-			throw new UsuarioCadastradoException();
-		}
-		Usuario usuario = new Usuario(nome, telefone, email);
-		usuarios.add(usuario);
+		CRUDUsuario.cadastraUsuario(nome, telefone, email, this.usuarios);
 	}
 
 	public void removerUsuario(String nome, String telefone) throws UsuarioInvalidoException {
-		Usuario user = buscaUsuario(nome, telefone);
-		if (user == null) {
-			throw new UsuarioInvalidoException();
-		}
-
-		usuarios.remove(user);
+		CRUDUsuario.removerUsuario(nome, telefone, usuarios);
 	}
 
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor)
 			throws StringInvalidaException {
 		Validacoes.validaAtualizarUsuario(atributo, valor);
-
-		Usuario user = buscaUsuario(nome, telefone);
-
-		if (user == null) {
-			throw new UsuarioInvalidoException();
-		}
-
-		if (atributo.trim().equalsIgnoreCase("nome")) {
-			user.setNome(valor);
-		} else if (atributo.trim().equalsIgnoreCase("telefone")) {
-			user.setTelefone(valor);
-		}
-
-		else if (atributo.trim().equalsIgnoreCase("email")) {
-			user.setEmail(valor);
-		}
+		CRUDUsuario.atualizarUsuario(nome, telefone, atributo, valor, this.usuarios);
 	}
 
 	public String getInfoUsuario(String nome, String telefone, String atributo) throws StringInvalidaException {
-		Usuario user = buscaUsuario(nome, telefone);
-
-		if (user == null) {
-			throw new UsuarioInvalidoException();
-		}
-		String info = null;
-		if (atributo.trim().equalsIgnoreCase("nome")) {
-			info = user.getNome();
-		} else if (atributo.trim().equalsIgnoreCase("telefone")) {
-			info = user.getTelefone();
-		} else if (atributo.trim().equalsIgnoreCase("email")) {
-			info = user.getEmail();
-		} else {
-			throw new AtributoInvalidoException();
-		}
-
-		return info;
+		return CRUDUsuario.getInfoUsuario(nome, telefone, atributo, this.usuarios);
 	}
 
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
@@ -106,9 +63,8 @@ public class CrudUsuario {
 	public void cadastrarItem(String nome, String telefone, Item item) throws UsuarioInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
-		if (usuario == null) {
-			throw new UsuarioInvalidoException();
-		}
+		CRUDUsuario.validaUsuario(usuario);
+		
 		usuario.cadastrarItem(item);
 	}
 
@@ -116,20 +72,15 @@ public class CrudUsuario {
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
-		if (usuario == null) {
-			throw new UsuarioInvalidoException();
-		}
+		CRUDUsuario.validaUsuario(usuario);
 
 		usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
 	}
 
-	public void removerItem(String nome, String telefone, String nomeItem)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException {
+	public void removerItem(String nome, String telefone, String nomeItem)	throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
-		if (usuario == null) {
-			throw new UsuarioInvalidoException();
-		}
+		CRUDUsuario.validaUsuario(usuario);
 
 		usuario.removerItem(nomeItem);
 	}
@@ -138,10 +89,7 @@ public class CrudUsuario {
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
-		if (usuario == null) {
-			throw new UsuarioInvalidoException();
-		}
-
+		CRUDUsuario.validaUsuario(usuario);
 		Validacoes.validaAtualizarItem(atributo, valor);
 
 		usuario.atualizarItem(nomeItem, atributo, valor);
@@ -151,22 +99,18 @@ public class CrudUsuario {
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
-		if (usuario == null) {
-			throw new UsuarioInvalidoException();
-		}
+		CRUDUsuario.validaUsuario(usuario);
 
 		return usuario.getInfoItem(nomeItem, atributo);
 	}
 
 	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
-		Usuario user = buscaUsuario(nomeDono, telefoneDono);
+		Usuario usuario = buscaUsuario(nomeDono, telefoneDono);
 
-		if (user == null) {
-			throw new UsuarioInvalidoException();
-		}
+		CRUDUsuario.validaUsuario(usuario);
 
-		return user.detalhesItem(nomeItem);
+		return usuario.detalhesItem(nomeItem);
 	}
 
 	/**
@@ -176,6 +120,7 @@ public class CrudUsuario {
 
 	private List<Item> getItens() {
 		List<Item> retornoItens = new ArrayList<>();
+		
 		for (Usuario usuario : getUsuarios()) {
 			for (Item item : usuario.getItens()) {
 				retornoItens.add(item);
@@ -251,16 +196,13 @@ public class CrudUsuario {
 	}
 
 	public Usuario buscaUsuario(String nome, String telefone) {
-		Usuario user = null;
-		for (Usuario usuario : usuarios) {
-			if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
-				user = usuario;
-			}
-		}
-
-		return user;
+		return CRUDUsuario.buscaUsuario(nome, telefone, this.usuarios);
 	}
 
+	public void validaUsuario(Usuario user) throws UsuarioInvalidoException {
+		CRUDUsuario.validaUsuario(user);
+	}
+	
 	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -272,9 +214,8 @@ public class CrudUsuario {
 		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
 
-		if (dono == null || requerente == null) {
-			throw new UsuarioInvalidoException();
-		}
+		validaUsuario(dono);
+		validaUsuario(requerente);
 
 		dono.emprestaItem(emprestimo.getItemEmprestado());
 		dono.registrarEmprestimoDono(emprestimo);
@@ -289,9 +230,9 @@ public class CrudUsuario {
 		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
 		Emprestimo emprestimo = buscaEmprestimo(dono, requerente, nomeItem, dataEmprestimo);
-		if (dono == null || requerente == null) {
-			throw new UsuarioInvalidoException();
-		}
+		
+		validaUsuario(dono);
+		validaUsuario(requerente);
 
 		if (emprestimo == null) {
 			throw new IllegalArgumentException("Emprestimo nao encontrado");

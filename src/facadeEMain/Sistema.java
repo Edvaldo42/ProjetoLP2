@@ -1,4 +1,4 @@
-package FacadeEMain;
+package facadeEMain;
 
 //import java.time.format.DateTimeFormatter;
 
@@ -8,7 +8,7 @@ import exception.StringInvalidaException;
 import exception.UsuarioCadastradoException;
 import exception.UsuarioInvalidoException;
 import item.CrudItem;
-import usuario.CrudUsuario;
+import usuario.ControllerUsuario;
 
 /**
  * 
@@ -16,7 +16,7 @@ import usuario.CrudUsuario;
  */
 public class Sistema {
 
-	private CrudUsuario crudUsuario;
+	private ControllerUsuario ControllerUsuario;
 	private CrudItem crudItem;
 	//private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
@@ -24,7 +24,7 @@ public class Sistema {
 	 * Construtor do Sistema
 	 */
 	public Sistema() {
-		this.crudUsuario = new CrudUsuario();
+		this.ControllerUsuario = new ControllerUsuario();
 		this.crudItem = new CrudItem();
 	}
 
@@ -38,7 +38,7 @@ public class Sistema {
 	 */
 	public void cadastrarUsuario(String nome, String telefone, String email)
 			throws UsuarioCadastradoException, StringInvalidaException {
-		crudUsuario.cadastraUsuario(nome, telefone, email);
+		ControllerUsuario.cadastraUsuario(nome, telefone, email);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class Sistema {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
 	public void removerUsuario(String nome, String telefone) throws UsuarioInvalidoException {
-		crudUsuario.removerUsuario(nome, telefone);
+		ControllerUsuario.removerUsuario(nome, telefone);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Sistema {
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor)
 			throws StringInvalidaException {
-		crudUsuario.atualizarUsuario(nome, telefone, atributo, valor);
+		ControllerUsuario.atualizarUsuario(nome, telefone, atributo, valor);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class Sistema {
 	 * @throws StringInvalidaException Caso alguma string seja invalida
 	 */
 	public String getInfoUsuario(String nome, String telefone, String atributo) throws StringInvalidaException {
-		return crudUsuario.getInfoUsuario(nome, telefone, atributo);
+		return ControllerUsuario.getInfoUsuario(nome, telefone, atributo);
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class Sistema {
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma)
 			throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarEletronico(nomeItem, preco, plataforma.toUpperCase());
-		crudUsuario.cadastrarItem(nome, telefone,
+		ControllerUsuario.cadastrarItem(nome, telefone,
 				crudItem.criaEletronico(nomeItem, preco, plataforma.toUpperCase()));
 	}
 
@@ -111,7 +111,7 @@ public class Sistema {
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco)
 			throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarJogoTabuleiro(nomeItem, preco);
-		crudUsuario.cadastrarItem(nome, telefone, crudItem.criaJogoTabuleiro(nomeItem, preco));
+		ControllerUsuario.cadastrarItem(nome, telefone, crudItem.criaJogoTabuleiro(nomeItem, preco));
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class Sistema {
 	 */
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
 		Validacoes.validaAdicionarPecaPerdida(nomeItem, nomePeca);
-		crudUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
+		ControllerUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class Sistema {
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao,
 			String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
-		crudUsuario.cadastrarItem(nome, telefone,
+		ControllerUsuario.cadastrarItem(nome, telefone,
 				crudItem.criaBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento));
 	}
 
@@ -164,7 +164,7 @@ public class Sistema {
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
 			int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
-		crudUsuario.cadastrarItem(nome, telefone,
+		ControllerUsuario.cadastrarItem(nome, telefone,
 				crudItem.criaBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao));
 	}
 
@@ -185,7 +185,7 @@ public class Sistema {
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
 			int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException {
 		Validacoes.validaCadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
-		crudUsuario.cadastrarItem(nome, telefone,
+		ControllerUsuario.cadastrarItem(nome, telefone,
 				crudItem.criaBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada));
 	}
 
@@ -202,7 +202,7 @@ public class Sistema {
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Validacoes.validaAdicionarBluRay(nomeBlurayTemporada, duracao);
-		crudUsuario.adicionarBluRay(nome, telefone, nomeBlurayTemporada, duracao);
+		ControllerUsuario.adicionarBluRay(nome, telefone, nomeBlurayTemporada, duracao);
 	}
 
 	/**
@@ -216,7 +216,7 @@ public class Sistema {
 	 */
 	public void removerItem(String nome, String telefone, String nomeItem)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
-		crudUsuario.removerItem(nome, telefone, nomeItem);
+		ControllerUsuario.removerItem(nome, telefone, nomeItem);
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class Sistema {
 	 */
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
-		crudUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
+		ControllerUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 
 	/**
@@ -250,7 +250,7 @@ public class Sistema {
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		String info = "";
 
-		info = crudUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
+		info = ControllerUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
 
 		return info;
 	}
@@ -269,7 +269,7 @@ public class Sistema {
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		String info = "";
 
-		info = crudUsuario.pesquisarDetalhesItem(nomeDono, telefoneDono, nomeItem);
+		info = ControllerUsuario.pesquisarDetalhesItem(nomeDono, telefoneDono, nomeItem);
 
 		return info;
 	}
@@ -280,7 +280,7 @@ public class Sistema {
 	 * @return A lista ordenada dos itens
 	 */
 	public String listarItensOrdenadosPorNome() {
-		return crudUsuario.listarItensOrdenadosPorNome();
+		return ControllerUsuario.listarItensOrdenadosPorNome();
 	}
 
 	/**
@@ -289,7 +289,7 @@ public class Sistema {
 	 * @return A lista ordenada dos itens
 	 */
 	public String listarItensOrdenadosPorValor() {
-		return crudUsuario.listarItensOrdenadosPorValor();
+		return ControllerUsuario.listarItensOrdenadosPorValor();
 	}
 	
 	/**
@@ -307,9 +307,9 @@ public class Sistema {
 	 */
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException {
-	    Emprestimo emprestimo =  new Emprestimo(crudUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+	    Emprestimo emprestimo =  new Emprestimo(ControllerUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
 	    		nomeItem, dataEmprestimo, periodo);
-		crudUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente,
+		ControllerUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente,
 				telefoneRequerente, emprestimo);
 	}
 
@@ -329,7 +329,7 @@ public class Sistema {
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		
-		crudUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
+		ControllerUsuario.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 		
 	}
 
@@ -341,7 +341,7 @@ public class Sistema {
 	 * @return A lista dos itens que foram pegos emprestados pelo usuario
 	 */
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
-		return crudUsuario.listarEmprestimosUsuarioEmprestando(nome, telefone);
+		return ControllerUsuario.listarEmprestimosUsuarioEmprestando(nome, telefone);
 	}
 
 	/**
@@ -352,7 +352,7 @@ public class Sistema {
 	 * @return A lista dos itens que foram pegos emprestados pelo usuario
 	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
-		return crudUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+		return ControllerUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
 	
 	/**
@@ -362,7 +362,7 @@ public class Sistema {
 	 * @return A lista dos usuarios que pegaram o item emprestado
 	 */
 	public String listarEmprestimosItem(String nomeItem) {
-		return crudUsuario.listarEmprestimosItem(nomeItem);
+		return ControllerUsuario.listarEmprestimosItem(nomeItem);
 	}
 	
 }
