@@ -307,11 +307,12 @@ public class Facade {
 	}
 	
 	/**
-	 * Lista todos os itens emprestados por determinado usuario
+	 * Lista todos os emprestimos do usuario que esta emprestando um item
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @return
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @return A lista dos emprestimos do usuario que esta emprestando 
+	 * {@link Sistema#listarEmprestimosUsuarioEmprestando(String, String)}
 	 */
 	
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone){
@@ -319,16 +320,24 @@ public class Facade {
 	}
 	
 	/**
-	 * Lista todos os itens pegos por determinado usuario
+	 * Lista todos os emprestimos do usuario que esta pegando algo emprestado
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @return
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @return A lista dos emprestimos do usuario que esta pegando um item emprestado 
+	 * {@link Sistema#listarEmprestimosUsuarioPegandoEmprestado(String, String)}
 	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
 		return sistema.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
 	
+	/**
+	 * Lista os emprestimos de determinado item
+	 * 
+	 * @param nomeItem O nome do item
+	 * @return A lista dos usuarios que ja pegaram o item emprestado
+	 * {@link Sistema#listarEmprestimosItem(String)}
+	 */
 	public String listarEmprestimosItem(String nomeItem) {
 		return sistema.listarEmprestimosItem(nomeItem);
 	}

@@ -9,6 +9,10 @@ import item.Item;
 import item.JogoDeTabuleiro;
 import item.Serie;
 
+/**
+ * 
+ *
+ */
 public class Usuario {
 
 	private String nome;
@@ -18,16 +22,30 @@ public class Usuario {
 	private Set<Emprestimo> emprestimosDono;
 	private Set<Emprestimo> emprestimosRequerente;
 	
+	/**
+	 * Construtor do Usuario
+	 * 
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @param email O email do usuario
+	 */
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
-		itens = new HashSet<>();
-		emprestimosDono = new HashSet<>();
-		emprestimosRequerente = new HashSet<>();
+		this.itens = new HashSet<>();
+		this.emprestimosDono = new HashSet<>();
+		this.emprestimosRequerente = new HashSet<>();
 	}
 	
-
+	/**
+	 * Verifica se um emprestimo existe
+	 * 
+	 * @param nomeItem O nome do item
+	 * @param data A data em que o item esta sendo pego emprestado
+	 * @param requerente O nome do requerente
+	 * @return O emprestimo, caso exista, null caso contrario
+	 */
 	public Emprestimo buscaEmprestimo(String nomeItem, String data, Usuario requerente){
 		Emprestimo emprestimoBuscado = null;
 		for (Emprestimo emprestimo : emprestimosDono) {
@@ -42,8 +60,9 @@ public class Usuario {
 	}
 
 	/**
+	 * Cadastra um Jogo de Tabuleiro
 	 * 
-	 * @param item
+	 * @param item O jogo de tabuleiro
 	 */
 
 	public void cadastraJogoTabuleiro(Item item) {
@@ -313,7 +332,7 @@ public class Usuario {
 	
 	/**
 	 * Retorna a lista de emprestimos que o usuario fez
-	 * @return the emprestimosDono
+	 * @return 
 	 */
 	public Set<Emprestimo> getEmprestimosDono() {
 		
@@ -322,17 +341,23 @@ public class Usuario {
 	
 	/**
 	 * Retorna a lista de emprestimos que o usuario tomou como emprestado
-	 * @return the emprestimosDono
+	 * @return O conjunto de emprestimos que o requerente pegou por um tempo.
 	 */
 	public Set<Emprestimo> getEmprestimosRequerente() {
 		return emprestimosRequerente;
 	}
-
+	
+	/**
+	 * Retorna uma representacao textual de um toString
+	 */
 	@Override
 	public String toString() {
 		return nome + ", " + email + ", " + telefone;
 	}
 
+	/**
+	 * HashCode do Usuario
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -342,6 +367,9 @@ public class Usuario {
 		return result;
 	}
 
+	/**
+	 * Método equals do TT
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -366,6 +394,7 @@ public class Usuario {
 
 	/**
 	 * Adiciona o emprestimo ao dono
+	 * 
 	 * @param emprestimo
 	 */
 	public void registrarEmprestimoDono(Emprestimo emprestimo) {
@@ -374,6 +403,7 @@ public class Usuario {
 	
 	/**
 	 * Adiciona o emprestimo ao requerente
+	 * 
 	 * @param emprestimo
 	 */
 	public void registrarEmprestimoRequerente(Emprestimo emprestimo) {

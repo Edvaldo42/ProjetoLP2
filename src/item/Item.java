@@ -2,6 +2,10 @@ package item;
 
 import java.util.Locale;
 
+/**
+ * 
+ *
+ */
 public abstract class Item {
 
 	private String nomeItem;
@@ -9,98 +13,180 @@ public abstract class Item {
 	private boolean emprestado;
 	private int quantidadeEmprestado;
 	
+	/**
+	 * Construtor de Item
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 */
 	public Item(String nomeItem, double preco) {
 		this.nomeItem = nomeItem;
 		this.preco = preco;
-		emprestado = false;
-		quantidadeEmprestado = 0;
-	}
-
-	public String getPecasPerdidas() {
-		return "Esse item nao possui pecas";
-	}
-
-	public void adicionarBluRay(int duracao) {
-	}
-
-	public void setPlataforma(String valor) {
-	}
-
-	public void setDuracao(int duracao) {
-	}
-
-	public void setClassificacao(String classificacao) {
-	}
-
-	public void setGenero(String valor) {
-	}
-
-	public void setAnoLancamento(int parseInt) {
-	}
-
-	public void setNomeArtista(String valor) {
-	}
-
-	public void setNumeroFaixas(int parseInt) {
-	}
-
-	public void setDescricao(String descricao) {
-	}
-
-	public void setTemporada(int parseInt) {
-	}
-
-	public String getNomeDoItem() {
-		return nomeItem;
-	}
-
-	public void setNomeItem(String nomeItem) {
-		this.nomeItem = nomeItem;
-	}
-
-	public double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
-
-	public boolean isEmprestado() {
-		return emprestado;
-	}
-
-	public void setEmprestado(boolean emprestado) {
-		this.emprestado = emprestado;
+		this.emprestado = false;
+		this.quantidadeEmprestado = 0;
 	}
 	
+	/**
+	 * adiciona uma vez emprestada a cada vez que o metodo eh chamado
+	 */
 	public void addVezEmprestada() {
 		this.quantidadeEmprestado++;
 	}
 	
+	/**
+	 * 
+	 * @return Quantas vezes o item foi emprestado
+	 */
 	public int getVezesEmprestado() {
 		return this.quantidadeEmprestado;
 	}
+	
+	/**
+	 * Adiciona um BluRay
+	 * @param duracao A duracao do BluRay
+	 */
+	public void adicionarBluRay(int duracao) {
+	}
+	
+	/**
+	 * 
+	 * @return As pecas perdidas do jogo de tabuleiro
+	 */
+	public String getPecasPerdidas() {
+		return "Esse item nao possui pecas";
+	}
+	
+	/**
+	 * 
+	 * @return O nome do item
+	 */
+	public String getNomeDoItem() {
+		return nomeItem;
+	}
 
+	/**
+	 * 
+	 * @param nomeItem O nome do item
+	 */
+	public void setNomeItem(String nomeItem) {
+		this.nomeItem = nomeItem;
+	}
+	
+	/**
+	 * 
+	 * @return O preco do item
+	 */
+	public double getPreco() {
+		return preco;
+	}
+
+	/**
+	 * 
+	 * @param preco O preco do item
+	 */
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+	
+	/**
+	 * 
+	 * @return true se esta emprestado e false caso contrario
+	 */
+	public boolean isEmprestado() {
+		return emprestado;
+	}
+
+	/**
+	 * 
+	 * @param emprestado true se esta emprestado e false caso contrario
+	 */
+	public void setEmprestado(boolean emprestado) {
+		this.emprestado = emprestado;
+	}
+	/**
+	 * 
+	 * @param valor A plataforma do jogo
+	 */
+	public void setPlataforma(String plataforma) {
+	}
+
+	/**
+	 * 
+	 * @param duracao A duracao do BluRay
+	 */
+	public void setDuracao(int duracao) {
+	}
+
+	/**
+	 * 
+	 * @param classificacao A classificacao etaria
+	 */
+	public void setClassificacao(String classificacao) {
+	}
+
+	/**
+	 * 
+	 * @param valor O genero do BluRay
+	 */
+	public void setGenero(String genero) {
+	}
+
+	/**
+	 * 
+	 * @param anoLancamento O ano de lancamento
+	 */
+	public void setAnoLancamento(int anoLancamento) {
+	}
+
+	/**
+	 * 
+	 * @param nomeArtista O nome do artista
+	 */
+	public void setNomeArtista(String nomeArtista) {
+	}
+
+	/**
+	 * 
+	 * @param numeroFaixas O numero de faixas
+	 */
+	public void setNumeroFaixas(int numeroFaixas) {
+	}
+
+	/**
+	 * 
+	 * @param descricao A descricao do BluRay
+	 */
+	public void setDescricao(String descricao) {
+	}
+
+	/**
+	 * 
+	 * @param temporada A temporada da serie
+	 */
+	public void setTemporada(int temporada) {
+	}
+
+	/**
+	 * Retorna uma representação textual do Item
+	 */
 	@Override
 	public String toString() {
+		String valorRequerido;
 		if (this.preco % 1 == 0) {
-			String valorRequerido = String.format(Locale.ENGLISH, "%.1f", this.preco);
-			if (emprestado) {
-				return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
-			}
-			
-			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Nao emprestado";
+			valorRequerido = String.format(Locale.ENGLISH, "%.1f", this.preco);
 		} else {
-			String valorRequerido = String.format(Locale.ENGLISH, "%.2f", this.preco);
-			if (emprestado) {
-				return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
-			}
-			
-			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Nao emprestado";
+			valorRequerido = String.format(Locale.ENGLISH, "%.2f", this.preco);
 		}
-}
+		
+		if (emprestado) {
+			return this.nomeItem + ", R$ " + valorRequerido + ", " + "Emprestado";			
+		}
+			
+		return this.nomeItem + ", R$ " + valorRequerido + ", " + "Nao emprestado";
+	}
 
+	/**
+	 * HashCode do Item
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -109,6 +195,9 @@ public abstract class Item {
 		return result;
 	}
 
+	/**
+	 * Equals do Item
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

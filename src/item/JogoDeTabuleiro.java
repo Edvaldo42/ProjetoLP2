@@ -3,16 +3,29 @@ package item;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ *
+ */
 public class JogoDeTabuleiro extends Item{
 	
 	private List<String> pecasPerdidas;
 	private final String LN = System.lineSeparator();
 	
+	/**
+	 * Construtor do Jogo de Tabuleiro
+	 * 
+	 * @param nomeItem O nome do jogo
+	 * @param preco O preco do jogo
+	 */
 	public JogoDeTabuleiro(String nomeItem, double preco) {
 		super(nomeItem, preco);
 		pecasPerdidas = new ArrayList<>();
 	}
 	
+	/**
+	 * @return As pecas perdidas do jogo 
+	 */
 	public String getPecasPerdidas() {
 		String msg = "";
 		

@@ -5,11 +5,16 @@ import java.util.List;
 
 import FacadeEMain.Validacoes;
 
+/**
+ * 
+ *
+ */
 public class CrudItem {
 
 	List<Item> itensDoSistema;
 
 	/**
+	 * Construtor do CRUDItem
 	 * Inicia a lista de itens no CRUD de itens
 	 */
 	public CrudItem() {
@@ -17,31 +22,29 @@ public class CrudItem {
 	}
 
 	/**
-	 * Cria um Object jogo eletronico
+	 * Cria o item jogo eletronico
 	 * 
-	 * @param nomeItem
-	 * @param preco
-	 * @param plataforma
-	 * @return
+	 * @param nomeItem O nome do jogo
+	 * @param preco O preco do jogo
+	 * @param plataforma A plataforma em que o jogo esta
+	 * @return O item criado
 	 */
 	public Item criaEletronico(String nomeItem, double preco, String plataforma) {
-		Item jogoEletronico;
-
 		if (Validacoes.validaPlataforma(plataforma)) {
-			jogoEletronico = new JogoEletronico(nomeItem, preco, plataforma);
-		} else {
-			jogoEletronico = new JogoEletronico(nomeItem, preco, "OUTRO");
+			Item jogoEletronico = new JogoEletronico(nomeItem, preco, plataforma);
+			return jogoEletronico;
 		}
-
+		
+		Item jogoEletronico = new JogoEletronico(nomeItem, preco, "OUTRO");
 		return jogoEletronico;
 	}
 
 	/**
-	 * Cria um Object jogo de tabuleiro
+	 * Cria o item jogo de tabuleiro
 	 * 
-	 * @param nomeItem
-	 * @param preco
-	 * @return
+	 * @param nomeItem O nome do jogo
+	 * @param preco O preco do jogo
+	 * @return O item criado										
 	 */
 	public static Item criaJogoTabuleiro(String nomeItem, double preco) {
 		Item jogoTabuleiro = new JogoDeTabuleiro(nomeItem, preco);
@@ -49,45 +52,65 @@ public class CrudItem {
 	}
 	
 	/**
-	 * Cria um Object do tipo BlueRay de Filme
-	 * @param nomeItem
-	 * @param preco
-	 * @param duracao
-	 * @param genero
-	 * @param classificacao
-	 * @param anoLancamento
-	 * @return
+	 * Cria um item BluRay de filme
+	 * 
+	 * @param nomeItem O nome do filme
+	 * @param preco O preco do filme
+	 * @param duracao A duracao do filme
+	 * @param genero O genero do filme
+	 * @param classificacao A classificacao etaria para o filme
+	 * @param anoLancamento O ano de lancamento do filme
+	 * @return O item criado
 	 */
-
 	public static Item criaBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao,
 			int anoLancamento) {
-		Item filme;
-
 		if (Validacoes.validaGenero(genero)) {
-			filme = new Filme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
-		} else {
-			filme = new Filme(nomeItem, preco, duracao, "OUTRO", classificacao, anoLancamento);
+			Item filme = new Filme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
+			return filme;
 		}
-
+		
+		Item filme = new Filme(nomeItem, preco, duracao, "OUTRO", classificacao, anoLancamento);
 		return filme;
 	}
 
+	/**
+	 * Cria um item BluRay de show
+	 * 
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 * @param duracao A duracao da temporada
+	 * @param numeroFaixas O numero de faixas do show
+	 * @param artista O nome do artista
+	 * @param classificacao A classificacao etaria para o show
+	 * @return O item criado
+	 */
 	public static Item criaBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas, String artista,
 			String classificacao) {
-		Item item = new Show(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
-		return item;
+		Item show = new Show(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
+		return show;
 	}
 
+	/**
+	 * Cria um item BluRay de serie
+	 * 
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 * @param descricao A descricao da temporada
+	 * @param duracao A duracao da temporada 
+	 * @param classificacao A classificacao etaria para a serie
+	 * @param genero O genero da serie
+	 * @param temporada A temporada da serie
+	 * @return O item criado
+	 */
 	public static Item criaBluRaySerie(String nomeItem, double preco, String descricao, int duracao,
 			String classificacao, String genero, int temporada) {
-		Item serie;
 
 		if (Validacoes.validaGenero(genero)) {
-			serie = new Serie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
-		} else {
-			serie = new Serie(nomeItem, preco, descricao, duracao, classificacao, "OUTRO", temporada);
+			Item serie = new Serie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
+			return serie;
 		}
-
+	
+		Item serie = new Serie(nomeItem, preco, descricao, duracao, classificacao, "OUTRO", temporada);
 		return serie;
 	}
 }

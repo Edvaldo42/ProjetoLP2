@@ -1,5 +1,9 @@
 package item;
 
+/**
+ * 
+ *
+ */
 public enum Genero {
 
 	ACAO ("ACAO"),
@@ -21,10 +25,18 @@ public enum Genero {
 	
 	private String genero;
 	
+	/**
+	 * Construtor do Genero
+	 * @param genero O genero do BluRay
+	 */
 	private Genero(String genero) {
 		this.genero = genero;
 	}
 	
+	/**
+	 * 
+	 * @return O genero em String
+	 */
 	public String getGenero() {
 		return this.genero; 
 	}

@@ -26,7 +26,6 @@ public class Sistema {
 	public Sistema() {
 		this.crudUsuario = new CrudUsuario();
 		this.crudItem = new CrudItem();
-
 	}
 
 	/** Envia para o CRUD do usuario as informacoes de um usuario que devera ser cadastrado no sistema 
@@ -226,7 +225,7 @@ public class Sistema {
 	 * @param nome O nome do dono do item
 	 * @param telefone O telefone do dono do item
 	 * @param nomeItem O nome do item
-	 * @param atributo O atributo que será mudado
+	 * @param atributo O atributo que sera mudado
 	 * @param valor O novo valor do atributo
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
@@ -334,15 +333,34 @@ public class Sistema {
 		
 	}
 
+	/**
+	 * Lista os emprestimos do usuario que esta emprestando algo
+	 * 
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @return A lista dos itens que foram pegos emprestados pelo usuario
+	 */
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
 		return crudUsuario.listarEmprestimosUsuarioEmprestando(nome, telefone);
-		 
 	}
 
+	/**
+	 * Lista os emprestimos do usuario que esta pegando algo emprestado
+	 * 
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @return A lista dos itens que foram pegos emprestados pelo usuario
+	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
 		return crudUsuario.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
-		}
-
+	}
+	
+	/**
+	 * Lista os usuarios que pegaram determinado item emprestado
+	 * 
+	 * @param nomeItem O nome do item
+	 * @return A lista dos usuarios que pegaram o item emprestado
+	 */
 	public String listarEmprestimosItem(String nomeItem) {
 		return crudUsuario.listarEmprestimosItem(nomeItem);
 	}

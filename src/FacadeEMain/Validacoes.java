@@ -25,25 +25,27 @@ public class Validacoes {
 			Arrays.asList("ACAO", "ANIMACAO", "AVENTURA", "COMEDIA", "DOCUMENTARIO", "DRAMA", "EROTICO", "FAROESTE",
 					"FICCAO", "MUSICAL", "POLICIAL", "ROMANCE", "SUSPENSE", "TERROR"));
 
+	private final static String ERRO_CADASTRO_USUARIO = "Erro ao cadastrar usuario: ";
+	private final static String ERRO_ATUALIZACAO = "Erro ao atualizar usuario: ";
+	
+	
 	/**
 	 * Valida o cadastro de um usuario
 	 * @param nome O nome do usuario
 	 * @param telefone O telefone do usuario
 	 * @param email O email do usuario
-	 * @throws StringInvalidaException Caso alguma string seja nula ou vazia
+	 * @throws StringInvalidaException Caso alguma string seja invalida
 	 */
 	public static void validaCadastrarUsuario(String nome, String telefone, String email)
 			throws StringInvalidaException {
-		String msg = "Erro ao cadastrar usuario: ";
-
 		if (!validaNome(nome)) {
-			throw new NomeInvalidoException(msg);
+			throw new NomeInvalidoException(ERRO_CADASTRO_USUARIO);
 		}
 		if (!validaEmail(email)) {
-			throw new EmailInvalidoException(msg);
+			throw new EmailInvalidoException(ERRO_CADASTRO_USUARIO);
 		}
 		if (!validaTelefone(telefone)) {
-			throw new TelefoneInvalidoException(msg);
+			throw new TelefoneInvalidoException(ERRO_CADASTRO_USUARIO);
 		}
 	}
 
@@ -54,19 +56,17 @@ public class Validacoes {
 	 * @throws StringInvalidaException Caso alguma string seja nula ou vazia
 	 */
 	public static void validaAtualizarUsuario(String atributo, String valor) throws StringInvalidaException {
-		String msg = "Erro ao atualizar usuario: ";
-
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			if (!validaNome(valor)) {
-				throw new NomeInvalidoException(msg);
+				throw new NomeInvalidoException(ERRO_ATUALIZACAO);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("email")) {
 			if (!validaEmail(valor)) {
-				throw new EmailInvalidoException(msg);
+				throw new EmailInvalidoException(ERRO_ATUALIZACAO);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("telefone")) {
 			if (!validaTelefone(valor)) {
-				throw new TelefoneInvalidoException(msg);
+				throw new TelefoneInvalidoException(ERRO_ATUALIZACAO);
 			}
 		}
 

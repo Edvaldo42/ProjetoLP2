@@ -1,17 +1,21 @@
 package item;
 
+/**
+ * 
+ *
+ */
 public abstract class BluRay extends Item {
 
 	private int duracao;
 	private Classificacao classificacao;
 	
-/** construtor de BluRay
- * 
- * @param nomeItem
- * @param preco
- * @param duracao
- * @param classificacao
- */
+	/** Construtor de BluRay
+	 * 
+	 * @param nomeItem O nome do item
+	 * @param preco O preco do item
+	 * @param duracao A duracao
+	 * @param classificacao A classificacao etaria
+	 */
 	public BluRay(String nomeItem, double preco, int duracao, String classificacao) {
 		super(nomeItem, preco);
 		this.duracao = duracao;
@@ -20,9 +24,8 @@ public abstract class BluRay extends Item {
 	}
 	
 	/**
-	 * Retorna a duracao de um BluRay
 	 * 
-	 * @return
+	 * @return A duracao de um BluRay
 	 */
 	public int getDuracao() {
 		return duracao;
@@ -36,8 +39,8 @@ public abstract class BluRay extends Item {
 	}
 	
 	/**
-	 * Retorna a classificacao de um BluRay
-	 * @return
+	 * 
+	 * @return A classificacao de um BluRay
 	 */
 
 	public String getClassificacao() {
@@ -45,7 +48,7 @@ public abstract class BluRay extends Item {
 	}
 	
 	/**
-	 * Atualiza a classificacao de um Bluray
+	 * Atualiza a classificacao de um BluRay
 	 */
 
 	public void setClassificacao(String classificacao) {
@@ -57,7 +60,8 @@ public abstract class BluRay extends Item {
 	 */
 	@Override
 	public String toString() {
-		return super.toString() + ", " + this.duracao + " min, " + this.classificacao.getClassificacao();
+		return super.toString() + ", " + this.duracao + " min, " +
+				this.classificacao.getClassificacao();
 	}
 	
 	
