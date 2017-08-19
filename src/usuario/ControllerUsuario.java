@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import comparator.ordemAlfabetica;
-import comparator.valor;
+import comparator.ordenaPorValor;
+import comparator.ordenaPorVezesEmprestado;
 import emprestimo.Emprestimo;
 import exception.ItemNaoEncontradoException;
 import exception.PecaPerdidaException;
@@ -114,23 +115,6 @@ public class ControllerUsuario {
 	}
 
 	/**
-	 * 
-	 * @return
-	 */
-
-	private List<Item> getItens() {
-		List<Item> retornoItens = new ArrayList<>();
-		
-		for (Usuario usuario : getUsuarios()) {
-			for (Item item : usuario.getItens()) {
-				retornoItens.add(item);
-			}
-		}
-
-		return retornoItens;
-	}
-
-	/**
 	 * Retorn
 	 * 
 	 * @param user
@@ -184,7 +168,7 @@ public class ControllerUsuario {
 	 */
 
 	public String listarItensOrdenadosPorValor() {
-		tipoDeOrdenacao = new valor();
+		tipoDeOrdenacao = new ordenaPorValor();
 		List<Item> itens = getItens();
 		Collections.sort(itens, tipoDeOrdenacao);
 		String retorno = "";
@@ -195,13 +179,7 @@ public class ControllerUsuario {
 		return retorno;
 	}
 
-	public Usuario buscaUsuario(String nome, String telefone) {
-		return CRUDUsuario.buscaUsuario(nome, telefone, this.usuarios);
-	}
 
-	private void validaUsuario(Usuario user) throws UsuarioInvalidoException {
-		CRUDUsuario.validaUsuario(user);
-	}
 	
 	public Set<Usuario> getUsuarios() {
 		return usuarios;
@@ -246,10 +224,13 @@ public class ControllerUsuario {
 		
 	}
 
-	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) throws UsuarioInvalidoException {
 		Usuario user = buscaUsuario(nome, telefone);
 		tipoDeOrdenacao = new ordemAlfabetica();
 		String retorno = "Nenhum item emprestado";
+		
+		validaUsuario(user);
+		
 		if (!getItensEmprestadosDono(user).isEmpty()) {
 			retorno = "Emprestimos: ";
 			for (Emprestimo emprestimo : getItensEmprestadosDono(user)) {
@@ -259,10 +240,13 @@ public class ControllerUsuario {
 		}return retorno;
 	}
 
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) throws UsuarioInvalidoException {
 		Usuario user = buscaUsuario(nome, telefone);
 		tipoDeOrdenacao = new ordemAlfabetica();
 		String retorno = "Nenhum item pego emprestado";
+		
+		validaUsuario(user);
+		
 		if (!getItensEmprestadosRequerente(user).isEmpty()) {
 			retorno = "Emprestimos pegos: ";
 			for (Emprestimo emprestimo : getItensEmprestadosRequerente(user)) {
@@ -274,17 +258,100 @@ public class ControllerUsuario {
 	}
 
 	public String listarEmprestimosItem(String nomeItem) {
-		tipoDeOrdenacao = new ordemAlfabetica();
-		List<Item> itens = getItem(nomeItem);
-		Collections.sort(itens, tipoDeOrdenacao);
 		String retorno = "";
-		for (Item item : getItens()) {
-			retorno += item.toString() + "|";
+		
+		for (Emprestimo emprestimo : this.emprestimos) {
+			if (emprestimo.getItemEmprestado().equalsIgnoreCase(nomeItem)) {
+				retorno += emprestimo.toString() + "|";
+			}
 		}
-
+		if (retorno.equals("")) {
+			retorno += "Nenhum emprestimos associados ao item";
+		}
+		else {
+			retorno = "Emprestimos associados ao item: " + retorno; 
+		}
+		
 		return retorno;
 	}
+	
+	public String listarItensNaoEmprestados() {
+		String retorno = "";
+		tipoDeOrdenacao = new ordemAlfabetica();
+		List<Item> itens = getItens();
+		Collections.sort(itens, tipoDeOrdenacao);
+		
+		for (Item item : itens) {
+			if (!item.isEmprestado()) {
+				retorno += item.toString() + "|";
+			}
+		}
+		
+		return retorno;	
+	}
+	
+	public String listarItensEmprestados() {
+		String retorno = "";
+		tipoDeOrdenacao = new ordemAlfabetica();
+		List<Item> itensDoDono;
+		
+		for (Usuario usuario : getUsuarios()) {
+			itensDoDono = new ArrayList<>();
+			itensDoDono.addAll(usuario.getItens());
+			Collections.reverse(itensDoDono);
+			
+			for (Item item : itensDoDono) {
+				if (item.isEmprestado()) {
+					retorno += "Dono do item: " + usuario.getNome() + ", Nome do item emprestado: " + item.getNomeDoItem() + "|"; 
+				}
+			}
+		}
+		
+		return retorno;	
+	}
+	
+	public String listarTop10Itens() {
+		String retorno = "";
+		tipoDeOrdenacao = new ordenaPorVezesEmprestado();
+		
+		List<Item> topDez = getItens();
+		Collections.sort(topDez, tipoDeOrdenacao);
+		
+		int i = 1;
+		for (Item item : topDez) {
+			if (item.getVezesEmprestado() > 0) {
+				retorno += i + ") " + item.getVezesEmprestado() + " emprestimos - " + item.toString() + "|";
+				i++;
+			}
+		}
+		
+		return retorno;
+	}
+	
+	
+	public Usuario buscaUsuario(String nome, String telefone) {
+		return CRUDUsuario.buscaUsuario(nome, telefone, this.usuarios);
+	}
 
+	private void validaUsuario(Usuario user) throws UsuarioInvalidoException {
+		CRUDUsuario.validaUsuario(user);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	private List<Item> getItens() {
+		List<Item> retornoItens = new ArrayList<>();
+		
+		for (Usuario usuario : usuarios) {
+				retornoItens.addAll(usuario.getItens());
+		}
+
+		return retornoItens;
+	}
+	
 	private List<Item> getItem(String nomeItem) {
 		List<Item> retornoItens = new ArrayList<>();
 		for (Usuario usuario : getUsuarios()) {
@@ -295,6 +362,8 @@ public class ControllerUsuario {
 		}
 		return retornoItens;
 	}
+	
+	
 	
 	private Emprestimo buscaEmprestimo(Usuario dono, Usuario requerente, String nomeItem, String data){
 		Emprestimo emprestimoBuscado = null;

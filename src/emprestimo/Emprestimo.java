@@ -25,10 +25,10 @@ public class Emprestimo {
 	private int periodo;
 	private String dataDevolucao;
 	
-	public Emprestimo(ControllerUsuario crudUsuario, String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
+	public Emprestimo(ControllerUsuario controllerUsuario, String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String data, int periodo) throws ItemNaoEncontradoException {
-		this.dono = crudUsuario.buscaUsuario(nomeDono, telefoneDono);
-		this.requerente = crudUsuario.buscaUsuario(nomeRequerente, telefoneRequerente);
+		this.dono = controllerUsuario.buscaUsuario(nomeDono, telefoneDono);
+		this.requerente = controllerUsuario.buscaUsuario(nomeRequerente, telefoneRequerente);
 		this.itemEmprestado = nomeItem;
 		this.dataEmprestimo = data;
 		this.periodo = periodo;

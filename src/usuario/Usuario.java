@@ -211,7 +211,26 @@ public class Usuario {
 	public Set<Emprestimo> getItensEmprestadosDono() {
 		return this.emprestimosDono;
 	}
+
+	/**
+	 * Adiciona o emprestimo ao dono
+	 * 
+	 * @param emprestimo
+	 */
+	public void registrarEmprestimoDono(Emprestimo emprestimo) {
+		emprestimosDono.add(emprestimo);
+	}
 	
+	/**
+	 * Adiciona o emprestimo ao requerente
+	 * 
+	 * @param emprestimo
+	 */
+	public void registrarEmprestimoRequerente(Emprestimo emprestimo) {
+		emprestimosRequerente.add(emprestimo);
+	}
+
+
 	/**
 	 * Retorna a lista de emprestimos que o usuario fez
 	 * @return 
@@ -294,24 +313,5 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
-	/**
-	 * Adiciona o emprestimo ao dono
-	 * 
-	 * @param emprestimo
-	 */
-	public void registrarEmprestimoDono(Emprestimo emprestimo) {
-		emprestimosDono.add(emprestimo);
-	}
-	
-	/**
-	 * Adiciona o emprestimo ao requerente
-	 * 
-	 * @param emprestimo
-	 */
-	public void registrarEmprestimoRequerente(Emprestimo emprestimo) {
-		emprestimosRequerente.add(emprestimo);
-	}
-
 
 }

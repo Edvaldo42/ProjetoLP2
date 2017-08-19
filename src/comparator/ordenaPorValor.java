@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import item.Item;
 
-public class valor implements Comparator<Item> {
+public class ordenaPorValor implements Comparator<Item> {
 
 	@Override
 	public int compare(Item o1, Item o2) {

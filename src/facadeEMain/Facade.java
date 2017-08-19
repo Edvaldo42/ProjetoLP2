@@ -65,7 +65,7 @@ public class Facade {
 	 * @param nome O nome do usuario
 	 * @param telefone O telefone do usuario
 	 * @param atributo O atributo que sera mudado
-	 * @param valor O novo valor do atributo
+	 * @param ordenaPorValor O novo valor do atributo
 	 * @return Informacoes do usuario no formato:
 	 * "nome, email, telefone"
 	 * @throws StringInvalidaException Caso alguma string seja invalida
@@ -313,9 +313,10 @@ public class Facade {
 	 * @param telefone O telefone do usuario
 	 * @return A lista dos emprestimos do usuario que esta emprestando 
 	 * {@link Sistema#listarEmprestimosUsuarioEmprestando(String, String)}
+	 * @throws UsuarioInvalidoException 
 	 */
 	
-	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone){
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) throws UsuarioInvalidoException{
 		return sistema.listarEmprestimosUsuarioEmprestando(nome, telefone);
 	}
 	
@@ -326,8 +327,9 @@ public class Facade {
 	 * @param telefone O telefone do usuario
 	 * @return A lista dos emprestimos do usuario que esta pegando um item emprestado 
 	 * {@link Sistema#listarEmprestimosUsuarioPegandoEmprestado(String, String)}
+	 * @throws UsuarioInvalidoException 
 	 */
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone){
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) throws UsuarioInvalidoException{
 		return sistema.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
 	}
 	
@@ -341,7 +343,19 @@ public class Facade {
 	public String listarEmprestimosItem(String nomeItem) {
 		return sistema.listarEmprestimosItem(nomeItem);
 	}
+	
+	public String listarItensNaoEmprestados() {
+		return sistema.listarItensNaoEmprestados();
+	}
 
+	public String listarItensEmprestados() {
+		return sistema.listarItensEmprestados();
+	}
+
+	public String listarTop10Itens() {
+		return sistema.listarTop10Itens();
+	}
+	
 	/**
 	 * Fecha o sistema
 	 */
