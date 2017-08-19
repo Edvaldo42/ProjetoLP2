@@ -60,7 +60,9 @@ public class CRUDUsuario {
 		else if (atributo.trim().equalsIgnoreCase("reputacao")) {
 			info += user.getReputacao();
 		}
-
+		else if (atributo.trim().equalsIgnoreCase("cartao")) {
+			info += user.getCartao();
+		}
 		else {
 			throw new AtributoInvalidoException();
 		}

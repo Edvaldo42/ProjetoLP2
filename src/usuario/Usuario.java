@@ -23,6 +23,7 @@ public class Usuario {
 	private Set<Emprestimo> emprestimosDono;
 	private Set<Emprestimo> emprestimosRequerente;
 	private double reputacao;
+	private Cartao cartao;  
 	
 	/**
 	 * Construtor do Usuario
@@ -39,6 +40,7 @@ public class Usuario {
 		this.emprestimosDono = new HashSet<>();
 		this.emprestimosRequerente = new HashSet<>();
 		this.reputacao = 0;
+		this.cartao = Cartao.FREE_RYDER;
 	}
 	
 	/**
@@ -195,10 +197,12 @@ public class Usuario {
 
 	public void aumentaReputacao(double preco, double taxa) {
 		this.reputacao += preco * taxa;
+		setCartao();
 	}
 	
 	public void diminuiReputacao(double preco, double taxa) {
 		this.reputacao += preco * taxa;
+		setCartao();
 	}
 	
 	/**
@@ -278,6 +282,31 @@ public class Usuario {
 	
 	public double getReputacao() {
 		return this.reputacao;
+	}
+	
+	public String getCartao() {
+		return this.cartao.getCartao();
+	}
+	
+	public void setCartao() {
+		if (getReputacao() >= 0) {
+			for (Item item : getItens()) {
+				if (item.isEmprestado()) {
+					if (getReputacao() <= 100) {
+						this.cartao = Cartao.NOOB; 
+					}
+					else if (getReputacao() > 100) {
+						this.cartao = Cartao.BOM_AMIGO;
+					}
+					return;
+				}
+			}
+			this.cartao = Cartao.FREE_RYDER;
+		}
+		else  {
+			this.cartao = Cartao.CALOTEIRO;
+		}
+		
 	}
 	
 	/**
