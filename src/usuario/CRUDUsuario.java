@@ -46,7 +46,7 @@ public class CRUDUsuario {
 
 		validaUsuario(user);
 		
-		String info = null;
+		String info = "";
 		
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			info = user.getNome();
@@ -57,6 +57,10 @@ public class CRUDUsuario {
 		else if (atributo.trim().equalsIgnoreCase("email")) {
 			info = user.getEmail();
 		} 
+		else if (atributo.trim().equalsIgnoreCase("reputacao")) {
+			info += user.getReputacao();
+		}
+
 		else {
 			throw new AtributoInvalidoException();
 		}

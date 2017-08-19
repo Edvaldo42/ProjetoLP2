@@ -22,6 +22,7 @@ public class Usuario {
 	private Set<Item> itens;
 	private Set<Emprestimo> emprestimosDono;
 	private Set<Emprestimo> emprestimosRequerente;
+	private double reputacao;
 	
 	/**
 	 * Construtor do Usuario
@@ -37,6 +38,7 @@ public class Usuario {
 		this.itens = new HashSet<>();
 		this.emprestimosDono = new HashSet<>();
 		this.emprestimosRequerente = new HashSet<>();
+		this.reputacao = 0;
 	}
 	
 	/**
@@ -44,11 +46,11 @@ public class Usuario {
 	 * 
 	 * @param item Pode ser um jogo de tabuleiro, jogo eletronico, ou um BluRay
 	 */
-	
 	public void cadastrarItem(Item item) {
 		if (!itens.add(item)) {
 			throw new IllegalArgumentException("Item ja cadastrado");
-		}		
+		}
+		aumentaReputacao(item.getPreco(), 0.05);
 	}
 	
 	/**
@@ -152,7 +154,6 @@ public class Usuario {
 	 * @param item
 	 * @return
 	 */
-
 	public void emprestaItem(String nomeItem) throws ItemNaoEncontradoException {
 		Item itemBuscado = buscaItem(nomeItem);
 		if (itemBuscado.isEmprestado()) {
@@ -161,6 +162,7 @@ public class Usuario {
 		else {
 			itemBuscado.setEmprestado(true);
 			itemBuscado.addVezEmprestada();
+			aumentaReputacao(itemBuscado.getPreco(), 0.1);
 		}
 	}
 	
@@ -174,11 +176,56 @@ public class Usuario {
 	}
 	
 	/**
+	 * Adiciona o emprestimo ao dono
+	 * 
+	 * @param emprestimo
+	 */
+	public void registrarEmprestimoDono(Emprestimo emprestimo) {
+		emprestimosDono.add(emprestimo);
+	}
+	
+	/**
+	 * Adiciona o emprestimo ao requerente
+	 * 
+	 * @param emprestimo
+	 */
+	public void registrarEmprestimoRequerente(Emprestimo emprestimo) {
+		emprestimosRequerente.add(emprestimo);
+	}
+
+	public void aumentaReputacao(double preco, double taxa) {
+		this.reputacao += preco * taxa;
+	}
+	
+	public void diminuiReputacao(double preco, double taxa) {
+		this.reputacao += preco * taxa;
+	}
+	
+	/**
+	 * Verifica se um emprestimo existe
+	 * 
+	 * @param nomeItem O nome do item
+	 * @param data A data em que o item esta sendo pego emprestado
+	 * @param requerente O nome do requerente
+	 * @return O emprestimo, caso exista, null caso contrario
+	 */
+	public Emprestimo buscaEmprestimo(String nomeItem, String data, Usuario requerente){
+		Emprestimo emprestimoBuscado = null;
+		for (Emprestimo emprestimo : emprestimosDono) {
+			String itemEmprestado = emprestimo.getItemEmprestado();
+			String dataEmprestimo = emprestimo.getDataEmprestimo();
+			Usuario requerenteEmprestimo = emprestimo.getRequerente();
+			if (itemEmprestado.equals(nomeItem) && dataEmprestimo.equals(data) && requerenteEmprestimo.equals(requerente)){
+				emprestimoBuscado = emprestimo; 
+			}
+		}
+		return emprestimoBuscado;
+	}
+	
+	/**
 	 * 
 	 * @param item
 	 */
-
-	
 	public String getEmail() {
 		return email;
 	}
@@ -213,25 +260,6 @@ public class Usuario {
 	}
 
 	/**
-	 * Adiciona o emprestimo ao dono
-	 * 
-	 * @param emprestimo
-	 */
-	public void registrarEmprestimoDono(Emprestimo emprestimo) {
-		emprestimosDono.add(emprestimo);
-	}
-	
-	/**
-	 * Adiciona o emprestimo ao requerente
-	 * 
-	 * @param emprestimo
-	 */
-	public void registrarEmprestimoRequerente(Emprestimo emprestimo) {
-		emprestimosRequerente.add(emprestimo);
-	}
-
-
-	/**
 	 * Retorna a lista de emprestimos que o usuario fez
 	 * @return 
 	 */
@@ -241,32 +269,15 @@ public class Usuario {
 	}
 	
 	/**
-	 * Verifica se um emprestimo existe
-	 * 
-	 * @param nomeItem O nome do item
-	 * @param data A data em que o item esta sendo pego emprestado
-	 * @param requerente O nome do requerente
-	 * @return O emprestimo, caso exista, null caso contrario
-	 */
-	public Emprestimo buscaEmprestimo(String nomeItem, String data, Usuario requerente){
-		Emprestimo emprestimoBuscado = null;
-		for (Emprestimo emprestimo : emprestimosDono) {
-			String itemEmprestado = emprestimo.getItemEmprestado();
-			String dataEmprestimo = emprestimo.getDataEmprestimo();
-			Usuario requerenteEmprestimo = emprestimo.getRequerente();
-			if (itemEmprestado.equals(nomeItem) && dataEmprestimo.equals(data) && requerenteEmprestimo.equals(requerente)){
-				emprestimoBuscado = emprestimo; 
-			}
-		}
-		return emprestimoBuscado;
-	}
-
-	/**
 	 * Retorna a lista de emprestimos que o usuario tomou como emprestado
 	 * @return O conjunto de emprestimos que o requerente pegou por um tempo.
 	 */
 	public Set<Emprestimo> getEmprestimosRequerente() {
 		return emprestimosRequerente;
+	}
+	
+	public double getReputacao() {
+		return this.reputacao;
 	}
 	
 	/**

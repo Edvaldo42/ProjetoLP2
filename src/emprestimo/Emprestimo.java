@@ -51,7 +51,9 @@ public class Emprestimo {
 		this.dataDevolucao = dataDevolucao;
 	}
 
-
+	/*private void converteData(String data) {
+		LocalDate dataConvertida = new LocalDta;
+	}*/
 
 	public Usuario getDono() {
 		return dono;
