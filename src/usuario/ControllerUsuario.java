@@ -1,13 +1,17 @@
 package usuario;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import comparator.ordemAlfabetica;
+import comparator.OrdemAlfabeticaEmprestimo;
+import comparator.OrdemAlfabeticaItem;
+import comparator.OrdemPorReputacao;
 import comparator.ordenaPorValor;
 import comparator.ordenaPorVezesEmprestado;
 import emprestimo.Emprestimo;
@@ -23,8 +27,9 @@ public class ControllerUsuario {
 
 	private static final String nome = null;
 	private Set<Usuario> usuarios;
-	private Comparator<Item> tipoDeOrdenacao;
-	private Comparator<Emprestimo> ordenaUsuario;
+	private Comparator<Item> ordenaItem;
+	private Comparator<Emprestimo> ordenaEmprestimo;
+	private Comparator<Usuario> ordenaUsuario;
 	private List<Emprestimo> emprestimos; 
 
 	public ControllerUsuario() {
@@ -37,7 +42,14 @@ public class ControllerUsuario {
 		Validacoes.validaCadastrarUsuario(nome, telefone, email);
 		CRUDUsuario.cadastraUsuario(nome, telefone, email, this.usuarios);
 	}
-
+	
+	/**
+	 * Precisa validar
+	 * @param nome
+	 * @param telefone
+	 * @throws UsuarioInvalidoException
+	 */
+	
 	public void removerUsuario(String nome, String telefone) throws UsuarioInvalidoException {
 		CRUDUsuario.removerUsuario(nome, telefone, usuarios);
 	}
@@ -151,9 +163,9 @@ public class ControllerUsuario {
 	 */
 
 	public String listarItensOrdenadosPorNome() {
-		tipoDeOrdenacao = new ordemAlfabetica();
+		ordenaItem = new OrdemAlfabeticaItem();
 		List<Item> itens = getItens();
-		Collections.sort(itens, tipoDeOrdenacao);
+		Collections.sort(itens, ordenaItem);
 		String retorno = "";
 		for (Item item : itens) {
 			retorno += item.toString() + "|";
@@ -168,9 +180,9 @@ public class ControllerUsuario {
 	 */
 
 	public String listarItensOrdenadosPorValor() {
-		tipoDeOrdenacao = new ordenaPorValor();
+		ordenaItem = new ordenaPorValor();
 		List<Item> itens = getItens();
-		Collections.sort(itens, tipoDeOrdenacao);
+		Collections.sort(itens, ordenaItem);
 		String retorno = "";
 		for (Item item : itens) {
 			retorno += item.toString() + "|";
@@ -217,23 +229,33 @@ public class ControllerUsuario {
 		}
 		
 		requerente.devolveItem(dono, nomeItem, dataDevolucao);
-		if (emprestimo.getDataDevolucao().trim().equals("Emprestimo em andamento")) {
+		if (emprestimo.getDataDevolucao().equals("Emprestimo em andamento")) {
 			emprestimo.setDataDevolucao(dataDevolucao);
-			
+			if (emprestimo.getTempoComItem() <= emprestimo.getPeriodo()) {
+				requerente.aumentaReputacao(dono.buscaItem(nomeItem).getPreco(), 0.05);
+			}
+			else {
+				requerente.diminuiReputacao(dono.buscaItem(nomeItem).getPreco(), 0.01 * emprestimo.getAtraso());
+			}
 		}
 		
 	}
 
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) throws UsuarioInvalidoException {
 		Usuario user = buscaUsuario(nome, telefone);
-		tipoDeOrdenacao = new ordemAlfabetica();
+		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 		String retorno = "Nenhum item emprestado";
+		List<Emprestimo> emprestimosTemp;
 		
 		validaUsuario(user);
 		
 		if (!getItensEmprestadosDono(user).isEmpty()) {
 			retorno = "Emprestimos: ";
-			for (Emprestimo emprestimo : getItensEmprestadosDono(user)) {
+			emprestimosTemp = new ArrayList<>();
+			emprestimosTemp.addAll(getItensEmprestadosDono(user));
+			Collections.sort(emprestimosTemp, ordenaEmprestimo);
+
+			for (Emprestimo emprestimo : emprestimosTemp) {
 				retorno += emprestimo.toString() + "|";
 			}
 			
@@ -242,14 +264,19 @@ public class ControllerUsuario {
 
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) throws UsuarioInvalidoException {
 		Usuario user = buscaUsuario(nome, telefone);
-		tipoDeOrdenacao = new ordemAlfabetica();
+		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 		String retorno = "Nenhum item pego emprestado";
+		List<Emprestimo> emprestimosTemp;
 		
 		validaUsuario(user);
 		
 		if (!getItensEmprestadosRequerente(user).isEmpty()) {
 			retorno = "Emprestimos pegos: ";
-			for (Emprestimo emprestimo : getItensEmprestadosRequerente(user)) {
+			emprestimosTemp = new ArrayList<>();
+			emprestimosTemp.addAll(getItensEmprestadosRequerente(user));
+			Collections.sort(emprestimosTemp, ordenaEmprestimo);
+
+			for (Emprestimo emprestimo : emprestimosTemp) {
 				retorno += emprestimo.toString() + "|";
 			}
 
@@ -277,9 +304,9 @@ public class ControllerUsuario {
 	
 	public String listarItensNaoEmprestados() {
 		String retorno = "";
-		tipoDeOrdenacao = new ordemAlfabetica();
+		ordenaItem = new OrdemAlfabeticaItem();
 		List<Item> itens = getItens();
-		Collections.sort(itens, tipoDeOrdenacao);
+		Collections.sort(itens, ordenaItem);
 		
 		for (Item item : itens) {
 			if (!item.isEmprestado()) {
@@ -292,12 +319,13 @@ public class ControllerUsuario {
 	
 	public String listarItensEmprestados() {
 		String retorno = "";
-		tipoDeOrdenacao = new ordemAlfabetica();
+		ordenaItem = new OrdemAlfabeticaItem();
 		List<Item> itensDoDono;
 		
 		for (Usuario usuario : getUsuarios()) {
 			itensDoDono = new ArrayList<>();
 			itensDoDono.addAll(usuario.getItens());
+			Collections.sort(itensDoDono, ordenaItem);
 			Collections.reverse(itensDoDono);
 			
 			for (Item item : itensDoDono) {
@@ -312,10 +340,10 @@ public class ControllerUsuario {
 	
 	public String listarTop10Itens() {
 		String retorno = "";
-		tipoDeOrdenacao = new ordenaPorVezesEmprestado();
+		ordenaItem = new ordenaPorVezesEmprestado();
 		
 		List<Item> topDez = getItens();
-		Collections.sort(topDez, tipoDeOrdenacao);
+		Collections.sort(topDez, ordenaItem);
 		
 		int i = 1;
 		for (Item item : topDez) {
@@ -328,6 +356,55 @@ public class ControllerUsuario {
 		return retorno;
 	}
 	
+	public String listarCaloteiros() {
+		String retorno = "Lista de usuarios com reputacao negativa: ";
+		List<Usuario> usuariosTemp = new ArrayList<>();
+		usuariosTemp.addAll(getUsuarios());
+		
+		for (Usuario usuario : usuariosTemp) {
+			if (usuario.getReputacao() < 0) {
+				retorno += usuario.toString() + "|";
+			}
+		}
+		
+		return retorno;
+	}
+	
+	public String listarTop10MelhoresUsuarios() {
+		String retorno = "";
+		List<Usuario> usuariosTemp = new ArrayList<>();
+		usuariosTemp.addAll(getUsuarios());
+		ordenaUsuario = new OrdemPorReputacao();
+		Collections.sort(usuariosTemp, ordenaUsuario);
+		Collections.reverse(usuariosTemp);
+		String preco;
+
+		for (int i = 0; i < 10; i++) {
+			preco = String.format("%.2f", usuariosTemp.get(i).getReputacao());
+			preco = preco.replace(".", ",");
+			retorno += (i + 1) + ": "  + usuariosTemp.get(i).getNome() + " - Reputacao: " + preco + "|";
+		}
+		
+		return retorno;
+	}
+	
+	public String listarTop10PioresUsuarios() {
+		String retorno = "";
+		List<Usuario> usuariosTemp = new ArrayList<>();
+		usuariosTemp.addAll(getUsuarios());
+		ordenaUsuario = new OrdemPorReputacao();
+		Collections.sort(usuariosTemp, ordenaUsuario);
+		String preco;
+		
+		for (int i = 0; i < 10; i++) {
+			preco = String.format("%.2f", usuariosTemp.get(i).getReputacao());
+			preco = preco.replace(".", ",");
+			retorno += (i + 1) + ": "  + usuariosTemp.get(i).getNome() + " - Reputacao: " + preco + "|";
+		}
+		
+		return retorno;
+		
+	}
 	
 	public Usuario buscaUsuario(String nome, String telefone) {
 		return CRUDUsuario.buscaUsuario(nome, telefone, this.usuarios);

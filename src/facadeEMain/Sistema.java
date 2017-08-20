@@ -377,4 +377,17 @@ public class Sistema {
 	public String listarTop10Itens() {
 		return controllerUsuario.listarTop10Itens();
 	}
+	
+	public String listarCaloteiros() {
+		return controllerUsuario.listarCaloteiros();
+	}
+
+	public String listarTop10MelhoresUsuarios() {
+		return controllerUsuario.listarTop10MelhoresUsuarios();
+	}
+	
+	public String listarTop10PioresUsuarios() {
+		return controllerUsuario.listarTop10PioresUsuarios();
+	}
+
 }

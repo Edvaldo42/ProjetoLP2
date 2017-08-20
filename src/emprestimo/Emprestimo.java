@@ -1,59 +1,98 @@
 package emprestimo;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 import exception.ItemNaoEncontradoException;
-import item.Item;
+import exception.UsuarioInvalidoException;
 import usuario.ControllerUsuario;
 import usuario.Usuario;
 
 public class Emprestimo {
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "EMPRESTIMO - De: " + dono.getNome() + ", Para: " + requerente.getNome() + ", " + itemEmprestado
-				+ ", " + dataEmprestimo + ", " + periodo +" dias" + ", ENTREGA: " + dataDevolucao;
+		return "EMPRESTIMO - De: " + dono.getNome() + ", Para: " + requerente.getNome() + ", " + itemEmprestado + ", "
+				+ this.getDataEmprestimo() + ", " + periodo + " dias" + ", ENTREGA: " + this.getDataDevolucao();
 	}
 
 	private Usuario dono;
 	private Usuario requerente;
 	private String itemEmprestado;
-	private String dataEmprestimo;
+	private LocalDate dataEmprestimo;
 	private int periodo;
-	private String dataDevolucao;
-	
-	public Emprestimo(ControllerUsuario controllerUsuario, String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
-			String nomeItem, String data, int periodo) throws ItemNaoEncontradoException {
+	private LocalDate dataDevolucao;
+
+	public Emprestimo(ControllerUsuario controllerUsuario, String nomeDono, String telefoneDono, String nomeRequerente,
+			String telefoneRequerente, String nomeItem, String data, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException {
 		this.dono = controllerUsuario.buscaUsuario(nomeDono, telefoneDono);
 		this.requerente = controllerUsuario.buscaUsuario(nomeRequerente, telefoneRequerente);
+		
+		if (dono == null || this.requerente == null) {
+			throw new UsuarioInvalidoException();
+		}
+		if (this.requerente.getCartao().equals("Caloteiro")) {
+			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
+		}
+		if (this.requerente.getCartao().equals("FreeRyder") && periodo > 5) {
+			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
+		}
+		if (this.requerente.getCartao().equals("Noob") && periodo > 7) {
+			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
+		}
+		if (this.requerente.getCartao().equals("BomAmigo") && periodo > 14) {
+			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
+		}
+		
 		this.itemEmprestado = nomeItem;
-		this.dataEmprestimo = data;
+		this.dataEmprestimo = converteData(data);
 		this.periodo = periodo;
-		this.dataDevolucao = "Emprestimo em andamento";
+		this.dataDevolucao = null;
 	}
-	
-
 
 	/**
 	 * @return the dataDevolucao
 	 */
 	public String getDataDevolucao() {
-		return dataDevolucao;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		if (this.dataDevolucao == null) {
+			return "Emprestimo em andamento";
+		}
+		return this.dataDevolucao.format(formatter);
 	}
 
 	/**
-	 * @param dataDevolucao the dataDevolucao to set
+	 * @param dataDevolucao
+	 *            the dataDevolucao to set
 	 */
 	public void setDataDevolucao(String dataDevolucao) {
-		this.dataDevolucao = dataDevolucao;
+		this.dataDevolucao = converteData(dataDevolucao);
 	}
 
-	/*private void converteData(String data) {
-		LocalDate dataConvertida = new LocalDta;
-	}*/
+	private LocalDate converteData(String data) {
+		StringBuilder sb = new StringBuilder(data);
+		int i = 0;
+		int qtdBarras = 0;
+		while (i < data.length() && qtdBarras < 1) {
+			if (data.charAt(i) == '/') {
+				for (int j = 0; j < i - 2; j++) {
+					sb.deleteCharAt(j);
+					data = sb.toString();
+				}
+				qtdBarras++;
+			}
+			i++;
+		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate dataConvertida = LocalDate.parse(data, formatter);
+		return dataConvertida;
+	}
 
 	public Usuario getDono() {
 		return dono;
@@ -80,11 +119,12 @@ public class Emprestimo {
 	}
 
 	public String getDataEmprestimo() {
-		return dataEmprestimo;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return dataEmprestimo.format(formatter);
 	}
 
 	public void setDataEmprestimo(String dataEmprestimo) {
-		this.dataEmprestimo = dataEmprestimo;
+		this.dataEmprestimo = converteData(dataEmprestimo);
 	}
 
 	public int getPeriodo() {
@@ -94,8 +134,21 @@ public class Emprestimo {
 	public void setPeriodo(int periodo) {
 		this.periodo = periodo;
 	}
+	
+	public int getTempoComItem() {
+		Period tempoComItem = Period.between(this.dataEmprestimo, this.dataDevolucao);
+		return tempoComItem.getDays();
+	}
+	
+	public int getAtraso() {
+		int atraso;
+		atraso = this.periodo - getTempoComItem();
+		return atraso;
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -109,7 +162,9 @@ public class Emprestimo {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -143,6 +198,5 @@ public class Emprestimo {
 			return false;
 		return true;
 	}
-	
-	
+
 }

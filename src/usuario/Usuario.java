@@ -141,7 +141,7 @@ public class Usuario {
 	 * @throws ItemNaoEncontradoException
 	 */
 
-	private Item buscaItem(String nomeItem) throws ItemNaoEncontradoException {
+	public Item buscaItem(String nomeItem) throws ItemNaoEncontradoException {
 		
 		for (Item item : itens) {
 			if (item.getNomeDoItem().equals(nomeItem)) {
@@ -291,7 +291,7 @@ public class Usuario {
 	public void setCartao() {
 		if (getReputacao() >= 0) {
 			for (Item item : getItens()) {
-				if (item.isEmprestado()) {
+				if (!item.isEmprestado()) {
 					if (getReputacao() <= 100) {
 						this.cartao = Cartao.NOOB; 
 					}
