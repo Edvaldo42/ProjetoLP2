@@ -119,16 +119,30 @@ public class CRUDItem {
 	
 	public static String getInfoItem(Item item, String atributo) {
 		String info = "";
-		if (atributo.trim().equalsIgnoreCase("preco")){
+		if (atributo.trim().equalsIgnoreCase("preco")) {
 			info += item.getPreco();
 		} 
 		else if (atributo.trim().equalsIgnoreCase("peca perdida")) {
 			info = item.getPecasPerdidas();
 		}
-		else if (atributo.trim().equalsIgnoreCase("nome")){
+		else if (atributo.trim().equalsIgnoreCase("nome")) {
 			info = item.getNomeDoItem();
 		}
-		
+		else if (atributo.trim().equalsIgnoreCase("plataforma")) {
+			info = item.getPlataforma();
+		}
+		else if (atributo.trim().equalsIgnoreCase("duracao")) {
+			info += item.getDuracao();
+		}
+		else if (atributo.trim().equalsIgnoreCase("genero")) {
+			info += item.getGenero();
+		}
+		else if (atributo.trim().equalsIgnoreCase("classificacao")) {
+			info += item.getClassificacao();
+		}
+		else if (atributo.trim().equalsIgnoreCase("ano de lancamento")) {
+			info += item.getAnoLancamento();
+		}
 		return info;
 	}
 	

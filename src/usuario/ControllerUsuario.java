@@ -1,19 +1,18 @@
 package usuario;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import comparator.OrdemAlfabeticaEmprestimo;
 import comparator.OrdemAlfabeticaItem;
+import comparator.OrdemAlfabeticaUsuario;
 import comparator.OrdemPorReputacao;
-import comparator.ordenaPorValor;
-import comparator.ordenaPorVezesEmprestado;
+import comparator.OrdenaPorValor;
+import comparator.OrdenaPorVezesEmprestado;
 import emprestimo.Emprestimo;
 import exception.ItemNaoEncontradoException;
 import exception.PecaPerdidaException;
@@ -180,7 +179,7 @@ public class ControllerUsuario {
 	 */
 
 	public String listarItensOrdenadosPorValor() {
-		ordenaItem = new ordenaPorValor();
+		ordenaItem = new OrdenaPorValor();
 		List<Item> itens = getItens();
 		Collections.sort(itens, ordenaItem);
 		String retorno = "";
@@ -320,12 +319,16 @@ public class ControllerUsuario {
 	public String listarItensEmprestados() {
 		String retorno = "";
 		ordenaItem = new OrdemAlfabeticaItem();
-		List<Item> itensDoDono;
+		ordenaUsuario = new OrdemAlfabeticaUsuario();
+		List<Usuario> usuariosTemp = new ArrayList<>();
+		List<Item> itensDoDono = new ArrayList<>();
 		
-		for (Usuario usuario : getUsuarios()) {
+		usuariosTemp.addAll(getUsuarios());
+		Collections.sort(usuariosTemp, ordenaUsuario);
+		
+		for (Usuario usuario : usuariosTemp) {
 			itensDoDono = new ArrayList<>();
 			itensDoDono.addAll(usuario.getItens());
-			Collections.sort(itensDoDono, ordenaItem);
 			Collections.reverse(itensDoDono);
 			
 			for (Item item : itensDoDono) {
@@ -340,7 +343,7 @@ public class ControllerUsuario {
 	
 	public String listarTop10Itens() {
 		String retorno = "";
-		ordenaItem = new ordenaPorVezesEmprestado();
+		ordenaItem = new OrdenaPorVezesEmprestado();
 		
 		List<Item> topDez = getItens();
 		Collections.sort(topDez, ordenaItem);

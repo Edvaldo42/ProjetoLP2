@@ -27,6 +27,10 @@ public class JogoDeTabuleiro extends Item{
 	 * @return As pecas perdidas do jogo 
 	 */
 	public String getPecasPerdidas() {
+		if (pecasPerdidas.size() == 1) {
+			return pecasPerdidas.get(0);
+		}
+		
 		String msg = "";
 		
 		for (String pecaPerdida : pecasPerdidas) {

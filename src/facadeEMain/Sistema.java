@@ -247,11 +247,8 @@ public class Sistema {
 	 */
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
-		String info = "";
 
-		info = controllerUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
-
-		return info;
+		return controllerUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
 
 	/**

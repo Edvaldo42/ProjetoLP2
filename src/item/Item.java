@@ -52,7 +52,15 @@ public abstract class Item {
 	 * @return As pecas perdidas do jogo de tabuleiro
 	 */
 	public String getPecasPerdidas() {
-		return "Esse item nao possui pecas";
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param nomeItem O nome do item
+	 */
+	public void setNomeItem(String nomeItem) {
+		this.nomeItem = nomeItem;
 	}
 	
 	/**
@@ -63,14 +71,6 @@ public abstract class Item {
 		return nomeItem;
 	}
 
-	/**
-	 * 
-	 * @param nomeItem O nome do item
-	 */
-	public void setNomeItem(String nomeItem) {
-		this.nomeItem = nomeItem;
-	}
-	
 	/**
 	 * 
 	 * @return O preco do item
@@ -102,71 +102,126 @@ public abstract class Item {
 	public void setEmprestado(boolean emprestado) {
 		this.emprestado = emprestado;
 	}
+	
 	/**
 	 * 
 	 * @param valor A plataforma do jogo
 	 */
-	public void setPlataforma(String plataforma) {
+	public void setPlataforma(String plataforma) {}
+	
+	/**
+	 * 
+	 */
+	public String getPlataforma() {
+		return null;
 	}
-
+	
 	/**
 	 * 
 	 * @param duracao A duracao do BluRay
 	 */
-	public void setDuracao(int duracao) {
-	}
+	public void setDuracao(int duracao) {}
 
+	/**
+	 * 
+	 */
+	public int getDuracao() {
+		return -1;
+	}
+	
 	/**
 	 * 
 	 * @param classificacao A classificacao etaria
 	 */
-	public void setClassificacao(String classificacao) {
+	public void setClassificacao(String classificacao) {}
+	
+	/**
+	 * 
+	 */
+	public String getClassificacao() {
+		return null;
 	}
 
 	/**
 	 * 
 	 * @param valor O genero do BluRay
 	 */
-	public void setGenero(String genero) {
-	}
+	public void setGenero(String genero) {}
 
+	/**
+	 * 
+	 */
+	public String getGenero() {
+		return null;
+	}
+	
 	/**
 	 * 
 	 * @param anoLancamento O ano de lancamento
 	 */
-	public void setAnoLancamento(int anoLancamento) {
+	public void setAnoLancamento(int anoLancamento) {}
+	
+	/**
+	 * 
+	 */
+	public int getAnoLancamento() {
+		return -1;
 	}
+	
+	/**
+	 * 
+	 * @param nomeArtista O nome do artista
+	 */
+	public void setNomeArtista(String nomeArtista) {}
 
 	/**
 	 * 
 	 * @param nomeArtista O nome do artista
 	 */
-	public void setNomeArtista(String nomeArtista) {
+	public String getNomeArtista() {
+		return null;
 	}
-
+	
 	/**
 	 * 
 	 * @param numeroFaixas O numero de faixas
 	 */
-	public void setNumeroFaixas(int numeroFaixas) {
+	public void setNumeroFaixas(int numeroFaixas) {}
+
+	/**
+	 * 
+	 */
+	public int getNumeroFaixas() {
+		return -1;
 	}
 
 	/**
 	 * 
 	 * @param descricao A descricao do BluRay
 	 */
-	public void setDescricao(String descricao) {
+	public void setDescricao(String descricao) {}
+	
+	/**
+	 * 
+	 */
+	public String getDescricao() {
+		return null;
 	}
-
+	
 	/**
 	 * 
 	 * @param temporada A temporada da serie
 	 */
-	public void setTemporada(int temporada) {
-	}
+	public void setTemporada(int temporada) {}
 
 	/**
-	 * Retorna uma representação textual do Item
+	 * 
+	 */
+	public int getTemporada() {
+		return -1;
+	}
+	/**
+	 * Retorna uma representacao textual do Item
 	 */
 	@Override
 	public String toString() {
