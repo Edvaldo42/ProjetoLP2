@@ -27,6 +27,8 @@ public class JogoDeTabuleiro extends Item{
 	}
 	
 	/**
+	 * Retorna as pecas perdidas do jogo
+	 * 
 	 * @return As pecas perdidas do jogo 
 	 */
 	public String getPecasPerdidas() {
@@ -42,7 +44,13 @@ public class JogoDeTabuleiro extends Item{
 		
 		return msg;
 	}
-
+	
+	/**
+	 * Adciona uma peca perdida ao jogo
+	 * 
+	 * @param nomePeca O nome da peca perdida
+	 * @throws PecaJaPerdidaException Caso a peca perdida ja tenha sido adicionada
+	 */
 	public void adicionaPecaPerdida (String nomePeca) throws PecaJaPerdidaException {
 		if (pecasPerdidas.contains(nomePeca)) {
 			throw new PecaJaPerdidaException();
@@ -50,6 +58,9 @@ public class JogoDeTabuleiro extends Item{
 		pecasPerdidas.add(nomePeca);
 	}
 
+	/**
+	 * Retorna uma representacao textual do jogo de tabuleiro 
+	 */
 	@Override
 	public String toString() {
 		if (pecasPerdidas.isEmpty()) {
@@ -59,6 +70,9 @@ public class JogoDeTabuleiro extends Item{
 		return "JOGO DE TABULEIRO: " + super.toString() + ", COM PECAS PERDIDAS";
 	}
 
+	/**
+	 * HashCode de jogo de tabuleiro
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,6 +81,9 @@ public class JogoDeTabuleiro extends Item{
 		return result;
 	}
 
+	/**
+	 * Equals de JogoDeTabuleiro
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

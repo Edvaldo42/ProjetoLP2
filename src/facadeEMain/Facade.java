@@ -8,7 +8,7 @@ import exception.DescricaoInvalidaException;
 import exception.DuracaoInvalidaException;
 import exception.EmprestimoNaoEncontradoException;
 import exception.GeneroNuloOuVazioException;
-import exception.ItemCadastradaException;
+import exception.ItemCadastradoException;
 import exception.ItemEmprestadoException;
 import exception.NomeDoItemNuloOuVazioException;
 import exception.ItemNaoEncontradoException;
@@ -107,9 +107,9 @@ public class Facade {
 	 * @throws NomeDoItemNuloOuVazioException 
 	 * @throws PrecoInvalidoException 
 	 * @throws PlataformaNullOuVaziaException 
-	 * @throws ItemCadastradaException 
+	 * @throws ItemCadastradoException 
 	 */
-	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) throws UsuarioCadastradoException, UsuarioInvalidoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, PrecoInvalidoException, PlataformaNullOuVaziaException, ItemCadastradaException {
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) throws UsuarioCadastradoException, UsuarioInvalidoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, PrecoInvalidoException, PlataformaNullOuVaziaException, ItemCadastradoException {
 		sistema.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
 	}
 	
@@ -125,9 +125,9 @@ public class Facade {
 	 * @throws IllegalArgumentException 
 	 * @throws NomeDoItemNuloOuVazioException 
 	 * @throws PrecoInvalidoException 
-	 * @throws ItemCadastradaException 
+	 * @throws ItemCadastradoException 
 	 */
-	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, PrecoInvalidoException, ItemCadastradaException {
+	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, PrecoInvalidoException, ItemCadastradoException {
 		sistema.cadastrarJogoTabuleiro(nome, telefone, nomeItem, preco);
 	}
 	
@@ -166,9 +166,9 @@ public class Facade {
 	 * @throws ClassificacaoInvalidaException 
 	 * @throws GeneroNuloOuVazioException 
 	 * @throws AnoDeLancamentoMenorQue0Exception 
-	 * @throws ItemCadastradaException 
+	 * @throws ItemCadastradoException 
 	 */
-	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException, ItemCadastradaException {
+	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException, ItemCadastradoException {
 		sistema.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 	}
 	
@@ -193,9 +193,9 @@ public class Facade {
 	 * @throws ClassificacaoInvalidaException 
 	 * @throws NumeroDeFaixasMenorQue1Exception 
 	 * @throws NomeDoArtistaNuloOuVazioException 
-	 * @throws ItemCadastradaException 
+	 * @throws ItemCadastradoException 
 	 */
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, ItemCadastradaException {
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, ItemCadastradoException {
 		sistema.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, nomeroFaixas, artista, classificacao);
 	}
 	
@@ -222,9 +222,9 @@ public class Facade {
 	 * @throws GeneroNuloOuVazioException 
 	 * @throws ClassificacaoNulaOuVaziaException 
 	 * @throws ClassificacaoInvalidaException 
-	 * @throws ItemCadastradaException 
+	 * @throws ItemCadastradoException 
 	 */
-	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, DescricaoInvalidaException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, ItemCadastradaException {
+	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, DescricaoInvalidaException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, ItemCadastradoException {
 		sistema.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 	}
 	

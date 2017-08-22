@@ -32,7 +32,7 @@ public class CRUDItem {
 	 * @param preco O preco do jogo
 	 * @param plataforma A plataforma em que o jogo esta
 	 * @return O item criado
-	 * @throws PlataformaNullOuVaziaException 
+	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 */
 	public Item criaEletronico(String nomeItem, double preco, String plataforma) throws PlataformaNullOuVaziaException {
 		if (Validacoes.validaPlataforma(plataforma)) {
@@ -119,7 +119,13 @@ public class CRUDItem {
 		return serie;
 	}
 	
-	
+	/**
+	 * Retorna uma informacao, passado atraves do atributo, sobre um item
+	 * 
+	 * @param item O item a ser consultado
+	 * @param atributo A informacao a qual se quer saber 
+	 * @return Uma informacao , passado atraves do atributo sobre um item
+	 */
 	public static String getInfoItem(Item item, String atributo) {
 		String info = "";
 		if (atributo.trim().equalsIgnoreCase("preco")) {
@@ -149,6 +155,15 @@ public class CRUDItem {
 		return info;
 	}
 	
+	/**
+	 * Atualiza uma informacao, passada no atributo, de um item
+	 * 
+	 * @param item O item a ter uma informacao atualizada
+	 * @param atributo A informacao a ser atualizada
+	 * @param valor O novo valor da informacao atualizada
+	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor que 1
+	 * @throws NumberFormatException Caso o formato do ano passado seja invalido
+	 */
 	public static void atualizarItem(Item item, String atributo, String valor) throws TemporadaMenorQue1Exception, NumberFormatException {
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			item.setNomeItem(valor);
@@ -173,6 +188,12 @@ public class CRUDItem {
 		}
 	}
 
+	/**
+	 * Remove um item de uma lista de itens
+	 * 
+	 * @param item O item a ser removido
+	 * @param itens A lista de itens da qual o item sera removido
+	 */
 	public static void removerItem(Item item, Set<Item> itens) {
 		itens.remove(item);
 	}

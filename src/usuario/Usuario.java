@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import emprestimo.Emprestimo;
-import exception.ItemCadastradaException;
+import exception.ItemCadastradoException;
 import exception.ItemEmprestadoException;
 import exception.ItemNaoEncontradoException;
 import exception.PecaJaPerdidaException;
@@ -52,11 +52,11 @@ public class Usuario {
 	 * Cadastra um Item
 	 * 
 	 * @param item Pode ser um jogo de tabuleiro, jogo eletronico, ou um BluRay
-	 * @throws ItemCadastradaException 
+	 * @throws ItemCadastradoException 
 	 */
-	public void cadastrarItem(Item item) throws ItemCadastradaException {
+	public void cadastrarItem(Item item) throws ItemCadastradoException {
 		if (!itens.add(item)) {
-			throw new ItemCadastradaException();
+			throw new ItemCadastradoException();
 		}
 		aumentaReputacao(item.getPreco(), 0.05);
 	}

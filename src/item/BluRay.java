@@ -24,6 +24,7 @@ public abstract class BluRay extends Item {
 	}
 	
 	/**
+	 * Retorna a duracao do BluRay
 	 * 
 	 * @return A duracao de um BluRay
 	 */
@@ -32,15 +33,16 @@ public abstract class BluRay extends Item {
 	}
 
 	/**
-	 * Atualiza a duracao de um BluRay
+	 * Estabelece a duracao de um BluRay
 	 */
 	public void setDuracao(int duracao) {
 		this.duracao = duracao;
 	}
 	
 	/**
+	 * Retorna a classificacao do BluRay
 	 * 
-	 * @return A classificacao de um BluRay
+	 * @return A classificacao do BluRay
 	 */
 
 	public String getClassificacao() {
@@ -48,7 +50,7 @@ public abstract class BluRay extends Item {
 	}
 	
 	/**
-	 * Atualiza a classificacao de um BluRay
+	 * Estabelece a classificacao de um BluRay
 	 */
 
 	public void setClassificacao(String classificacao) {
@@ -56,7 +58,7 @@ public abstract class BluRay extends Item {
 	}
 	
 	/**
-	 * Atualiza o método to String de BluRay
+	 * Retorna a representacao textual de um BluRay
 	 */
 	@Override
 	public String toString() {

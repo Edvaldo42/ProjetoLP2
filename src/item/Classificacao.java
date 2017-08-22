@@ -24,6 +24,7 @@ public enum Classificacao {
 	}
 	
 	/**
+	 * Retorna a classificacao etaria em String
 	 * 
 	 * @return A classificacao etaria em String
 	 */

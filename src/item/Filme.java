@@ -26,6 +26,7 @@ public class Filme extends BluRay {
 		}
 
 	/**
+	 * Retorna o genero do filme
 	 * 
 	 * @return O genero do filme
 	 */
@@ -34,13 +35,14 @@ public class Filme extends BluRay {
 	}
 
 	/**
-	 * Altera o genero do filme
+	 * Estabelece o genero do filme
 	 */
 	public void setGenero(String genero) {
 		this.genero = Genero.valueOf(genero);
 	}
 
 	/**
+	 * Retorna o ano de lancamento do filme
 	 * 
 	 * @return O ano de lancamento do filme
 	 */
@@ -49,7 +51,7 @@ public class Filme extends BluRay {
 	}
 
 	/**
-	 * Altera o ano de lancamento do filme
+	 * Estabelece o ano de lancamento do filme
 	 */
 	public void setAnoLancamento(int anoLancamento) {
 		this.anoLancamento = anoLancamento;

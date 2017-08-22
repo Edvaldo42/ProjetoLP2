@@ -4,10 +4,6 @@ import java.util.Locale;
 
 import exception.TemporadaMenorQue1Exception;
 
-/**
- * 
- *
- */
 public abstract class Item {
 
 	private String nomeItem;
@@ -35,6 +31,7 @@ public abstract class Item {
 	}
 	
 	/**
+	 * Retorna quantas vezes o item foi emprestado
 	 * 
 	 * @return Quantas vezes o item foi emprestado
 	 */
@@ -44,12 +41,14 @@ public abstract class Item {
 	
 	/**
 	 * Adiciona um BluRay
+	 * 
 	 * @param duracao A duracao do BluRay
 	 */
 	public void adicionarBluRay(int duracao) {
 	}
 	
 	/**
+	 * Retorna as percas perdidades de um jogo de tabuleiro
 	 * 
 	 * @return As pecas perdidas do jogo de tabuleiro
 	 */
@@ -58,6 +57,7 @@ public abstract class Item {
 	}
 	
 	/**
+	 * Estabelece o nome do item
 	 * 
 	 * @param nomeItem O nome do item
 	 */
@@ -66,6 +66,7 @@ public abstract class Item {
 	}
 	
 	/**
+	 * Retorna o nome do item
 	 * 
 	 * @return O nome do item
 	 */
@@ -74,6 +75,7 @@ public abstract class Item {
 	}
 
 	/**
+	 * Retorna o preco do item
 	 * 
 	 * @return O preco do item
 	 */
@@ -82,6 +84,7 @@ public abstract class Item {
 	}
 
 	/**
+	 * Estabelece o preco do item
 	 * 
 	 * @param preco O preco do item
 	 */
@@ -90,6 +93,7 @@ public abstract class Item {
 	}
 	
 	/**
+	 * Retorna se o item esta ou nao emprestado
 	 * 
 	 * @return true se esta emprestado e false caso contrario
 	 */
@@ -98,6 +102,7 @@ public abstract class Item {
 	}
 
 	/**
+	 * Estabelece se um item esta ou nao emprestado
 	 * 
 	 * @param emprestado true se esta emprestado e false caso contrario
 	 */
@@ -106,77 +111,82 @@ public abstract class Item {
 	}
 	
 	/**
+	 * Estabelece a plataforma do jogo
 	 * 
 	 * @param valor A plataforma do jogo
 	 */
 	public void setPlataforma(String plataforma) {}
 	
 	/**
-	 * 
+	 * Retorna a plataforma em um jogo eletronico
 	 */
 	public String getPlataforma() {
 		return null;
 	}
 	
 	/**
+	 * Estabelece a duracao de um BluRay
 	 * 
 	 * @param duracao A duracao do BluRay
 	 */
 	public void setDuracao(int duracao) {}
 
 	/**
-	 * 
+	 * Retorna a duracao de um item
 	 */
 	public int getDuracao() {
 		return -1;
 	}
 	
 	/**
+	 * Estabelece a classificacao etaria
 	 * 
 	 * @param classificacao A classificacao etaria
 	 */
 	public void setClassificacao(String classificacao) {}
 	
 	/**
-	 * 
+	 * Retorna a classificacao
 	 */
 	public String getClassificacao() {
 		return null;
 	}
 
 	/**
-	 * 
+	 * Estabelece o genero
 	 * @param valor O genero do BluRay
 	 */
 	public void setGenero(String genero) {}
 
 	/**
-	 * 
+	 * Retorna o genero
 	 */
 	public String getGenero() {
 		return null;
 	}
 	
 	/**
-	 * 
+	 * Estabece o ano de lancamento
 	 * @param anoLancamento O ano de lancamento
 	 */
 	public void setAnoLancamento(int anoLancamento) {}
 	
 	/**
-	 * 
+	 * Retorna o ano de lancamento
 	 */
 	public int getAnoLancamento() {
 		return -1;
 	}
 	
 	/**
+	 * Estabelece o nome do artista
 	 * 
 	 * @param nomeArtista O nome do artista
 	 */
 	public void setNomeArtista(String nomeArtista) {}
 
 	/**
+	 * Retorna o nome do artista
 	 * 
 	 * @param nomeArtista O nome do artista
 	 */
@@ -185,40 +195,43 @@ public abstract class Item {
 	}
 	
 	/**
+	 * Estabelece o numero de faixas
 	 * 
 	 * @param numeroFaixas O numero de faixas
 	 */
 	public void setNumeroFaixas(int numeroFaixas) {}
 
 	/**
-	 * 
+	 * Retorna o numero de faixas
 	 */
 	public int getNumeroFaixas() {
 		return -1;
 	}
 
 	/**
-	 * 
-	 * @param descricao A descricao do BluRay
+	 * Estabelece a descricao do BluRay
+	 *
+	 * @param descricao a descricao do BluRay
 	 */
 	public void setDescricao(String descricao) {}
 	
 	/**
-	 * 
+	 * Retorna a descricao
 	 */
 	public String getDescricao() {
 		return null;
 	}
 	
 	/**
+	 * Estabelece a temporada da serie
 	 * 
-	 * @param temporada A temporada da serie
+	 * @param temporada a temporada da serie
 	 * @throws TemporadaMenorQue1Exception 
 	 */
 	public void setTemporada(int temporada) throws TemporadaMenorQue1Exception {}
 
 	/**
-	 * 
+	 * Retorna a temporada da serie
 	 */
 	public int getTemporada() {
 		return -1;
@@ -254,7 +267,7 @@ public abstract class Item {
 	}
 
 	/**
-	 * Equals do Item
+	 * Equals de Item
 	 */
 	@Override
 	public boolean equals(Object obj) {

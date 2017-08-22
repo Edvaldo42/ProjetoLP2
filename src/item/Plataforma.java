@@ -15,14 +15,27 @@ public enum Plataforma {
 	
 	private String plataforma;
 	
+	/**
+	 * Creator de plataforma
+	 * 
+	 * @param plataforma A plataforma a ser criada
+	 */
 	private Plataforma(String plataforma) {
 		this.plataforma = plataforma.toUpperCase();
 	}
 	
+	/**
+	 * Retorna a plataforma de um jogo eletronico
+	 * 
+	 * @return A plataforma de um jogo eletronico
+	 */
 	public String getPlataforma() {
 		return this.plataforma; 
 	}
-		
+	
+	/**
+	 * Retorna a representacao textual de plataforma
+	 */
 	@Override
 	public String toString() {
 		return this.plataforma;

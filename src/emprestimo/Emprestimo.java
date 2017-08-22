@@ -29,6 +29,20 @@ public class Emprestimo {
 	private int periodo;
 	private LocalDate dataDevolucao;
 
+	/**
+	 * Construtor de Emprestimo
+	 * 
+	 * @param controllerUsuario
+	 * @param nomeDono
+	 * @param telefoneDono
+	 * @param nomeRequerente
+	 * @param telefoneRequerente
+	 * @param nomeItem
+	 * @param data
+	 * @param periodo
+	 * @throws ItemNaoEncontradoException
+	 * @throws UsuarioInvalidoException
+	 */
 	public Emprestimo(ControllerUsuario controllerUsuario, String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String data, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException {
 		this.dono = controllerUsuario.buscaUsuario(nomeDono, telefoneDono);
@@ -57,6 +71,8 @@ public class Emprestimo {
 	}
 
 	/**
+	 * Retorna a data de devolucao do emprestimo
+	 * 
 	 * @return the dataDevolucao
 	 */
 	public String getDataDevolucao() {
@@ -68,6 +84,8 @@ public class Emprestimo {
 	}
 
 	/**
+	 * Estabelece a data devolucao do emprestimo
+	 * 
 	 * @param dataDevolucao
 	 *            the dataDevolucao to set
 	 */
@@ -75,6 +93,12 @@ public class Emprestimo {
 		this.dataDevolucao = converteData(dataDevolucao);
 	}
 
+	/**
+	 * Coverte a data do emprestimo para uma data padrão
+	 * 
+	 * @param data
+	 * @return
+	 */
 	private LocalDate converteData(String data) {
 		StringBuilder sb = new StringBuilder(data);
 		int i = 0;
@@ -94,62 +118,118 @@ public class Emprestimo {
 		return dataConvertida;
 	}
 
+	/**
+	 * Retorna o usuario que emprestou o item
+	 * 
+	 * @return
+	 */
 	public Usuario getDono() {
 		return dono;
 	}
+	
 
+	/**
+	 * Estabelece o usuario que emprestou o item
+	 * @param dono
+	 */
 	public void setDono(Usuario dono) {
 		this.dono = dono;
 	}
 
+	/**
+	 * Retorna o usuario que pegou um item emprestado
+	 * 
+	 * @return
+	 */
 	public Usuario getRequerente() {
 		return requerente;
 	}
 
+	/**
+	 * Estabelece o usuario que pegou um item emprestado
+	 * @param requerente
+	 */
 	public void setRequerente(Usuario requerente) {
 		this.requerente = requerente;
 	}
 
+	/**
+	 * Retorna o item que esta fazendo parte do emprestimo
+	 * 
+	 * @return
+	 */
 	public String getItemEmprestado() {
 		return itemEmprestado;
 	}
 
+	/**
+	 * Estabelece o item que esta fazendo parte do emprestimo
+	 * @param itemEmprestado
+	 */
 	public void setItemEmprestado(String itemEmprestado) {
 		this.itemEmprestado = itemEmprestado;
 	}
 
+	/**
+	 * Retorna a data de realizacao do emprestimo
+	 * 
+	 * @return
+	 */
 	public String getDataEmprestimo() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		return dataEmprestimo.format(formatter);
 	}
-
+	
+	/**
+	 * Estabelece a data de realizacao do emprestimo
+	 * 
+	 * @param dataEmprestimo
+	 */
 	public void setDataEmprestimo(String dataEmprestimo) {
 		this.dataEmprestimo = converteData(dataEmprestimo);
 	}
-
+	
+	/**
+	 * Retorna o tempo previsto para a duracao do emprestimo
+	 *  
+	 * @return
+	 */
 	public int getPeriodo() {
 		return periodo;
 	}
 
+	/**
+	 * Estabele o tempo previsto para a duracao do emprestimo
+	 * 
+	 * @param periodo
+	 */
 	public void setPeriodo(int periodo) {
 		this.periodo = periodo;
 	}
 	
+	/**
+	 * Retorna o tempo real que um requerente ficou com um item
+	 * 
+	 * @return
+	 */
 	public int getTempoComItem() {
 		Period tempoComItem = Period.between(this.dataEmprestimo, this.dataDevolucao);
 		return tempoComItem.getDays();
 	}
 	
+	/**
+	 * Retorna quantos dias um requerente ficou com um item alem do periodo pre-definido
+	 * 
+	 * @return
+	 */
 	public int getAtraso() {
 		int atraso;
 		atraso = this.periodo - getTempoComItem();
 		return atraso;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * Hash Code de Emprestimo
 	 */
 	@Override
 	public int hashCode() {
@@ -162,10 +242,9 @@ public class Emprestimo {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+
+	/**
+	 * Metodo equals de emprestimo
 	 */
 	@Override
 	public boolean equals(Object obj) {

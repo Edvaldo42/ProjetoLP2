@@ -96,10 +96,9 @@ public class Validacoes {
 	 * @param nomeItem O nome do item
 	 * @param preco O preco do item
 	 * @param plataforma A plataforma do jogo
-	 * @throws IllegalArgumentException Caso a plataforma seja nula ou vazia """""""
 	 * @throws NomeDoItemNuloOuVazioException Caso o Item seja invalido
 	 * @throws PrecoInvalidoException Caso p preco seja invalido
-	 * @throws PlataformaNullOuVaziaException 
+	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 */
 	public static void validaCadastrarEletronico(String nomeItem, double preco, String plataforma) throws NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException {
 		String msg = "Erro ao cadastrar Jogo Eletronico: ";
@@ -113,7 +112,7 @@ public class Validacoes {
 	 * Valida a plataforma 
 	 * @param plataforma A plataforma do jogo 
 	 * @return True se a plataforma existe e False caso contrario
-	 * @throws PlataformaNullOuVaziaException 
+	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 */
 	public static boolean validaPlataforma(String plataforma) throws PlataformaNullOuVaziaException {
 		if (plataforma == null || plataforma.trim().equals("")) {
@@ -138,9 +137,8 @@ public class Validacoes {
 	 * Valida a acao de add uma peca perdida a um jogo
 	 * @param nomeItem O nome do jogo
 	 * @param nomePeca O nome da peca perdida
-	 * @throws IllegalArgumentException Caso o nome do item ou da peca seja nulo ou vazio """"""""""""""
-	 * @throws NomeDoItemNuloOuVazioException 
-	 * @throws NomeDaPecaNuloOuVazioException 
+ 	 * @throws NomeDoItemNuloOuVazioException Caso o nome da peca seja nulo ou vazio
+	 * @throws NomeDaPecaNuloOuVazioException Caso o nome da peca seja nulo ou vazio
 	 */
 	public static void validaAdicionarPecaPerdida(String nomeItem, String nomePeca) throws NomeDoItemNuloOuVazioException, NomeDaPecaNuloOuVazioException {
 		String msg = "Erro ao adicionar Peca Perdida: ";
@@ -161,17 +159,16 @@ public class Validacoes {
 	 * @param genero O genero do filme
 	 * @param classificacao A classificacao etaria do filme
 	 * @param anoLancamento O ano de lancamento do filme
-	 * @throws IllegalArgumentException Caso o genero seja nulo ou vazio ou caso o ano de lancamento seja invalido """"""""""""""""""""""""
 	 * @throws NomeDoItemNuloOuVazioException Caso o nomeItem seja invalido
 	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
 	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws ClassificacaoNulaOuVaziaException 
-	 * @throws AnoDeLancamentoMenorQue0Exception 
-	 * @throws GeneroNuloOuVazioException 
-	 * @throws ClassificacaoInvalidaException 
+	 * @throws ClassificacaoNulaOuVaziaException Caso a Classificacao seja nula ou vazia
+	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
+	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
+	 * @throws AnoDeLancamentoMenorQue0Exception caso o ano de lancamento seja menor que 0
 	 */
 	public static void validaCadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero,
-			String classificacao, int anoLancamento) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException {
+			String classificacao, int anoLancamento) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception {
 		String msg = "Erro ao cadastrar BluRay de Filme: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -197,13 +194,13 @@ public class Validacoes {
 	 * @throws NomeDoItemNuloOuVazioException Caso o nomeItem seja invalido
 	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
 	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws ClassificacaoNulaOuVaziaException 
-	 * @throws ClassificacaoInvalidaException 
-	 * @throws NomeDoArtistaNuloOuVazioException 
-	 * @throws NumeroDeFaixasMenorQue1Exception 
+	 * @throws ClassificacaoNulaOuVaziaException Caso a Classificacao seja nula ou vazia
+	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
+	 * @throws NumeroDeFaixasMenorQue1Exception Caso o numero de faixas seja menor do que 1
+	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
 	 */
 	public static void validaCadastrarBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas,
-			String artista, String classificacao) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception {
+			String artista, String classificacao) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NumeroDeFaixasMenorQue1Exception, NomeDoArtistaNuloOuVazioException {
 		String msg = "Erro ao cadastrar BluRay de Show: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -231,13 +228,13 @@ public class Validacoes {
 	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
 	 * @throws PrecoInvalidoException Caso o preco seja invalido
 	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
-	 * @throws GeneroNuloOuVazioException 
-	 * @throws TemporadaMenorQue1Exception 
-	 * @throws ClassificacaoNulaOuVaziaException 
-	 * @throws ClassificacaoInvalidaException 
+	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor do que 1
+	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
+	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja nula ou vazia
+	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
 	 */
 	public static void validaCadastrarBluRaySerie(String nomeItem, double preco, String descricao, int duracao,
-			String classificacao, String genero, int temporada) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, DescricaoInvalidaException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException {
+			String classificacao, String genero, int temporada) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException {
 		String msg = "Erro ao cadastrar BluRay de Serie: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -256,6 +253,7 @@ public class Validacoes {
 
 	/**
 	 * Valida o genero de um BluRay
+	 * 
 	 * @param genero O genero do item
 	 * @return true se o genero existe e false caso contrario
 	 */
@@ -268,8 +266,8 @@ public class Validacoes {
 	 * @param nomeBlurayTemporada O nome da temporada
 	 * @param duracao A duracao da temporada
 	 * @throws IllegalArgumentException Caso o nome ou duracao seja invalida
-	 * @throws NomeDoItemNuloOuVazioException 
-	 * @throws DuracaoInvalidaException 
+	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
+	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
 	 */
 	public static void validaAdicionarBluRay(String nomeBlurayTemporada, int duracao) throws IllegalArgumentException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException {
 		String msg = "Erro ao adicionar BluRay: ";
@@ -286,21 +284,20 @@ public class Validacoes {
 	 * Valida uma atualizacao de item
 	 * @param atributo O atributo que sera atualizado
 	 * @param valor O novo valor do atributo
-	 * @throws IllegalArgumentException Caso algum parametro seja invalido
-	 * @throws NomeDoItemNuloOuVazioException 
-	 * @throws NumeroDeFaixasMenorQue1Exception 
-	 * @throws PrecoInvalidoException 
-	 * @throws PlataformaNullOuVaziaException 
-	 * @throws DuracaoInvalidaException 
-	 * @throws ClassificacaoNulaOuVaziaException 
-	 * @throws GeneroNuloOuVazioException 
-	 * @throws AnoDeLancamentoMenorQue0Exception 
-	 * @throws NomeDoArtistaNuloOuVazioException 
-	 * @throws TemporadaMenorQue1Exception 
-	 * @throws DescricaoInvalidaException 
-	 * @throws AtributoInvalidoException 
+	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
+	 * @throws NumeroDeFaixasMenorQue1Exception Caso o numero de faixas seja menor do que 1
+ 	 * @throws PrecoInvalidoException Caso o preco seja invalido
+	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
+	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
+ 	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja nula ou vazia
+	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
+	 * @throws AnoDeLancamentoMenorQue0Exception Caso o ano de lancamento seja menor que 0
+	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
+	 * @throws AtributoInvalidoException Caso o atributo seja invalido
+	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
+	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor do que 1
 	 */
-	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
+	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, AtributoInvalidoException, DescricaoInvalidaException, TemporadaMenorQue1Exception {
 		String msg = "Erro na atualizacao de item: ";
 
 		if (atributo.trim().equalsIgnoreCase("nome")) {
@@ -354,6 +351,7 @@ public class Validacoes {
 
 	/**
 	 * Valida um BluRay
+	 * 
 	 * @param duracao A duracao do BluRay
 	 * @param classificacao A classificacao etaria do BluRay
 	 * @param msg A msg que sera exibida na excecao
@@ -369,6 +367,14 @@ public class Validacoes {
 		validaClassificacao(classificacao, msg);
 	}
 	
+	/**
+	 * Valida a classificacao
+	 * 
+	 * @param classificacao A classificacao a ser validada
+	 * @param msg """""""'""""""""""""""""""""""""""""""""""""""""""""""
+	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja vazia ou nula 
+	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
+	 */
 	private static void validaClassificacao(String classificacao, String msg) throws ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException{
 		if (classificacao == null || classificacao.trim().equals("")) {
 			throw new ClassificacaoNulaOuVaziaException(msg);
@@ -380,11 +386,12 @@ public class Validacoes {
 
 	/**
 	 * Valida um item
+	 * 
 	 * @param nomeItem O nome do item
 	 * @param preco O preco do item
 	 * @param msg A msg que sera exibida na excecao
 	 * @throws NomeDoItemNuloOuVazioException Caso o nome do Item seja nulo ou vazio ou caso o preco seja invalido
-	 * @throws PrecoInvalidoException 
+	 * @throws PrecoInvalidoException Caso o preco seja invalido
 	 */
 	private static void validaItem(String nomeItem, double preco, String msg) throws NomeDoItemNuloOuVazioException, PrecoInvalidoException {
 		if (nomeItem == null || nomeItem.trim().equals("")) {
@@ -397,6 +404,7 @@ public class Validacoes {
 
 	/**
 	 * Valida o nome de um usuario
+	 * 
 	 * @param nome O nome do usuario
 	 * @return true se o nome eh valido
 	 * @throws StringInvalidaException Caso o nome seja nulo ou vazio
@@ -413,6 +421,7 @@ public class Validacoes {
 
 	/**
 	 * Valida o telefone de um usuario
+	 * 
 	 * @param telefone O telefone do usuario
 	 * @return true se o telefone eh valido e false caso contrario
 	 * @throws IllegalArgumentException Caso o telefone seja nulo ou vazio
@@ -454,6 +463,7 @@ public class Validacoes {
 	
 	/**
 	 * Valida o email do usuario
+	 * 
 	 * @param email O email do usuario
 	 * @return true se o email eh valido e false caso contrario
 	 */

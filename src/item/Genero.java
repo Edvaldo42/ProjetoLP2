@@ -34,6 +34,7 @@ public enum Genero {
 	}
 	
 	/**
+	 * Retorna o genero
 	 * 
 	 * @return O genero em String
 	 */

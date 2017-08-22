@@ -21,12 +21,13 @@ import exception.DescricaoInvalidaException;
 import exception.DuracaoInvalidaException;
 import exception.EmprestimoNaoEncontradoException;
 import exception.GeneroNuloOuVazioException;
-import exception.ItemCadastradaException;
+import exception.ItemCadastradoException;
 import exception.ItemEmprestadoException;
 import exception.NomeDoItemNuloOuVazioException;
 import exception.ItemNaoEncontradoException;
 import exception.NomeDoArtistaNuloOuVazioException;
 import exception.NumeroDeFaixasMenorQue1Exception;
+import exception.PecaJaPerdidaException;
 import exception.PecaPerdidaException;
 import exception.PlataformaNullOuVaziaException;
 import exception.PrecoInvalidoException;
@@ -52,6 +53,15 @@ public class ControllerUsuario {
 		emprestimos = new ArrayList<>();
 	}
 
+	/**
+	 * Cadastra um usuario no sistema
+	 * 
+	 * @param nome O nome do usuario a ser cadastrado
+	 * @param telefone O telefone do usuario a ser cadastrado
+	 * @param email O email do usuario a ser cadastrado
+	 * @throws UsuarioCadastradoException Caso o usuario ja esteja cadastrado
+	 * @throws StringInvalidaException Caso alguma String seja invalida
+	 */
 	public void cadastraUsuario(String nome, String telefone, String email)
 			throws UsuarioCadastradoException, StringInvalidaException {
 		Validacoes.validaCadastrarUsuario(nome, telefone, email);
@@ -59,27 +69,57 @@ public class ControllerUsuario {
 	}
 	
 	/**
-	 * Precisa validar
-	 * @param nome
-	 * @param telefone
-	 * @throws UsuarioInvalidoException
+	 * Remove o usuario do sistema
+	 * 
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario 
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
 	
 	public void removerUsuario(String nome, String telefone) throws UsuarioInvalidoException {
 		CRUDUsuario.removerUsuario(nome, telefone, usuarios);
 	}
 
+	/**
+	 * Atualiza uma informacao, passada no atributo, de um usuario
+	 * 
+	 * @param nome O nome do usuario a ter uma informacao atualizada
+	 * @param telefone O telefone do usuario a ter uma informacao atualizada
+	 * @param atributo O atributo que devera ser atualizado
+	 * @param valor A nova informacao a ser atualizada
+	 * @throws StringInvalidaException Caso uma string seja invalida
+	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor)
 			throws StringInvalidaException {
 		Validacoes.validaAtualizarUsuario(atributo, valor);
 		CRUDUsuario.atualizarUsuario(nome, telefone, atributo, valor, this.usuarios);
 	}
 
+	/**
+	 * Retorna uma informacao, passada no atributo, do usuario
+	 * 
+	 * @param nome O nome do usuario de que se saber alguma informacao
+	 * @param telefone O telefone do usuario de que se saber alguma informacao
+	 * @param atributo A informacao que se quer saber sobre um usuario
+	 * @return A informacao desejada de um usuario
+	 * @throws StringInvalidaException Caso uma string seja invalida
+	 */
 	public String getInfoUsuario(String nome, String telefone, String atributo) throws StringInvalidaException {
 		return CRUDUsuario.getInfoUsuario(nome, telefone, atributo, this.usuarios);
 	}
-
-	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
+	
+	/**
+	 * Adiciona uma peca perdida de um jogo
+	 *  
+	 * @param nome O nome do dono do jogo
+	 * @param telefone O telefone do dono do jogo
+	 * @param nomeItem O nome do jogo que se quer adcionar a informacao sobre a peca perdida
+	 * @param nomePeca O nome da peca perdida
+	 * @throws PecaPerdidaException Caso a informacao nao possa ser adicionada
+	 * @throws ItemNaoEncontradoException Caso o jogo nao esteja cadastrado
+	 * @throws PecaJaPerdidaException Caso a informacao da peca perdida ja tenha sido adcionada
+	 */
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaPerdidaException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario == null) {
 			throw new PecaPerdidaException();
@@ -88,7 +128,16 @@ public class ControllerUsuario {
 		usuario.adicionarPecaPerdida(nomeItem, nomePeca);
 	}
 
-	public void cadastrarItem(String nome, String telefone, Item item) throws UsuarioInvalidoException, ItemCadastradaException {
+	/**
+	 * Cadastrar um item no sistema
+	 * 
+	 * @param nome O nome do usuario que esta cadastrando o item
+	 * @param telefone O telefone do usuario esta cadastrando o item
+	 * @param item O item que sera cadastrado
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemCadastradoException Caso o item ja esteja cadastrado
+	 */
+	public void cadastrarItem(String nome, String telefone, Item item) throws UsuarioInvalidoException, ItemCadastradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
 		CRUDUsuario.validaUsuario(usuario);
@@ -96,6 +145,16 @@ public class ControllerUsuario {
 		usuario.cadastrarItem(item);
 	}
 
+	/**
+	 * 
+	 * @param nome
+	 * @param telefone
+	 * @param nomeBlurayTemporada
+	 * @param duracao
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 * @throws SerieNaoValidaException Caso o item nao seja uma serie
+	 */
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException, SerieNaoValidaException {
 		Usuario usuario = buscaUsuario(nome, telefone);
@@ -105,6 +164,15 @@ public class ControllerUsuario {
 		usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
 	}
 
+	/**
+	 * Remove um item de um usuario
+	 * 
+	 * @param nome O nome do usuario que tera o item removido
+	 * @param telefone O telefone do Usuario que tera o item removido
+	 * @param nomeItem O nome do item que sera removido
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado no sistema
+	 */
 	public void removerItem(String nome, String telefone, String nomeItem)	throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
@@ -113,6 +181,30 @@ public class ControllerUsuario {
 		usuario.removerItem(nomeItem);
 	}
 
+	/**
+	 * Atualiza o item de algum usuario
+	 * 
+	 * @param nome O nome do dono do item
+	 * @param telefone O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @param atributo O atributo que sera mudado
+	 * @param valor O novo valor do atributo
+	 * 
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
+	 * @throws AtributoInvalidoException Caso o atributo seja invalido
+	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
+	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor do que 1
+	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
+	 * @throws AnoDeLancamentoMenorQue0Exception Caso o ano de lancamento seja menor que 0
+	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
+	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja nula ou vazia
+	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
+	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
+	 * @throws PrecoInvalidoException Caso o preco seja invalido
+	 * @throws NumeroDeFaixasMenorQue1Exception Caso o numero de faixas seja menor do que 1
+	 */
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
@@ -123,6 +215,17 @@ public class ControllerUsuario {
 		usuario.atualizarItem(nomeItem, atributo, valor);
 	}
 
+	/**
+	 * Exibe uma informacao do item
+	 * 
+	 * @param nome O nome do dono do item
+	 * @param telefone O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @param atributo A informacao desejada
+	 * @return A informacao pedida do item
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 */
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
@@ -132,6 +235,16 @@ public class ControllerUsuario {
 		return usuario.getInfoItem(nomeItem, atributo);
 	}
 
+	/**
+	 * Exibe os detalhes de um item
+	 * 
+	 * @param nomeDono O nome do dono do item
+	 * @param telefoneDono O telefone do dono do item
+	 * @param nomeItem O nome do item
+	 * @return As informacoes do item desejado
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 */
 	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nomeDono, telefoneDono);
@@ -140,16 +253,13 @@ public class ControllerUsuario {
 
 		return usuario.detalhesItem(nomeItem);
 	}
-
+	
 	/**
-	 * Retorn
+	 * Retorna a lista de emprestimos que o usuario emprestou o item
 	 * 
-	 * @param user
-	 * 
-	 * @param user
-	 * @return
+	 * @param user O usuario do qual se quer saber os emprestimos
+	 * @return A lista de emprestimos que o usuario emprestou o item
 	 */
-
 	private List<Emprestimo> getItensEmprestadosDono(Usuario user) {
 		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
 		for (Emprestimo emprestimo : user.getEmprestimosDono()) {
