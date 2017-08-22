@@ -272,7 +272,7 @@ public class ControllerUsuario {
 	/**
 	 * Retorna os itens que foram pegos emprestados por 1 usuario
 	 * 
-	 * @return
+	 * @return Os itens que foram pegos emprestados por 1 usuario
 	 */
 	private List<Emprestimo> getItensEmprestadosRequerente(Usuario user) {
 		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
@@ -283,10 +283,10 @@ public class ControllerUsuario {
 	}
 
 	/**
+	 * Lista todos os itens em ordem alfabetica
 	 * 
-	 * @return
+	 * @return A lista ordenada dos itens pela ordem alfabetica
 	 */
-
 	public String listarItensOrdenadosPorNome() {
 		ordenaItem = new OrdemAlfabeticaItem();
 		List<Item> itens = getItens();
@@ -300,10 +300,10 @@ public class ControllerUsuario {
 	}
 
 	/**
+	 * Lista todos os itens por ordem de valor
 	 * 
-	 * @return
+	 * @return A lista ordenada dos itens pelo valor dos itens
 	 */
-
 	public String listarItensOrdenadosPorValor() {
 		ordenaItem = new OrdenaPorValor();
 		List<Item> itens = getItens();
@@ -317,11 +317,27 @@ public class ControllerUsuario {
 	}
 
 
-	
+	/**
+	 * Retornas uma lista com os usuarios
+	 * 
+	 * @return Lista com os usuarios
+	 */
 	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
+	/**
+	 * Registra o emprestimo de um item
+	 * 
+	 * @param nomeDono O nome do dono do item
+	 * @param telefoneDono O telefone do dono do item
+	 * @param nomeRequerente O nome do requerente
+	 * @param telefoneRequerente O telefone do requerente
+	 * @param emprestimo O emprestimo que está sendo realizado
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 * @throws ItemEmprestadoException Caso o item ja esteja emprestado
+	 */
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, Emprestimo emprestimo)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException, ItemEmprestadoException {
@@ -338,6 +354,20 @@ public class ControllerUsuario {
 		this.emprestimos.add(emprestimo);
 	}
 
+	/**
+	 * Devolve um item emprestado para o dono
+	 * 
+	 * @param nomeDono O nome do dono do item
+	 * @param telefoneDono O telefone do dono do item
+	 * @param nomeRequerente O nome do requerente
+	 * @param telefoneRequerente O telefone do requerente
+	 * @param nomeItem O nome do item
+	 * @param dataEmprestimo A data em que o emprestimo foi realizado
+	 * @param dataDevolucao A data em que o item foi devolvido
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 * @throws EmprestimoNaoEncontradoException Caso o emprestimo nao esteja cadastrado
+	 */
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException, EmprestimoNaoEncontradoException {
@@ -366,6 +396,14 @@ public class ControllerUsuario {
 		
 	}
 
+	/**
+	 * Lista os emprestimos do usuario que esta emprestando algo
+	 * 
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @return A lista dos itens que foram pegos emprestados pelo usuario
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 */
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) throws UsuarioInvalidoException {
 		Usuario user = buscaUsuario(nome, telefone);
 		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
@@ -387,6 +425,14 @@ public class ControllerUsuario {
 		}return retorno;
 	}
 
+	/**
+	 * Lista os emprestimos do usuario que esta pegando algo emprestado
+	 * 
+	 * @param nome O nome do usuario
+	 * @param telefone O telefone do usuario
+	 * @return A lista dos itens que foram pegos emprestados pelo usuario
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) throws UsuarioInvalidoException {
 		Usuario user = buscaUsuario(nome, telefone);
 		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
@@ -409,6 +455,12 @@ public class ControllerUsuario {
 		return retorno;
 	}
 
+	/**
+	 * Lista os usuarios que pegaram determinado item emprestado
+	 * 
+	 * @param nomeItem O nome do item
+	 * @return A lista dos usuarios que pegaram o item emprestado
+	 */
 	public String listarEmprestimosItem(String nomeItem) {
 		String retorno = "";
 		
@@ -427,6 +479,11 @@ public class ControllerUsuario {
 		return retorno;
 	}
 	
+	/**
+	 * Retorna uma lista os itens nao emprestados do sistema
+	 * 
+	 * @return Lista os itens nao emprestados do sistema
+	 */
 	public String listarItensNaoEmprestados() {
 		String retorno = "";
 		ordenaItem = new OrdemAlfabeticaItem();
@@ -442,6 +499,11 @@ public class ControllerUsuario {
 		return retorno;	
 	}
 	
+	/**
+	 * Retorna uma lista os itens emprestados do sistema
+	 * 
+	 * @return Lista os itens emprestados do sistema
+	 */
 	public String listarItensEmprestados() {
 		String retorno = "";
 		ordenaItem = new OrdemAlfabeticaItem();
@@ -467,6 +529,11 @@ public class ControllerUsuario {
 		return retorno;	
 	}
 	
+	/**
+	 * Retorna uma lista com os 10 itens mais emprestados do sistema
+	 * 
+	 * @return Lista com os 10 itens mais emprestados do sistema
+	 */
 	public String listarTop10Itens() {
 		String retorno = "";
 		ordenaItem = new OrdenaPorVezesEmprestado();
@@ -485,6 +552,11 @@ public class ControllerUsuario {
 		return retorno;
 	}
 	
+	/**
+	 * Retorna uma lista com os usuarios que possuem status de caloteiros
+	 * 
+	 * @return Lista com os usuarios que possuem status de caloteiros
+	 */
 	public String listarCaloteiros() {
 		String retorno = "Lista de usuarios com reputacao negativa: ";
 		List<Usuario> usuariosTemp = new ArrayList<>();
@@ -499,6 +571,11 @@ public class ControllerUsuario {
 		return retorno;
 	}
 	
+	/**
+	 * Retorna uma lista com os 10 usuarios com a maior pontuacao
+	 * 
+	 * @return Lista com os 10 usuarios com a maior pontuacao
+	 */
 	public String listarTop10MelhoresUsuarios() {
 		String retorno = "";
 		List<Usuario> usuariosTemp = new ArrayList<>();
@@ -517,6 +594,11 @@ public class ControllerUsuario {
 		return retorno;
 	}
 	
+	/**
+	 * Retorna uma lista com os 10 usuarios com a menor pontuacao
+	 * 
+	 * @return Lista com os 10 usuarios com a menor pontuacao
+	 */
 	public String listarTop10PioresUsuarios() {
 		String retorno = "";
 		List<Usuario> usuariosTemp = new ArrayList<>();
@@ -535,17 +617,31 @@ public class ControllerUsuario {
 		
 	}
 	
+	/**
+	 * Retorna um usuario especifico do sistema
+	 * 
+	 * @param nome O nome do usuario que se busca
+	 * @param telefone O telefone do usuario que se busca
+	 * @return O usuario buscado
+	 */
 	public Usuario buscaUsuario(String nome, String telefone) {
 		return CRUDUsuario.buscaUsuario(nome, telefone, this.usuarios);
 	}
 
+	/**
+	 * Valida um usuario
+	 * 
+	 * @param user O usuario a ser validado
+	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
+	 */
 	private void validaUsuario(Usuario user) throws UsuarioInvalidoException {
 		CRUDUsuario.validaUsuario(user);
 	}
 	
 	/**
+	 * Retorna uma lista dos itens que estão no sistema
 	 * 
-	 * @return
+	 * @return Lista dos itens que estão no sistema
 	 */
 
 	private List<Item> getItens() {
@@ -558,6 +654,12 @@ public class ControllerUsuario {
 		return retornoItens;
 	}
 	
+	/**
+	 * Retorna uma lista com todos os itens que possuem um nome especifico
+	 * 
+	 * @param nomeItem O nome do item que ser quer
+	 * @return Lista com todos os itens que possuem um nome especifico
+	 */
 	private List<Item> getItem(String nomeItem) {
 		List<Item> retornoItens = new ArrayList<>();
 		for (Usuario usuario : getUsuarios()) {
@@ -569,8 +671,15 @@ public class ControllerUsuario {
 		return retornoItens;
 	}
 	
-	
-	
+	/**
+	 * Retorna um emprestimo especifico
+	 * 
+	 * @param dono O dono do item no emprestimo
+	 * @param requerente O requerente do item
+	 * @param nomeItem O nome do item emprestado
+	 * @param data A data do emprestimo
+	 * @return Um emprestimo especifico
+	 */
 	private Emprestimo buscaEmprestimo(Usuario dono, Usuario requerente, String nomeItem, String data){
 		Emprestimo emprestimoBuscado = null;
 		for (Emprestimo emprestimo : emprestimos) {
