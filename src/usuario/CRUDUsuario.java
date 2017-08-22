@@ -20,15 +20,12 @@ public class CRUDUsuario {
 
 	public static void removerUsuario(String nome, String telefone, Set<Usuario> usuarios) throws UsuarioInvalidoException {
 		Usuario user = buscaUsuario(nome, telefone, usuarios);
-		validaUsuario(user);
 		usuarios.remove(user);
 	}
 
-	public static void atualizarUsuario(String nome, String telefone, String atributo, String valor, Set<Usuario> usuarios) throws UsuarioInvalidoException {
+	public static void atualizarUsuario(String nome, String telefone, String atributo, String valor, Set<Usuario> usuarios) throws UsuarioInvalidoException, AtributoInvalidoException {
 		
 		Usuario user = buscaUsuario(nome, telefone, usuarios);
-
-		validaUsuario(user);
 
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			user.setNome(valor);
@@ -38,14 +35,15 @@ public class CRUDUsuario {
 		}
 		else if (atributo.trim().equalsIgnoreCase("email")) {
 			user.setEmail(valor);
+		} 
+		else {
+			throw new AtributoInvalidoException();
 		}
 	}
 
 	public static String getInfoUsuario(String nome, String telefone, String atributo, Set<Usuario> usuarios) throws StringInvalidaException {
 		Usuario user = buscaUsuario(nome, telefone, usuarios);
 
-		validaUsuario(user);
-		
 		String info = "";
 		
 		if (atributo.trim().equalsIgnoreCase("nome")) {
@@ -70,20 +68,14 @@ public class CRUDUsuario {
 		return info;
 	}
 
-	public static Usuario buscaUsuario(String nome, String telefone, Set<Usuario> usuarios) {
-		Usuario user = null;
-		for (Usuario usuario : usuarios) {
+	public static Usuario buscaUsuario(String nome, String telefone, Set<Usuario> usuarios) throws UsuarioInvalidoException {
+		for (Usuario usuario: usuarios) {
 			if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
-				user = usuario;
+				return usuario;
 			}
 		}
 		
-		return user;
+		throw new UsuarioInvalidoException();
 	}
 	
-	public static void validaUsuario(Usuario user) throws UsuarioInvalidoException {
-		if (user == null) {
-			throw new UsuarioInvalidoException();
-		}
-	}
 }

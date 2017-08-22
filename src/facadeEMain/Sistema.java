@@ -148,8 +148,9 @@ public class Sistema {
 	 * @throws PecaPerdidaException Caso haja algum erro ao se adcionar a peca perdida
 	 * @throws NomeDaPecaNuloOuVazioException Caso o nome da peca seja nulo ou vazio
 	 * @throws NomeDoItemNuloOuVazioException Caso o nome da peca seja nulo ou vazio
+	 * @throws UsuarioInvalidoException 
 	 */
-	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaPerdidaException, NomeDoItemNuloOuVazioException, NomeDaPecaNuloOuVazioException {
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaPerdidaException, NomeDoItemNuloOuVazioException, NomeDaPecaNuloOuVazioException, UsuarioInvalidoException {
 		Validacoes.validaAdicionarPecaPerdida(nomeItem, nomePeca);
 		controllerUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
@@ -330,11 +331,8 @@ public class Sistema {
 	 */
 	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
-		String info = "";
 
-		info = controllerUsuario.pesquisarDetalhesItem(nomeDono, telefoneDono, nomeItem);
-
-		return info;
+		return controllerUsuario.pesquisarDetalhesItem(nomeDono, telefoneDono, nomeItem);
 	}
 
 	/**
@@ -371,7 +369,8 @@ public class Sistema {
 	 */
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException, ItemEmprestadoException {
-	    Emprestimo emprestimo =  new Emprestimo(controllerUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
+	  
+		Emprestimo emprestimo =  new Emprestimo(controllerUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
 	    		nomeItem, dataEmprestimo, periodo);
 		controllerUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente,
 				telefoneRequerente, emprestimo);

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import exception.AnoDeLancamentoMenorQue0Exception;
+import exception.AtributoInvalidoException;
 import exception.ClassificacaoInvalidaException;
 import exception.ClassificacaoNulaOuVaziaException;
 import exception.DuracaoInvalidaException;
@@ -13,7 +14,9 @@ import exception.EmailInvalidoException;
 import exception.GeneroNuloOuVazioException;
 import exception.ItemCadastradoException;
 import exception.ItemNaoEncontradoException;
+import exception.NomeDoArtistaNuloOuVazioException;
 import exception.NomeDoItemNuloOuVazioException;
+import exception.NumeroDeFaixasMenorQue1Exception;
 import exception.PecaPerdidaException;
 import exception.PlataformaNullOuVaziaException;
 import exception.PrecoInvalidoException;
@@ -32,6 +35,7 @@ public class SistemaTest {
 		facade = new Facade();
 		facade.cadastrarUsuario("Joao", "98888-8888", "joao@email.com");
 		facade.cadastrarUsuario("Andre", "99999-9999", "andre@email.com");
+		facade.cadastrarUsuario("Gabryelle", "99999-8888", "gabs@email.com");
 	}
 
 	// -------------------------------------------US1-----------------------------------------------
@@ -48,14 +52,14 @@ public class SistemaTest {
 		assertEquals("Matheus@email.com", facade.getInfoUsuario("Matheus", "98888-8888", "email"));
 	}
 
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= StringInvalidaException.class)
 	public void testCadastrarUsuarioNulo() throws Exception {
 		facade.cadastrarUsuario(null, "99999-9999", "email@email.com");
 		facade.cadastrarUsuario("Joao", null, "email@email.com");
 		facade.cadastrarUsuario("Joao", "99999-9999", null);		
 	}
-	
-	@Test (expected= IllegalArgumentException.class)
+
+	@Test (expected= StringInvalidaException.class)
 	public void testCadastrarUsuarioVazio() throws Exception {
 		facade.cadastrarUsuario("", "99999-9999", "email@email.com");
 		facade.cadastrarUsuario("Joao", "", "email@email.com");
@@ -68,7 +72,6 @@ public class SistemaTest {
 		facade.cadastrarUsuario("Fernanda", "99998-9898", "fernandinha@email.com");
 	}
 
-	
 	@Test (expected= TelefoneInvalidoException.class)
 	public void testCadastrarUsuarioTelefoneInvalido() throws StringInvalidaException, UsuarioCadastradoException {
 		facade.cadastrarUsuario("Jose", "0800PHONE", "email@email.com");
@@ -76,14 +79,14 @@ public class SistemaTest {
 		facade.cadastrarUsuario("Jose", "telefone", "email@email.com");
 	}
 	
-	@Test(expected= EmailInvalidoException.class)
+	@Test (expected= EmailInvalidoException.class)
 	public void testCadastrarUsuarioEmailInvalido() throws StringInvalidaException, UsuarioCadastradoException {
-		facade.cadastrarUsuario("Jose", "400289222", "email");
-		facade.cadastrarUsuario("Jose", "400289222", "email@");
-		facade.cadastrarUsuario("Jose", "400289222", "@email");
-		facade.cadastrarUsuario("Jose", "400289222", "email@@email.com");
+		facade.cadastrarUsuario("Jose", "40028-9222", "email");
+		facade.cadastrarUsuario("Jose", "40028-9222", "email@");
+		facade.cadastrarUsuario("Jose", "40028-9222", "@email");
+		facade.cadastrarUsuario("Jose", "40028-9222", "email@@email.com");
 	}
-	
+
 	@Test
 	public void testAtualizarCadastro() throws StringInvalidaException, UsuarioCadastradoException {
 		facade.cadastrarUsuario("Pedro", "98888-8888", "pedro@email.com");
@@ -135,6 +138,11 @@ public class SistemaTest {
 		facade.atualizarUsuario("Andre", "99999-9999", "telefone", "telefone");
 	}
 	
+	@Test (expected= AtributoInvalidoException.class)
+	public void testAtualizarCadastroAtributoInvalido() throws StringInvalidaException {
+		facade.atualizarUsuario("Andre", "99999-9999", "dinheiro", "email@email.com");
+    }
+	
 	@Test (expected= UsuarioInvalidoException.class) //a excecao ocorre porque o usuario realmente foi excluido
 	public void testRemoverUsuario() throws StringInvalidaException  {
 		facade.removerUsuario("Joao", "98888-8888");
@@ -151,6 +159,7 @@ public class SistemaTest {
 	// ------------------------------------------US2--------------------------------------------------
 	// cadastrarEletronico, getInfoItem, cadastrarJogoTabuleiro, adicionarPecaPerdida, cadastrarBluRayFilme
 	// cadastrarBluRayShow, cadastrarBluRaySerie, adicionarBluRay, removerItem, atualizarItem
+	
 	@Test
 	public void testCadastrarEletronico() throws UsuarioCadastradoException, ItemNaoEncontradoException, UsuarioInvalidoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarEletronico("Joao", "98888-8888", "Uncharted 4", 79.99, "PS4");
@@ -161,14 +170,14 @@ public class SistemaTest {
 		assertEquals("OUTRO", facade.getInfoItem("Andre", "99999-9999", "Pokémon GO", "plataforma"));
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= NomeDoItemNuloOuVazioException.class)
 	public void testCadastrarEletronicoNulo() throws UsuarioInvalidoException, UsuarioCadastradoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarEletronico("Joao", "98888-8888", null, 9.99, "PC");
 		facade.cadastrarEletronico("Joao", "98888-8888", "Pokemon", 9.99, "PC");
 		facade.cadastrarEletronico("Joao", "98888-8888", "Pokemon", 9.99, null);
 	}
 
-	@Test (expected= IllegalArgumentException.class) 
+	@Test (expected= NomeDoItemNuloOuVazioException.class) 
 	public void testCadastrarEletronicoVazio() throws UsuarioCadastradoException, UsuarioInvalidoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarEletronico("Joao", "98888-8888", "", 9.99, "PC");
 		facade.cadastrarEletronico("Joao", "98888-8888", "Pokemon", 9.99, "PC");
@@ -180,7 +189,7 @@ public class SistemaTest {
 		facade.cadastrarEletronico("Mariah", "98989-8888", "CS Go", 45.99, "PC");
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= PrecoInvalidoException.class)
 	public void testCadastrarEletronicoPrecoInvalido() throws UsuarioInvalidoException, UsuarioCadastradoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarEletronico("Joao", "98888-8888", "GTA V", -18.00, "XBOX360");
 	}
@@ -191,17 +200,17 @@ public class SistemaTest {
 		assertEquals(facade.getInfoItem("Andre", "99999-9999", "War", "Preco"), "99.99");
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= NomeDoItemNuloOuVazioException.class)
 	public void testCadastrarJogoTabuleiroNulo() throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarJogoTabuleiro("Andre", "99999-9999", null, 99.99);
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= NomeDoItemNuloOuVazioException.class)
 	public void testCadastrarJogoTabuleiroVazio() throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarJogoTabuleiro("Andre", "99999-9999", "", 99.99);
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= PrecoInvalidoException.class)
 	public void testCadastrarJogoTabuleiroInvalido() throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarJogoTabuleiro("Andre", "99999-9999", "War", -1);
 	}
@@ -213,9 +222,9 @@ public class SistemaTest {
 		assertEquals(facade.getInfoItem("Joao", "98888-8888", "Monopoly", "peca perdida"), "Carrinho");
 	}
 	
-	@Test (expected= PecaPerdidaException.class)
+	@Test (expected= ItemNaoEncontradoException.class)
 	public void testAdicionarPecaPerdidaJogoInexistente() throws Exception {
-		facade.adicionarPecaPerdida("Gabs", "88888-8888", "Banco Imobiliario", "Cartão");
+		facade.adicionarPecaPerdida("Joao", "98888-8888", "Banco Imobiliario", "Cartão");
 	}
 	
 	@Test
@@ -228,21 +237,21 @@ public class SistemaTest {
 		assertEquals(facade.getInfoItem("Joao", "98888-8888", "O Profissional", "ano de lancamento"), "1994");
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= NomeDoItemNuloOuVazioException.class)
 	public void testCadastrarBluRayFilmeNulo() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", null, 7.50, 103, "ACAO", "QUATORZE_ANOS", 1994);
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "O Profissional", 7.50, 103, null, "QUATORZE_ANOS", 1994);
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "O Profissional", 7.50, 103, "ACAO", null, 1994);
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= NomeDoItemNuloOuVazioException.class)
 	public void testCadastrarBluRayFilmeVazio() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "", 7.50, 103, "ACAO", "QUATORZE_ANOS", 1994);
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "O Profissional", 7.50, 103, "", "QUATORZE_ANOS", 1994);
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "O Profissional", 7.50, 103, "ACAO", "", 1994);
 	}
 	
-	@Test (expected= IllegalArgumentException.class)
+	@Test (expected= PrecoInvalidoException.class)
 	public void testCadastrarBluRayFilmeInvalido() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException, IllegalArgumentException, ItemCadastradoException {
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "Sniper Americano", -2.00, 132, "GUERRA", "DEZESSEIS_ANOS", 2015);
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "Sniper Americano", 6.00, -132, "GUERRA", "DEZESSEIS_ANOS", 2015);
@@ -250,6 +259,41 @@ public class SistemaTest {
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "Sniper Americano", 6.00, 132, "GUERRA", "NOVENTA_ANOS", 2015);
 		facade.cadastrarBluRayFilme("Joao", "98888-8888", "Sniper Americano", 6.00, 132, "GUERRA", "DEZESSEIS_ANOS", -2000);
 	}
+	
+    @Test
+	public void testCadastrarBluRayShow() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
+	}
+    
+    @Test (expected= NomeDoItemNuloOuVazioException.class)
+    public void testCadastrarBluRayShowNulo() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", null, 150.00, 120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, null, "DEZESSEIS_ANOS");
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, "Lady Gaga", null);
+    }
+    
+    @Test (expected= NomeDoItemNuloOuVazioException.class)
+    public void testCadastrarBluRayShowVazio() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "", 150.00, 120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, "", "DEZESSEIS_ANOS");
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, "Lady Gaga", "");
+    }
+    
+    @Test (expected= PrecoInvalidoException.class)
+    public void testCadastrarBluRayShowPrecoInvalido() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", -1000.00, 120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
+    }
+
+    @Test (expected= DuracaoInvalidaException.class)
+    public void testCadastrarBluRayShowDuracaoInvalida() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, -120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
+    }
+    
+    @Test (expected= NumeroDeFaixasMenorQue1Exception.class)
+    public void testCadastrarBluRayShowNumFaixasInvalido() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, -10, "Lady Gaga", "DEZESSEIS_ANOS");
+    }
+    
 	
 	// ------------------------------------------US3--------------------------------------------------
 	

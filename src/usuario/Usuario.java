@@ -152,12 +152,12 @@ public class Usuario {
 	 * Retorna um item da lista de itens de um usuario
 	 * 
 	 * @param nomeItem O nome do item a ser buscado
+	 * @return 
 	 * @return
 	 * @throws ItemNaoEncontradoException
 	 */
 
 	public Item buscaItem(String nomeItem) throws ItemNaoEncontradoException {
-		
 		for (Item item : itens) {
 			if (item.getNomeDoItem().equals(nomeItem)) {
 				return item;
@@ -178,11 +178,10 @@ public class Usuario {
 		if (itemBuscado.isEmprestado()) {
 			throw new ItemEmprestadoException();
 		}
-		else {
-			itemBuscado.setEmprestado(true);
-			itemBuscado.addVezEmprestada();
-			aumentaReputacao(itemBuscado.getPreco(), 0.1);
-		}
+		
+		itemBuscado.setEmprestado(true);
+		itemBuscado.addVezEmprestada();
+		aumentaReputacao(itemBuscado.getPreco(), 0.1);
 	}
 	
 	/**
