@@ -3,17 +3,13 @@ package item;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptionsItem.GeneroNuloOuVazioException;
 import exceptionsItem.TemporadaMenorQue1Exception;
 
 public class Serie extends BluRay {
 
 	private List<Integer> colecao;
-	private String descricao;
 	private Genero genero;
 	private int temporada;
-	private final String LN = System.lineSeparator();
-	
 	/**
 	 * Creator de Serie
 	 * 
@@ -27,7 +23,6 @@ public class Serie extends BluRay {
 	 */
 	public Serie(String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) {
 		super(nomeItem, preco, duracao, classificacao);
-		this.descricao = descricao;
 		this.genero = Genero.valueOf(genero);
 		this.temporada = temporada;
 		colecao = new ArrayList<>();
@@ -92,23 +87,6 @@ public class Serie extends BluRay {
 		}
 	}
 	
-	/**
-	 * Valida o genro de uma serie
-	 * 
-	 * @param genero O genero a ser validado
-	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
-	 */
-	private void validaGenero(String genero) throws GeneroNuloOuVazioException {
-		if (genero == null || genero.trim().equals("")) {
-			throw new GeneroNuloOuVazioException();
-		}
-		try {
-			Genero.valueOf(genero);
-		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Genero invalida");
-		}
-	}
-
 	/**
 	 * Retorna a representacao textual de serie
 	 */

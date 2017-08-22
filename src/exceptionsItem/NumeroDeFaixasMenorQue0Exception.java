@@ -4,6 +4,11 @@ import exceptionsComplementares.StringInvalidaException;
 
 public class NumeroDeFaixasMenorQue0Exception extends StringInvalidaException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 714182667547263545L;
+
 	public NumeroDeFaixasMenorQue0Exception() {
 		super("Numero de faixas nao pode ser menor do que 0");
 	}

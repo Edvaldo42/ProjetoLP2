@@ -4,6 +4,11 @@ import exceptionsComplementares.StringInvalidaException;
 
 public class GeneroNuloOuVazioException extends StringInvalidaException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3700746558758278245L;
+
 	public GeneroNuloOuVazioException() {
 		super ("Genero nao pode ser nulo ou vazio");
 	}

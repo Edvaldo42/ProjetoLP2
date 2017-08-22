@@ -1,7 +1,5 @@
 package item;
 
-import java.util.List;
-
 public enum Plataforma {
 
 	PC ("PC"),
