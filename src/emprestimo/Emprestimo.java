@@ -105,7 +105,7 @@ public class Emprestimo {
 		int qtdBarras = 0;
 		while (i < data.length() && qtdBarras < 1) {
 			if (data.charAt(i) == '/') {
-				for (int j = 0; j < i - 2; j++) {
+				for (int j = 0; j < i-2; j++) {
 					sb.deleteCharAt(j);
 					data = sb.toString();
 				}

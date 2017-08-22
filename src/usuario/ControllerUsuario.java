@@ -39,6 +39,10 @@ import exceptionsUsuario.UsuarioInvalidoException;
 import facadeEMain.Validacoes;
 import item.Item;
 
+/**
+ * 
+ * 
+ */
 public class ControllerUsuario {
 
 	private Set<Usuario> usuarios;
@@ -46,7 +50,10 @@ public class ControllerUsuario {
 	private Comparator<Emprestimo> ordenaEmprestimo;
 	private Comparator<Usuario> ordenaUsuario;
 	private List<Emprestimo> emprestimos; 
-
+	
+	/**
+	 * 
+	 */
 	public ControllerUsuario() {
 		usuarios = new HashSet<>();
 		emprestimos = new ArrayList<>();
@@ -74,7 +81,6 @@ public class ControllerUsuario {
 	 * @param telefone O telefone do usuario 
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
-	
 	public void removerUsuario(String nome, String telefone) throws UsuarioInvalidoException {
 		CRUDUsuario.removerUsuario(nome, telefone, usuarios);
 	}
@@ -117,8 +123,9 @@ public class ControllerUsuario {
 	 * @throws PecaPerdidaException Caso a informacao nao possa ser adicionada
 	 * @throws ItemNaoEncontradoException Caso o jogo nao esteja cadastrado
 	 * @throws PecaJaPerdidaException Caso a informacao da peca perdida ja tenha sido adcionada
+	 * @throws UsuarioInvalidoException 
 	 */
-	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaPerdidaException {
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaPerdidaException, UsuarioInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 		if (usuario == null) {
 			throw new PecaPerdidaException();
@@ -138,9 +145,6 @@ public class ControllerUsuario {
 	 */
 	public void cadastrarItem(String nome, String telefone, Item item) throws UsuarioInvalidoException, ItemCadastradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
-
-		CRUDUsuario.validaUsuario(usuario);
-		
 		usuario.cadastrarItem(item);
 	}
 
@@ -158,9 +162,6 @@ public class ControllerUsuario {
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException, SerieNaoValidaException {
 		Usuario usuario = buscaUsuario(nome, telefone);
-
-		CRUDUsuario.validaUsuario(usuario);
-
 		usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
 	}
 
@@ -175,9 +176,6 @@ public class ControllerUsuario {
 	 */
 	public void removerItem(String nome, String telefone, String nomeItem)	throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
-
-		CRUDUsuario.validaUsuario(usuario);
-
 		usuario.removerItem(nomeItem);
 	}
 
@@ -208,10 +206,7 @@ public class ControllerUsuario {
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
-
-		CRUDUsuario.validaUsuario(usuario);
 		Validacoes.validaAtualizarItem(atributo, valor);
-
 		usuario.atualizarItem(nomeItem, atributo, valor);
 	}
 
@@ -230,8 +225,6 @@ public class ControllerUsuario {
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
-		CRUDUsuario.validaUsuario(usuario);
-
 		return usuario.getInfoItem(nomeItem, atributo);
 	}
 
@@ -248,8 +241,6 @@ public class ControllerUsuario {
 	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
 		Usuario usuario = buscaUsuario(nomeDono, telefoneDono);
-
-		CRUDUsuario.validaUsuario(usuario);
 
 		return usuario.detalhesItem(nomeItem);
 	}
@@ -290,6 +281,7 @@ public class ControllerUsuario {
 		List<Item> itens = getItens();
 		Collections.sort(itens, ordenaItem);
 		String retorno = "";
+		
 		for (Item item : itens) {
 			retorno += item.toString() + "|";
 		}
@@ -307,7 +299,8 @@ public class ControllerUsuario {
 		List<Item> itens = getItens();
 		Collections.sort(itens, ordenaItem);
 		String retorno = "";
-		for (Item item : itens) {
+		
+		for (Item item: itens) {
 			retorno += item.toString() + "|";
 		}
 
@@ -343,9 +336,6 @@ public class ControllerUsuario {
 		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
 
-		validaUsuario(dono);
-		validaUsuario(requerente);
-
 		dono.emprestaItem(emprestimo.getItemEmprestado());
 		dono.registrarEmprestimoDono(emprestimo);
 		requerente.registrarEmprestimoRequerente(emprestimo);
@@ -374,14 +364,12 @@ public class ControllerUsuario {
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
 		Emprestimo emprestimo = buscaEmprestimo(dono, requerente, nomeItem, dataEmprestimo);
 		
-		validaUsuario(dono);
-		validaUsuario(requerente);
-
 		if (emprestimo == null) {
 			throw new EmprestimoNaoEncontradoException();
 		}
 		
 		requerente.devolveItem(dono, nomeItem, dataDevolucao);
+		
 		if (emprestimo.getDataDevolucao().equals("Emprestimo em andamento")) {
 			emprestimo.setDataDevolucao(dataDevolucao);
 			if (emprestimo.getTempoComItem() <= emprestimo.getPeriodo()) {
@@ -406,20 +394,26 @@ public class ControllerUsuario {
 		String retorno = "Nenhum item emprestado";
 		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 		
+<<<<<<< HEAD
 		Usuario user = buscaUsuario(nome, telefone);
 		validaUsuario(user);
 		List<Emprestimo> emprestimosTemp = getEmprestimosDono(user);
 
 		
 		if (!emprestimosTemp.isEmpty()) {
+=======
+		if (!getItensEmprestadosDono(user).isEmpty()) {
+>>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 			retorno = "Emprestimos: ";
 			Collections.sort(emprestimosTemp, ordenaEmprestimo);
 
-			for (Emprestimo emprestimo : emprestimosTemp) {
+			for (Emprestimo emprestimo: emprestimosTemp) {
 				retorno += emprestimo.toString() + "|";
 			}
 			
-		}return retorno;
+		}
+		
+		return retorno;
 	}
 
 	/**
@@ -432,6 +426,7 @@ public class ControllerUsuario {
 	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) throws UsuarioInvalidoException {
 		String retorno = "Nenhum item pego emprestado";
+<<<<<<< HEAD
 		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 
 		Usuario user = buscaUsuario(nome, telefone);
@@ -440,10 +435,20 @@ public class ControllerUsuario {
 
 		
 		if (emprestimosTemp.isEmpty()) {
+=======
+		List<Emprestimo> emprestimosTemp;
+		
+		if (!getItensEmprestadosRequerente(user).isEmpty()) {
+>>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 			retorno = "Emprestimos pegos: ";
 			Collections.sort(emprestimosTemp, ordenaEmprestimo);
+<<<<<<< HEAD
 			
 			for (Emprestimo emprestimo : emprestimosTemp) {
+=======
+
+			for (Emprestimo emprestimo: emprestimosTemp) {
+>>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 				retorno += emprestimo.toString() + "|";
 			}
 
@@ -460,7 +465,7 @@ public class ControllerUsuario {
 	public String listarEmprestimosItem(String nomeItem) {
 		String retorno = "";
 		
-		for (Emprestimo emprestimo : this.emprestimos) {
+		for (Emprestimo emprestimo: this.emprestimos) {
 			if (emprestimo.getItemEmprestado().equalsIgnoreCase(nomeItem)) {
 				retorno += emprestimo.toString() + "|";
 			}
@@ -486,7 +491,7 @@ public class ControllerUsuario {
 		List<Item> itens = getItens();
 		Collections.sort(itens, ordenaItem);
 		
-		for (Item item : itens) {
+		for (Item item: itens) {
 			if (!item.isEmprestado()) {
 				retorno += item.toString() + "|";
 			}
@@ -538,7 +543,7 @@ public class ControllerUsuario {
 		Collections.sort(topDez, ordenaItem);
 		
 		int i = 1;
-		for (Item item : topDez) {
+		for (Item item: topDez) {
 			if (item.getVezesEmprestado() > 0) {
 				retorno += i + ") " + item.getVezesEmprestado() + " emprestimos - " + item.toString() + "|";
 				i++;
@@ -619,20 +624,12 @@ public class ControllerUsuario {
 	 * @param nome O nome do usuario que se busca
 	 * @param telefone O telefone do usuario que se busca
 	 * @return O usuario buscado
+	 * @throws UsuarioInvalidoException 
 	 */
-	public Usuario buscaUsuario(String nome, String telefone) {
+	public Usuario buscaUsuario(String nome, String telefone) throws UsuarioInvalidoException {
 		return CRUDUsuario.buscaUsuario(nome, telefone, this.usuarios);
 	}
 
-	/**
-	 * Valida um usuario
-	 * 
-	 * @param user O usuario a ser validado
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
-	 */
-	private void validaUsuario(Usuario user) throws UsuarioInvalidoException {
-		CRUDUsuario.validaUsuario(user);
-	}
 	
 	/**
 	 * Retorna uma lista dos itens que estão no sistema
@@ -643,13 +640,17 @@ public class ControllerUsuario {
 	private List<Item> getItens() {
 		List<Item> retornoItens = new ArrayList<>();
 		
-		for (Usuario usuario : usuarios) {
-				retornoItens.addAll(usuario.getItens());
+		for (Usuario usuario: usuarios) {
+			retornoItens.addAll(usuario.getItens());
 		}
 
 		return retornoItens;
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 	/**
 	 * Retorna um emprestimo especifico
 	 * 
