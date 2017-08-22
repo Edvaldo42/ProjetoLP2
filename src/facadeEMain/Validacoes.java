@@ -205,13 +205,9 @@ public class Validacoes {
 	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
 	 */
 	public static void validaCadastrarBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas,
-<<<<<<< HEAD
-			String artista, String classificacao) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NumeroDeFaixasMenorQue0Exception, NomeDoArtistaNuloOuVazioException {
-=======
 			String artista, String classificacao) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, 
 			PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, 
-			NumeroDeFaixasMenorQue1Exception, NomeDoArtistaNuloOuVazioException {
->>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
+			NumeroDeFaixasMenorQue0Exception, NomeDoArtistaNuloOuVazioException {
 		String msg = "Erro ao cadastrar BluRay de Show: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -311,15 +307,11 @@ public class Validacoes {
 	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
 	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor do que 1
 	 */
-<<<<<<< HEAD
-	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, AtributoInvalidoException, DescricaoInvalidaException, TemporadaMenorQue1Exception {
-=======
 	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException,
-	NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, 
+	NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, 
 	PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, 
 	GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, 
 	AtributoInvalidoException, DescricaoInvalidaException, TemporadaMenorQue1Exception {
->>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 		String msg = "Erro na atualizacao de item: ";
 
 		if (atributo.trim().equalsIgnoreCase("nome")) {

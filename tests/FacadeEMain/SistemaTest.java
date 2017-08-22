@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-<<<<<<< HEAD
+import exceptionsComplementares.AtributoInvalidoException;
 import exceptionsComplementares.ItemCadastradoException;
 import exceptionsComplementares.ItemNaoEncontradoException;
 import exceptionsComplementares.NomeDoItemNuloOuVazioException;
@@ -16,33 +16,13 @@ import exceptionsItem.ClassificacaoInvalidaException;
 import exceptionsItem.ClassificacaoNulaOuVaziaException;
 import exceptionsItem.DuracaoInvalidaException;
 import exceptionsItem.GeneroNuloOuVazioException;
-import exceptionsItem.PecaPerdidaException;
+import exceptionsItem.NomeDoArtistaNuloOuVazioException;
+import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
 import exceptionsItem.PlataformaNullOuVaziaException;
 import exceptionsItem.PrecoInvalidoException;
 import exceptionsUsuario.EmailInvalidoException;
 import exceptionsUsuario.TelefoneInvalidoException;
 import exceptionsUsuario.UsuarioInvalidoException;
-=======
-import exception.AnoDeLancamentoMenorQue0Exception;
-import exception.AtributoInvalidoException;
-import exception.ClassificacaoInvalidaException;
-import exception.ClassificacaoNulaOuVaziaException;
-import exception.DuracaoInvalidaException;
-import exception.EmailInvalidoException;
-import exception.GeneroNuloOuVazioException;
-import exception.ItemCadastradoException;
-import exception.ItemNaoEncontradoException;
-import exception.NomeDoArtistaNuloOuVazioException;
-import exception.NomeDoItemNuloOuVazioException;
-import exception.NumeroDeFaixasMenorQue1Exception;
-import exception.PecaPerdidaException;
-import exception.PlataformaNullOuVaziaException;
-import exception.PrecoInvalidoException;
-import exception.StringInvalidaException;
-import exception.TelefoneInvalidoException;
-import exception.UsuarioCadastradoException;
-import exception.UsuarioInvalidoException;
->>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 import facadeEMain.Facade;
 
 public class SistemaTest {
@@ -280,36 +260,36 @@ public class SistemaTest {
 	}
 	
     @Test
-	public void testCadastrarBluRayShow() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+	public void testCadastrarBluRayShow() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, IllegalArgumentException, ItemCadastradoException {
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
 	}
     
     @Test (expected= NomeDoItemNuloOuVazioException.class)
-    public void testCadastrarBluRayShowNulo() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    public void testCadastrarBluRayShowNulo() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, IllegalArgumentException, ItemCadastradoException {
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", null, 150.00, 120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, null, "DEZESSEIS_ANOS");
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, "Lady Gaga", null);
     }
     
     @Test (expected= NomeDoItemNuloOuVazioException.class)
-    public void testCadastrarBluRayShowVazio() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    public void testCadastrarBluRayShowVazio() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, IllegalArgumentException, ItemCadastradoException {
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "", 150.00, 120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, "", "DEZESSEIS_ANOS");
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, 10, "Lady Gaga", "");
     }
     
     @Test (expected= PrecoInvalidoException.class)
-    public void testCadastrarBluRayShowPrecoInvalido() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    public void testCadastrarBluRayShowPrecoInvalido() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, IllegalArgumentException, ItemCadastradoException {
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", -1000.00, 120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
     }
 
     @Test (expected= DuracaoInvalidaException.class)
-    public void testCadastrarBluRayShowDuracaoInvalida() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    public void testCadastrarBluRayShowDuracaoInvalida() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, IllegalArgumentException, ItemCadastradoException {
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, -120, 10, "Lady Gaga", "DEZESSEIS_ANOS");
     }
     
-    @Test (expected= NumeroDeFaixasMenorQue1Exception.class)
-    public void testCadastrarBluRayShowNumFaixasInvalido() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, IllegalArgumentException, ItemCadastradoException {
+    @Test (expected= NumeroDeFaixasMenorQue0Exception.class)
+    public void testCadastrarBluRayShowNumFaixasInvalido() throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, IllegalArgumentException, ItemCadastradoException {
     	facade.cadastrarBluRayShow("Gabryelle", "99999-8888", "Show de Lady Gaga", 150.00, 120, -10, "Lady Gaga", "DEZESSEIS_ANOS");
     }
     

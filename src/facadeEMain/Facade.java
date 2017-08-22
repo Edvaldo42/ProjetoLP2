@@ -195,13 +195,8 @@ public class Facade {
 	 * @throws NomeDoArtistaNuloOuVazioException 
 	 * @throws ItemCadastradoException 
 	 */
-<<<<<<< HEAD
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, ItemCadastradoException {
-		sistema.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, nomeroFaixas, artista, classificacao);
-=======
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, ItemCadastradoException {
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, ItemCadastradoException {
 		sistema.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
->>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 	}
 	
 	/**

@@ -394,23 +394,16 @@ public class ControllerUsuario {
 		String retorno = "Nenhum item emprestado";
 		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 		
-<<<<<<< HEAD
 		Usuario user = buscaUsuario(nome, telefone);
-		validaUsuario(user);
 		List<Emprestimo> emprestimosTemp = getEmprestimosDono(user);
-
 		
 		if (!emprestimosTemp.isEmpty()) {
-=======
-		if (!getItensEmprestadosDono(user).isEmpty()) {
->>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 			retorno = "Emprestimos: ";
 			Collections.sort(emprestimosTemp, ordenaEmprestimo);
 
 			for (Emprestimo emprestimo: emprestimosTemp) {
 				retorno += emprestimo.toString() + "|";
 			}
-			
 		}
 		
 		return retorno;
@@ -426,29 +419,16 @@ public class ControllerUsuario {
 	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) throws UsuarioInvalidoException {
 		String retorno = "Nenhum item pego emprestado";
-<<<<<<< HEAD
 		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 
 		Usuario user = buscaUsuario(nome, telefone);
-		validaUsuario(user);
 		List<Emprestimo> emprestimosTemp = getEmprestimosRequerente(user);
-
 		
-		if (emprestimosTemp.isEmpty()) {
-=======
-		List<Emprestimo> emprestimosTemp;
-		
-		if (!getItensEmprestadosRequerente(user).isEmpty()) {
->>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
+		if (!emprestimosTemp.isEmpty()) {
 			retorno = "Emprestimos pegos: ";
 			Collections.sort(emprestimosTemp, ordenaEmprestimo);
-<<<<<<< HEAD
 			
-			for (Emprestimo emprestimo : emprestimosTemp) {
-=======
-
 			for (Emprestimo emprestimo: emprestimosTemp) {
->>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 				retorno += emprestimo.toString() + "|";
 			}
 
@@ -646,11 +626,7 @@ public class ControllerUsuario {
 
 		return retornoItens;
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 43aca60a47f261bd58fdedfaaba1327af0448986
 	/**
 	 * Retorna um emprestimo especifico
 	 * 
