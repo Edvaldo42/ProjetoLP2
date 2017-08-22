@@ -1,7 +1,24 @@
 package facadeEMain;
 
+import exception.AnoDeLancamentoMenorQue0Exception;
+import exception.AtributoInvalidoException;
+import exception.ClassificacaoInvalidaException;
+import exception.ClassificacaoNulaOuVaziaException;
+import exception.DescricaoInvalidaException;
+import exception.DuracaoInvalidaException;
+import exception.EmprestimoNaoEncontradoException;
+import exception.GeneroNuloOuVazioException;
+import exception.ItemCadastradaException;
+import exception.ItemEmprestadoException;
+import exception.NomeDoItemNuloOuVazioException;
 import exception.ItemNaoEncontradoException;
+import exception.NomeDoArtistaNuloOuVazioException;
+import exception.NumeroDeFaixasMenorQue1Exception;
+import exception.PlataformaNullOuVaziaException;
+import exception.PrecoInvalidoException;
+import exception.SerieNaoValidaException;
 import exception.StringInvalidaException;
+import exception.TemporadaMenorQue1Exception;
 import exception.UsuarioCadastradoException;
 import exception.UsuarioInvalidoException;
 
@@ -86,8 +103,13 @@ public class Facade {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws UsuarioCadastradoException Caso o usuario nao esteja cadastrado
 	 * {@link Sistema#cadastrarEletronico(String, String, String, double, String)}
+	 * @throws IllegalArgumentException 
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws PrecoInvalidoException 
+	 * @throws PlataformaNullOuVaziaException 
+	 * @throws ItemCadastradaException 
 	 */
-	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) throws UsuarioCadastradoException, UsuarioInvalidoException {
+	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma) throws UsuarioCadastradoException, UsuarioInvalidoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, PrecoInvalidoException, PlataformaNullOuVaziaException, ItemCadastradaException {
 		sistema.cadastrarEletronico(nome, telefone, nomeItem, preco, plataforma);
 	}
 	
@@ -100,8 +122,12 @@ public class Facade {
 	 * @param preco O preco do jogo
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * {@link Sistema#cadastrarJogoTabuleiro(String, String, String, double)}
+	 * @throws IllegalArgumentException 
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws PrecoInvalidoException 
+	 * @throws ItemCadastradaException 
 	 */
-	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) throws UsuarioInvalidoException {
+	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, PrecoInvalidoException, ItemCadastradaException {
 		sistema.cadastrarJogoTabuleiro(nome, telefone, nomeItem, preco);
 	}
 	
@@ -132,8 +158,17 @@ public class Facade {
 	 * @param anoLancamento O ano de lancamento do filme
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * {@link Sistema#cadastrarBluRayFilme(String, String, String, double, int, String, String, int)}
+	 * @throws IllegalArgumentException 
+	 * @throws DuracaoInvalidaException 
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws PrecoInvalidoException 
+	 * @throws ClassificacaoNulaOuVaziaException 
+	 * @throws ClassificacaoInvalidaException 
+	 * @throws GeneroNuloOuVazioException 
+	 * @throws AnoDeLancamentoMenorQue0Exception 
+	 * @throws ItemCadastradaException 
 	 */
-	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException {
+	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao, String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException, ItemCadastradaException {
 		sistema.cadastrarBluRayFilme(nome, telefone, nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 	}
 	
@@ -150,8 +185,17 @@ public class Facade {
 	 * @param classificacao A classificacao etaria do show
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * {@link Sistema#cadastrarBluRayShow(String, String, String, double, int, int, String, String)}
+	 * @throws IllegalArgumentException 
+	 * @throws DuracaoInvalidaException 
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws PrecoInvalidoException 
+	 * @throws ClassificacaoNulaOuVaziaException 
+	 * @throws ClassificacaoInvalidaException 
+	 * @throws NumeroDeFaixasMenorQue1Exception 
+	 * @throws NomeDoArtistaNuloOuVazioException 
+	 * @throws ItemCadastradaException 
 	 */
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException {
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, ItemCadastradaException {
 		sistema.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, nomeroFaixas, artista, classificacao);
 	}
 	
@@ -169,8 +213,18 @@ public class Facade {
 	 * @param temporada A temporada da serie
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * {@link Sistema#cadastrarBluRaySerie(String, String, String, double, String, int, String, String, int)}
+	 * @throws IllegalArgumentException 
+	 * @throws DuracaoInvalidaException 
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws PrecoInvalidoException 
+	 * @throws DescricaoInvalidaException 
+	 * @throws TemporadaMenorQue1Exception 
+	 * @throws GeneroNuloOuVazioException 
+	 * @throws ClassificacaoNulaOuVaziaException 
+	 * @throws ClassificacaoInvalidaException 
+	 * @throws ItemCadastradaException 
 	 */
-	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException {
+	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao, int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, DescricaoInvalidaException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, ItemCadastradaException {
 		sistema.cadastrarBluRaySerie(nome, telefone, nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 	}
 	
@@ -184,8 +238,12 @@ public class Facade {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 * {@link Sistema#adicionarBluRay(String, String, String, int)}
+	 * @throws IllegalArgumentException 
+	 * @throws DuracaoInvalidaException 
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws SerieNaoValidaException 
 	 */
-	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao) throws UsuarioInvalidoException, ItemNaoEncontradoException{
+	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao) throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, SerieNaoValidaException{
 		sistema.adicionarBluRay(nome, telefone, nomeBlurayTemporada, duracao);
 	}
 	
@@ -214,8 +272,21 @@ public class Facade {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 * {@link Sistema#atualizarItem(String, String, String, String, String)}
+	 * @throws IllegalArgumentException 
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws AtributoInvalidoException 
+	 * @throws DescricaoInvalidaException 
+	 * @throws TemporadaMenorQue1Exception 
+	 * @throws NomeDoArtistaNuloOuVazioException 
+	 * @throws AnoDeLancamentoMenorQue0Exception 
+	 * @throws GeneroNuloOuVazioException 
+	 * @throws ClassificacaoNulaOuVaziaException 
+	 * @throws DuracaoInvalidaException 
+	 * @throws PlataformaNullOuVaziaException 
+	 * @throws PrecoInvalidoException 
+	 * @throws NumeroDeFaixasMenorQue1Exception 
 	 */
-	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) throws UsuarioInvalidoException, ItemNaoEncontradoException {
+	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
 		sistema.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 	
@@ -283,8 +354,9 @@ public class Facade {
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * {@link Sistema#registrarEmprestimo(String, String, String, String, String, String, int)}
+	 * @throws ItemEmprestadoException 
 	 */
-	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException {
+	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException, ItemEmprestadoException {
 		sistema.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
 	}
 	
@@ -301,8 +373,9 @@ public class Facade {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 * {@link Sistema#devolverItem(String, String, String, String, String, String, String)}
+	 * @throws EmprestimoNaoEncontradoException 
 	 */
-	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) throws UsuarioInvalidoException, ItemNaoEncontradoException {
+	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente, String nomeItem, String dataEmprestimo, String dataDevolucao) throws UsuarioInvalidoException, ItemNaoEncontradoException, EmprestimoNaoEncontradoException {
 		sistema.devolverItem(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, dataDevolucao);
 	}
 	

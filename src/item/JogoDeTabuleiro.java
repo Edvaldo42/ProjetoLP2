@@ -3,6 +3,9 @@ package item;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.PecaJaPerdidaException;
+import exception.PecaPerdidaException;
+
 /**
  * 
  *
@@ -40,9 +43,9 @@ public class JogoDeTabuleiro extends Item{
 		return msg;
 	}
 
-	public void adicionaPecaPerdida (String nomePeca) {
+	public void adicionaPecaPerdida (String nomePeca) throws PecaJaPerdidaException {
 		if (pecasPerdidas.contains(nomePeca)) {
-			throw new IllegalArgumentException("Peca perdida ja registrada");
+			throw new PecaJaPerdidaException();
 		}
 		pecasPerdidas.add(nomePeca);
 	}

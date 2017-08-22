@@ -14,9 +14,25 @@ import comparator.OrdemPorReputacao;
 import comparator.OrdenaPorValor;
 import comparator.OrdenaPorVezesEmprestado;
 import emprestimo.Emprestimo;
+import exception.AnoDeLancamentoMenorQue0Exception;
+import exception.AtributoInvalidoException;
+import exception.ClassificacaoNulaOuVaziaException;
+import exception.DescricaoInvalidaException;
+import exception.DuracaoInvalidaException;
+import exception.EmprestimoNaoEncontradoException;
+import exception.GeneroNuloOuVazioException;
+import exception.ItemCadastradaException;
+import exception.ItemEmprestadoException;
+import exception.NomeDoItemNuloOuVazioException;
 import exception.ItemNaoEncontradoException;
+import exception.NomeDoArtistaNuloOuVazioException;
+import exception.NumeroDeFaixasMenorQue1Exception;
 import exception.PecaPerdidaException;
+import exception.PlataformaNullOuVaziaException;
+import exception.PrecoInvalidoException;
+import exception.SerieNaoValidaException;
 import exception.StringInvalidaException;
+import exception.TemporadaMenorQue1Exception;
 import exception.UsuarioCadastradoException;
 import exception.UsuarioInvalidoException;
 import facadeEMain.Validacoes;
@@ -72,7 +88,7 @@ public class ControllerUsuario {
 		usuario.adicionarPecaPerdida(nomeItem, nomePeca);
 	}
 
-	public void cadastrarItem(String nome, String telefone, Item item) throws UsuarioInvalidoException {
+	public void cadastrarItem(String nome, String telefone, Item item) throws UsuarioInvalidoException, ItemCadastradaException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
 		CRUDUsuario.validaUsuario(usuario);
@@ -81,7 +97,7 @@ public class ControllerUsuario {
 	}
 
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException {
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, SerieNaoValidaException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
 		CRUDUsuario.validaUsuario(usuario);
@@ -98,7 +114,7 @@ public class ControllerUsuario {
 	}
 
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException {
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
 		CRUDUsuario.validaUsuario(usuario);
@@ -198,7 +214,7 @@ public class ControllerUsuario {
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, Emprestimo emprestimo)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException {
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, ItemEmprestadoException {
 
 		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
@@ -214,7 +230,7 @@ public class ControllerUsuario {
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
 			String nomeItem, String dataEmprestimo, String dataDevolucao)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException {
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, EmprestimoNaoEncontradoException {
 
 		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
@@ -224,7 +240,7 @@ public class ControllerUsuario {
 		validaUsuario(requerente);
 
 		if (emprestimo == null) {
-			throw new IllegalArgumentException("Emprestimo nao encontrado");
+			throw new EmprestimoNaoEncontradoException();
 		}
 		
 		requerente.devolveItem(dono, nomeItem, dataDevolucao);

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import exception.ItemNaoEncontradoException;
+import exception.PlataformaNullOuVaziaException;
+import exception.TemporadaMenorQue1Exception;
 import facadeEMain.Validacoes;
 
 /**
@@ -30,8 +32,9 @@ public class CRUDItem {
 	 * @param preco O preco do jogo
 	 * @param plataforma A plataforma em que o jogo esta
 	 * @return O item criado
+	 * @throws PlataformaNullOuVaziaException 
 	 */
-	public Item criaEletronico(String nomeItem, double preco, String plataforma) {
+	public Item criaEletronico(String nomeItem, double preco, String plataforma) throws PlataformaNullOuVaziaException {
 		if (Validacoes.validaPlataforma(plataforma)) {
 			Item jogoEletronico = new JogoEletronico(nomeItem, preco, plataforma);
 			return jogoEletronico;
@@ -146,7 +149,7 @@ public class CRUDItem {
 		return info;
 	}
 	
-	public static void atualizarItem(Item item, String atributo, String valor) {
+	public static void atualizarItem(Item item, String atributo, String valor) throws TemporadaMenorQue1Exception, NumberFormatException {
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			item.setNomeItem(valor);
 		} else if (atributo.trim().equalsIgnoreCase("preco")) {

@@ -1,6 +1,6 @@
 package exception;
 
-public abstract class StringInvalidaException extends EntradaInvalidaException {
+public class StringInvalidaException extends EntradaInvalidaException {
 
 	public StringInvalidaException() {
 		super ();

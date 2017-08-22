@@ -2,6 +2,8 @@ package item;
 
 import java.util.Locale;
 
+import exception.TemporadaMenorQue1Exception;
+
 /**
  * 
  *
@@ -211,8 +213,9 @@ public abstract class Item {
 	/**
 	 * 
 	 * @param temporada A temporada da serie
+	 * @throws TemporadaMenorQue1Exception 
 	 */
-	public void setTemporada(int temporada) {}
+	public void setTemporada(int temporada) throws TemporadaMenorQue1Exception {}
 
 	/**
 	 * 

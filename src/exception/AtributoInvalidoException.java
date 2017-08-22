@@ -3,7 +3,7 @@ package exception;
 public class AtributoInvalidoException extends StringInvalidaException {
 
 	public AtributoInvalidoException() {
-		super();
+		super("Atributo invalido");
 	}
 	
 	public AtributoInvalidoException(String msg) {

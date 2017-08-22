@@ -4,7 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import emprestimo.Emprestimo;
+import exception.ItemCadastradaException;
+import exception.ItemEmprestadoException;
 import exception.ItemNaoEncontradoException;
+import exception.PecaJaPerdidaException;
+import exception.SerieNaoValidaException;
+import exception.TemporadaMenorQue1Exception;
 import item.CRUDItem;
 import item.Item;
 import item.JogoDeTabuleiro;
@@ -47,10 +52,11 @@ public class Usuario {
 	 * Cadastra um Item
 	 * 
 	 * @param item Pode ser um jogo de tabuleiro, jogo eletronico, ou um BluRay
+	 * @throws ItemCadastradaException 
 	 */
-	public void cadastrarItem(Item item) {
+	public void cadastrarItem(Item item) throws ItemCadastradaException {
 		if (!itens.add(item)) {
-			throw new IllegalArgumentException("Item ja cadastrado");
+			throw new ItemCadastradaException();
 		}
 		aumentaReputacao(item.getPreco(), 0.05);
 	}
@@ -61,8 +67,9 @@ public class Usuario {
 	 * @param nomeItem Nome do jogo de tabuleiro
 	 * @param nomePeca Nome da peca perdida
 	 * @throws ItemNaoEncontradoException
+	 * @throws PecaJaPerdidaException 
 	 */
-	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException {
+	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException, PecaJaPerdidaException {
 		Item itemBuscado = buscaItem(nomeItem);
 		if (itemBuscado instanceof JogoDeTabuleiro) {
 			((JogoDeTabuleiro) itemBuscado).adicionaPecaPerdida(nomePeca);
@@ -74,21 +81,23 @@ public class Usuario {
 	 * @param nomeBlurayTemporada Nome do BluRay Série
 	 * @param duracao Duracao do EP
 	 * @throws ItemNaoEncontradoException
+	 * @throws SerieNaoValidaException 
 	 */
 
-	public void adicionarBluRay(String nomeBlurayTemporada, int duracao) throws ItemNaoEncontradoException {
+	public void adicionarBluRay(String nomeBlurayTemporada, int duracao) throws ItemNaoEncontradoException, SerieNaoValidaException {
 		Item itemBuscado = buscaItem(nomeBlurayTemporada);
 		
 		if (itemBuscado instanceof Serie) {
 			itemBuscado.adicionarBluRay(duracao);
 		} else {
-			throw new IllegalArgumentException("Esse item nao e uma serie");
+			throw new SerieNaoValidaException();
 		}
 	}
 	
 	/**
+	 * Remove o item da lista de itens do usuario
 	 * 
-	 * @param nomeItem
+	 * @param nomeItem O nome do item a ser removido
 	 * @throws ItemNaoEncontradoException
 	 */
 
@@ -98,21 +107,25 @@ public class Usuario {
 	}
 	
 	/**
+	 * Atualiza as informacoes de um item
 	 * 
-	 * @param nomeItem
-	 * @param atributo
-	 * @param valor
+	 * @param nomeItem O nome do Item
+	 * @param atributo A informacao que se deseja atualizar
+	 * @param valor A atualizacao da informacao desejada
 	 * @throws ItemNaoEncontradoException
+	 * @throws NumberFormatException 
+	 * @throws TemporadaMenorQue1Exception 
 	 */
 
-	public void atualizarItem(String nomeItem, String atributo, String valor) throws ItemNaoEncontradoException {
+	public void atualizarItem(String nomeItem, String atributo, String valor) throws ItemNaoEncontradoException, TemporadaMenorQue1Exception, NumberFormatException {
 		Item item = buscaItem(nomeItem);
 		CRUDItem.atualizarItem(item, atributo, valor);
 	}
 	
 	/**
+	 * Retorna todas as informacoes disponiveis de um item
 	 * 
-	 * @param nomeItem
+	 * @param nomeItem O nome do item do qual se deseja obter informacoes
 	 * @return
 	 * @throws ItemNaoEncontradoException
 	 */
@@ -122,9 +135,10 @@ public class Usuario {
 	}
 	
 	/**
+	 * Retorna uma informacao (passada como atributo) de um item
 	 * 
-	 * @param nomeItem
-	 * @param atributo
+	 * @param nomeItem O nome do Item
+	 * @param atributo A informacao que esta sendo buscada
 	 * @return
 	 * @throws ItemNaoEncontradoException
 	 */
@@ -135,8 +149,9 @@ public class Usuario {
 	}
 	
 	/**
+	 * Retorna um item da lista de itens de um usuario
 	 * 
-	 * @param nomeItem
+	 * @param nomeItem O nome do item a ser buscado
 	 * @return
 	 * @throws ItemNaoEncontradoException
 	 */
@@ -152,14 +167,16 @@ public class Usuario {
 	}
 		
 	/**
+	 * Empresta o item do dono para um requerente
 	 * 
-	 * @param item
+	 * @param item O nome do item a ser emprestado
 	 * @return
+	 * @throws ItemEmprestadoException 
 	 */
-	public void emprestaItem(String nomeItem) throws ItemNaoEncontradoException {
+	public void emprestaItem(String nomeItem) throws ItemNaoEncontradoException, ItemEmprestadoException {
 		Item itemBuscado = buscaItem(nomeItem);
 		if (itemBuscado.isEmprestado()) {
-			throw new IllegalArgumentException("Item emprestado no momento");
+			throw new ItemEmprestadoException();
 		}
 		else {
 			itemBuscado.setEmprestado(true);
@@ -168,6 +185,14 @@ public class Usuario {
 		}
 	}
 	
+	/**
+	 * Devolve o item do requerente para o dono
+	 * 
+	 * @param dono O dono do item
+	 * @param nomeItem O nome do Item
+	 * @param dataDevolucao A data de devolucao do emprestimo
+	 * @throws ItemNaoEncontradoException
+	 */
 	public void devolveItem(Usuario dono, String nomeItem, String dataDevolucao) throws ItemNaoEncontradoException {
 		Item itemBuscado = 	dono.buscaItem(nomeItem);	
 		if (!itemBuscado.isEmprestado()) {
@@ -195,11 +220,22 @@ public class Usuario {
 		emprestimosRequerente.add(emprestimo);
 	}
 
+	/**
+	 * Aumenta a reputacao de quem merece recompensa
+	 * 
+	 * @param preco O preco do item
+	 * @param taxa A taxa de aumento da reputacao
+	 */
 	public void aumentaReputacao(double preco, double taxa) {
 		this.reputacao += preco * taxa;
 		setCartao();
 	}
-	
+	/**
+	 * Diminui a reputacao de quem merece penalizaçao
+	 * 
+	 * @param preco O preco do item
+	 * @param taxa A taxa de desconto da reputacao
+	 */
 	public void diminuiReputacao(double preco, double taxa) {
 		this.reputacao += preco * taxa;
 		setCartao();
@@ -227,44 +263,81 @@ public class Usuario {
 	}
 	
 	/**
+	 * Retorna o email do usuario
 	 * 
-	 * @param item
+	 * @return
 	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Altera o emial do usuario
+	 * 
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Retorna o nome do Usuario
+	 * 
+	 * @return
+	 */
 	public String getNome() {
 		return nome;
 	}
 
+	/**
+	 * Altera o nome do usuario
+	 * 
+	 * @param nome
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
+	/**
+	 * Retorna o telefone do usuario
+	 * 
+	 * @return
+	 */
 	public String getTelefone() {
 		return telefone;
 	}
-
+	
+	/**
+	 * Altera o telefone do usuario
+	 * 
+	 * @param telefone
+	 */
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
+	/**
+	 * Retorna a lista de itens do usuario
+	 * 
+	 * @return
+	 */
 	public Set<Item> getItens() {
 		return this.itens;
 		
 	}
 	
+	/**
+	 * Retorna os itens emprestados pelo usuario
+	 * 
+	 * @return
+	 */
 	public Set<Emprestimo> getItensEmprestadosDono() {
 		return this.emprestimosDono;
 	}
 
 	/**
 	 * Retorna a lista de emprestimos que o usuario fez
+	 * 
 	 * @return 
 	 */
 	public Set<Emprestimo> getEmprestimosDono() {
@@ -273,21 +346,35 @@ public class Usuario {
 	}
 	
 	/**
-	 * Retorna a lista de emprestimos que o usuario tomou como emprestado
+	 * Retorna a lista de emprestimos que o usuario participou como requerente
+	 * 
 	 * @return O conjunto de emprestimos que o requerente pegou por um tempo.
 	 */
 	public Set<Emprestimo> getEmprestimosRequerente() {
 		return emprestimosRequerente;
 	}
 	
+	/**
+	 * Retorna a reputacao do usuario
+	 * 
+	 * @return
+	 */
 	public double getReputacao() {
 		return this.reputacao;
 	}
 	
+	/**
+	 * Retorna o status do usuario
+	 * 
+	 * @return
+	 */
 	public String getCartao() {
 		return this.cartao.getCartao();
 	}
 	
+	/**
+	 * Altera o status do usuario
+	 */
 	public void setCartao() {
 		if (getReputacao() >= 0) {
 			for (Item item : getItens()) {

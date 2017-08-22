@@ -4,11 +4,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import exception.AnoDeLancamentoMenorQue0Exception;
 import exception.AtributoInvalidoException;
+import exception.ClassificacaoInvalidaException;
+import exception.ClassificacaoNulaOuVaziaException;
+import exception.DescricaoInvalidaException;
+import exception.DuracaoInvalidaException;
 import exception.EmailInvalidoException;
+import exception.GeneroNuloOuVazioException;
+import exception.NomeDaPecaNuloOuVazioException;
+import exception.NomeDoItemNuloOuVazioException;
+import exception.NomeDoArtistaNuloOuVazioException;
 import exception.NomeInvalidoException;
+import exception.NumeroDeFaixasMenorQue1Exception;
+import exception.PlataformaNullOuVaziaException;
+import exception.PrecoInvalidoException;
 import exception.StringInvalidaException;
 import exception.TelefoneInvalidoException;
+import exception.TemporadaMenorQue1Exception;
 
 /**
  * 
@@ -42,12 +55,13 @@ public class Validacoes {
 		if (!validaNome(nome)) {
 			throw new NomeInvalidoException(ERRO_CADASTRO_USUARIO);
 		}
-		if (!validaEmail(email)) {
-			throw new EmailInvalidoException(ERRO_CADASTRO_USUARIO);
-		}
 		if (!validaTelefone(telefone)) {
 			throw new TelefoneInvalidoException(ERRO_CADASTRO_USUARIO);
 		}
+		if (!validaEmail(email)) {
+			throw new EmailInvalidoException(ERRO_CADASTRO_USUARIO);
+		}
+		
 	}
 
 	/**
@@ -82,24 +96,29 @@ public class Validacoes {
 	 * @param nomeItem O nome do item
 	 * @param preco O preco do item
 	 * @param plataforma A plataforma do jogo
-	 * @throws IllegalArgumentException Caso a plataforma seja nula ou vazia
+	 * @throws IllegalArgumentException Caso a plataforma seja nula ou vazia """""""
+	 * @throws NomeDoItemNuloOuVazioException Caso o Item seja invalido
+	 * @throws PrecoInvalidoException Caso p preco seja invalido
+	 * @throws PlataformaNullOuVaziaException 
 	 */
-	public static void validaCadastrarEletronico(String nomeItem, double preco, String plataforma) throws IllegalArgumentException {
+	public static void validaCadastrarEletronico(String nomeItem, double preco, String plataforma) throws NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException {
 		String msg = "Erro ao cadastrar Jogo Eletronico: ";
 
 		validaItem(nomeItem, preco, msg);
+		validaPlataforma(plataforma);
 
-		if (plataforma == null || plataforma.trim().equals("")) {
-			throw new IllegalArgumentException(msg + "Plataforma nao pode ser nula ou vazia");
-		}
 	}
 
 	/**
 	 * Valida a plataforma 
 	 * @param plataforma A plataforma do jogo 
 	 * @return True se a plataforma existe e False caso contrario
+	 * @throws PlataformaNullOuVaziaException 
 	 */
-	public static boolean validaPlataforma(String plataforma) {
+	public static boolean validaPlataforma(String plataforma) throws PlataformaNullOuVaziaException {
+		if (plataforma == null || plataforma.trim().equals("")) {
+			throw new PlataformaNullOuVaziaException();
+		}
 		return plataformas.contains(plataforma.toUpperCase());
 	}
 
@@ -107,8 +126,10 @@ public class Validacoes {
 	 * Valida o cadastro de um jogo de tabuleiro
 	 * @param nomeItem O nome do jogo
 	 * @param preco O preco do jogo
+	 * @throws NomeDoItemNuloOuVazioException Caso o item seja invalido
+	 * @throws PrecoInvalidoException Caso o prco seja invalido
 	 */
-	public static void validaCadastrarJogoTabuleiro(String nomeItem, double preco) {
+	public static void validaCadastrarJogoTabuleiro(String nomeItem, double preco) throws NomeDoItemNuloOuVazioException, PrecoInvalidoException {
 		String msg = "Erro ao cadastrar Jogo de Tabuleiro: ";
 		validaItem(nomeItem, preco, msg);
 	}
@@ -117,16 +138,18 @@ public class Validacoes {
 	 * Valida a acao de add uma peca perdida a um jogo
 	 * @param nomeItem O nome do jogo
 	 * @param nomePeca O nome da peca perdida
-	 * @throws IllegalArgumentException Caso o nome do item ou da peca seja nulo ou vazio
+	 * @throws IllegalArgumentException Caso o nome do item ou da peca seja nulo ou vazio """"""""""""""
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws NomeDaPecaNuloOuVazioException 
 	 */
-	public static void validaAdicionarPecaPerdida(String nomeItem, String nomePeca) throws IllegalArgumentException {
+	public static void validaAdicionarPecaPerdida(String nomeItem, String nomePeca) throws NomeDoItemNuloOuVazioException, NomeDaPecaNuloOuVazioException {
 		String msg = "Erro ao adicionar Peca Perdida: ";
 
 		if (nomeItem == null || nomeItem.trim().equals("")) {
-			throw new IllegalArgumentException(msg + "Nome do item nao pode ser nulo ou vazio");
+			throw new NomeDoItemNuloOuVazioException(msg);
 		}
 		if (nomePeca == null || nomePeca.trim().equals("")) {
-			throw new IllegalArgumentException(msg + "Nome da peca nao pode ser nulo ou vazio");
+			throw new NomeDaPecaNuloOuVazioException(msg);
 		}
 	}
 
@@ -138,20 +161,27 @@ public class Validacoes {
 	 * @param genero O genero do filme
 	 * @param classificacao A classificacao etaria do filme
 	 * @param anoLancamento O ano de lancamento do filme
-	 * @throws IllegalArgumentException Caso o genero seja nulo ou vazio ou caso o ano de lancamento seja invalido
+	 * @throws IllegalArgumentException Caso o genero seja nulo ou vazio ou caso o ano de lancamento seja invalido """"""""""""""""""""""""
+	 * @throws NomeDoItemNuloOuVazioException Caso o nomeItem seja invalido
+	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
+	 * @throws PrecoInvalidoException Caso o preco seja invalido
+	 * @throws ClassificacaoNulaOuVaziaException 
+	 * @throws AnoDeLancamentoMenorQue0Exception 
+	 * @throws GeneroNuloOuVazioException 
+	 * @throws ClassificacaoInvalidaException 
 	 */
 	public static void validaCadastrarBluRayFilme(String nomeItem, double preco, int duracao, String genero,
-			String classificacao, int anoLancamento) throws IllegalArgumentException {
+			String classificacao, int anoLancamento) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException {
 		String msg = "Erro ao cadastrar BluRay de Filme: ";
 
 		validaItem(nomeItem, preco, msg);
 		validaBluRay(duracao, classificacao, msg);
 
 		if (genero == null || genero.trim().equals("")) {
-			throw new IllegalArgumentException(msg + "Genero nao pode ser nulo ou vazio");
+			throw new GeneroNuloOuVazioException(msg);
 		}
 		if (anoLancamento < 0) {
-			throw new IllegalArgumentException("Ano de lancamento nao pode ser menor que 0");
+			throw new AnoDeLancamentoMenorQue0Exception();
 		}
 	}
 
@@ -163,20 +193,27 @@ public class Validacoes {
 	 * @param numeroFaixas O numero de faixas do show
 	 * @param artista O artista do show
 	 * @param classificacao A classificacao etaria do show
-	 * @throws IllegalArgumentException Caso o nome seja nulo ou vazio ou o numero de faixas seja invalido
+	 * @throws IllegalArgumentException Caso o nome seja nulo ou vazio ou o numero de faixas seja invalido """"""""""""""""""""""""""""
+	 * @throws NomeDoItemNuloOuVazioException Caso o nomeItem seja invalido
+	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
+	 * @throws PrecoInvalidoException Caso o preco seja invalido
+	 * @throws ClassificacaoNulaOuVaziaException 
+	 * @throws ClassificacaoInvalidaException 
+	 * @throws NomeDoArtistaNuloOuVazioException 
+	 * @throws NumeroDeFaixasMenorQue1Exception 
 	 */
 	public static void validaCadastrarBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas,
-			String artista, String classificacao) throws IllegalArgumentException {
+			String artista, String classificacao) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception {
 		String msg = "Erro ao cadastrar BluRay de Show: ";
 
 		validaItem(nomeItem, preco, msg);
 		validaBluRay(duracao, classificacao, msg);
 
 		if (numeroFaixas < 1) {
-			throw new IllegalArgumentException("Faixas nao podem ser menor do que 1");
+			throw new NumeroDeFaixasMenorQue1Exception();
 		}
 		if (artista == null || artista.trim().equals("")) {
-			throw new IllegalArgumentException("O nome do artista nao pode ser nulo ou vazio");
+			throw new NomeDoArtistaNuloOuVazioException();
 		}
 	}
 
@@ -190,22 +227,30 @@ public class Validacoes {
 	 * @param genero O genero da serie
 	 * @param temporada A temporada da serie
 	 * @throws IllegalArgumentException Caso algum parametro seja nulo ou vazio ou a temporada seja invalida
+	 * @throws NomeDoItemNuloOuVazioException Caso o nome do Item seja invalido
+	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
+	 * @throws PrecoInvalidoException Caso o preco seja invalido
+	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
+	 * @throws GeneroNuloOuVazioException 
+	 * @throws TemporadaMenorQue1Exception 
+	 * @throws ClassificacaoNulaOuVaziaException 
+	 * @throws ClassificacaoInvalidaException 
 	 */
 	public static void validaCadastrarBluRaySerie(String nomeItem, double preco, String descricao, int duracao,
-			String classificacao, String genero, int temporada) throws IllegalArgumentException {
+			String classificacao, String genero, int temporada) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, DescricaoInvalidaException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException {
 		String msg = "Erro ao cadastrar BluRay de Serie: ";
 
 		validaItem(nomeItem, preco, msg);
 		validaBluRay(duracao, classificacao, msg);
 
 		if (descricao == null || descricao.trim().equals("")) {
-			throw new IllegalArgumentException("Descricao nao pode ser nula ou vazia");
+			throw new DescricaoInvalidaException();
 		}
 		if (genero == null || genero.trim().equals("")) {
-			throw new IllegalArgumentException(msg + "Genero nao pode ser nulo ou vazio");
+			throw new GeneroNuloOuVazioException();
 		}
 		if (temporada < 1) {
-			throw new IllegalArgumentException("Temporada nao pode ser menor do que 1");
+			throw new TemporadaMenorQue1Exception();
 		}
 	}
 
@@ -223,15 +268,17 @@ public class Validacoes {
 	 * @param nomeBlurayTemporada O nome da temporada
 	 * @param duracao A duracao da temporada
 	 * @throws IllegalArgumentException Caso o nome ou duracao seja invalida
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws DuracaoInvalidaException 
 	 */
-	public static void validaAdicionarBluRay(String nomeBlurayTemporada, int duracao) throws IllegalArgumentException {
+	public static void validaAdicionarBluRay(String nomeBlurayTemporada, int duracao) throws IllegalArgumentException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException {
 		String msg = "Erro ao adicionar BluRay: ";
 
 		if (nomeBlurayTemporada == null || nomeBlurayTemporada.trim().equals("")) {
-			throw new IllegalArgumentException(msg + "Nome do item nao pode ser nulo ou vazio");
+			throw new NomeDoItemNuloOuVazioException(msg);
 		}
 		if (duracao < 0) {
-			throw new IllegalArgumentException(msg + "Duracao nao pode ser menor do que 0");
+			throw new DuracaoInvalidaException(msg);
 		}
 	}
 
@@ -240,56 +287,68 @@ public class Validacoes {
 	 * @param atributo O atributo que sera atualizado
 	 * @param valor O novo valor do atributo
 	 * @throws IllegalArgumentException Caso algum parametro seja invalido
+	 * @throws NomeDoItemNuloOuVazioException 
+	 * @throws NumeroDeFaixasMenorQue1Exception 
+	 * @throws PrecoInvalidoException 
+	 * @throws PlataformaNullOuVaziaException 
+	 * @throws DuracaoInvalidaException 
+	 * @throws ClassificacaoNulaOuVaziaException 
+	 * @throws GeneroNuloOuVazioException 
+	 * @throws AnoDeLancamentoMenorQue0Exception 
+	 * @throws NomeDoArtistaNuloOuVazioException 
+	 * @throws TemporadaMenorQue1Exception 
+	 * @throws DescricaoInvalidaException 
+	 * @throws AtributoInvalidoException 
 	 */
-	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException {
+	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
 		String msg = "Erro na atualizacao de item: ";
 
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			if (valor == null || valor.trim().equals("")) {
-				throw new IllegalArgumentException(msg + "Nome do item nao pode ser nulo ou vazio");
+				throw new NomeDoItemNuloOuVazioException(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("preco")) {
 			if (Double.parseDouble(valor) < 0) {
-				throw new IllegalArgumentException(msg + "Preco invalido");
+				throw new PrecoInvalidoException(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("plataforma")) {
 			if (valor == null || valor.trim().equals("")) {
-				throw new IllegalArgumentException(msg + "Plataforma nao pode ser nula ou vazia");
+				throw new PlataformaNullOuVaziaException(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("duracao")) {
 			if (Integer.parseInt(valor) < 0) {
-				throw new IllegalArgumentException(msg + "Duracao nao pode ser menor do que 0");
+				throw new DuracaoInvalidaException(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("classificacao")) {
 			if (valor == null || valor.trim().equals("")) {
-				throw new IllegalArgumentException(msg + "Classificacao nao pode ser nula ou vazia");
+				throw new ClassificacaoNulaOuVaziaException(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("genero")) {
 			if (valor == null || valor.trim().equals("")) {
-				throw new IllegalArgumentException(msg + "Genero nao pode ser nulo ou vazio");
+				throw new GeneroNuloOuVazioException(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("anoLancamento")) {
 			if (Integer.parseInt(valor) < 0) {
-				throw new IllegalArgumentException(msg + "Ano de lancamento nao pode ser menor do que 0");
+				throw new AnoDeLancamentoMenorQue0Exception(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("artista")) {
 			if (valor == null || valor.trim().equals("")) {
-				throw new IllegalArgumentException(msg + "Nome do artista nao pode ser nulo ou vazio");
+				throw new NomeDoArtistaNuloOuVazioException(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
-			if (Integer.parseInt(valor) < 0) {
-				throw new IllegalArgumentException(msg + "Numero de faixas nao pode ser menor do que 0");
+			if (Integer.parseInt(valor) < 1) {
+				throw new NumeroDeFaixasMenorQue1Exception(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("descricao")) {
 			if (valor == null || valor.trim().equals("")) {
-				throw new IllegalArgumentException(msg + "Descricao nao pode ser nula ou vazia");
+				throw new DescricaoInvalidaException(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("temporada")) {
 			if (Integer.parseInt(valor) < 0) {
-				throw new IllegalArgumentException(msg + "Temporada nao pode ser menor do que 0");
+				throw new TemporadaMenorQue1Exception(msg);
 			}
 		} else {
-			throw new IllegalArgumentException("Atributo invalido");
+			throw new AtributoInvalidoException();
 		}
 	}
 
@@ -298,20 +357,25 @@ public class Validacoes {
 	 * @param duracao A duracao do BluRay
 	 * @param classificacao A classificacao etaria do BluRay
 	 * @param msg A msg que sera exibida na excecao
-	 * @throws IllegalArgumentException Caso a duracao ou classificacao seja invalida
+	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
+	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja vazia ou nula 
+	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
 	 */
-	private static void validaBluRay(int duracao, String classificacao, String msg) throws IllegalArgumentException {
+	private static void validaBluRay(int duracao, String classificacao, String msg) throws DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException {
 
 		if (duracao < 0) {
-			throw new IllegalArgumentException(msg + "Duracao nao pode ser menor do que 0");
+			throw new DuracaoInvalidaException(msg);
 		}
+		validaClassificacao(classificacao, msg);
+	}
+	
+	private static void validaClassificacao(String classificacao, String msg) throws ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException{
 		if (classificacao == null || classificacao.trim().equals("")) {
-			throw new IllegalArgumentException(msg + "Classificacao nao pode ser nula ou vazia");
+			throw new ClassificacaoNulaOuVaziaException(msg);
 		}
 		if (!classificacoes.contains(classificacao)) {
-			throw new IllegalArgumentException(msg + "Classificacao invalida");
+			throw new ClassificacaoInvalidaException();
 		}
-
 	}
 
 	/**
@@ -319,14 +383,15 @@ public class Validacoes {
 	 * @param nomeItem O nome do item
 	 * @param preco O preco do item
 	 * @param msg A msg que sera exibida na excecao
-	 * @throws IllegalArgumentException Caso o nome seja nulo ou vazio ou caso o preco seja invalido
+	 * @throws NomeDoItemNuloOuVazioException Caso o nome do Item seja nulo ou vazio ou caso o preco seja invalido
+	 * @throws PrecoInvalidoException 
 	 */
-	private static void validaItem(String nomeItem, double preco, String msg) throws IllegalArgumentException {
+	private static void validaItem(String nomeItem, double preco, String msg) throws NomeDoItemNuloOuVazioException, PrecoInvalidoException {
 		if (nomeItem == null || nomeItem.trim().equals("")) {
-			throw new IllegalArgumentException("Nome do item nao pode ser nulo ou vazio");
+			throw new NomeDoItemNuloOuVazioException();
 		}
 		if (preco < 0) {
-			throw new IllegalArgumentException("Preco invalido");
+			throw new PrecoInvalidoException();
 		}
 	}
 
@@ -334,14 +399,14 @@ public class Validacoes {
 	 * Valida o nome de um usuario
 	 * @param nome O nome do usuario
 	 * @return true se o nome eh valido
-	 * @throws IllegalArgumentException Caso o nome seja nulo ou vazio
+	 * @throws StringInvalidaException Caso o nome seja nulo ou vazio
 	 */
-	private static boolean validaNome(String nome) throws IllegalArgumentException {
+	private static boolean validaNome(String nome) throws StringInvalidaException {
 		if (nome == null) {
-			throw new IllegalArgumentException("Nome nao pode ser null.");
+			throw new StringInvalidaException("Nome nao pode ser null.");
 		}
 		if (nome.trim().equals("")) {
-			throw new IllegalArgumentException("Nome nao pode ser vazio.");
+			throw new StringInvalidaException("Nome nao pode ser vazio.");
 		}
 		return true;
 	}

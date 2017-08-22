@@ -3,6 +3,9 @@ package item;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.GeneroNuloOuVazioException;
+import exception.TemporadaMenorQue1Exception;
+
 public class Serie extends BluRay {
 
 	private List<Integer> colecao;
@@ -46,18 +49,18 @@ public class Serie extends BluRay {
 		return temporada;
 	}
 
-	public void setTemporada(int temporada) {
+	public void setTemporada(int temporada) throws TemporadaMenorQue1Exception {
 		if (temporada >= 1) {
 			this.temporada = temporada;			
 		}
 		else {
-			throw new IllegalArgumentException("Temporada nao pode ser menor do que 1");
+			throw new TemporadaMenorQue1Exception();
 		}
 	}
 	
-	private void validaGenero(String genero) {
+	private void validaGenero(String genero) throws GeneroNuloOuVazioException {
 		if (genero == null || genero.trim().equals("")) {
-			throw new IllegalArgumentException("Genero nao pode ser nula ou vazia");
+			throw new GeneroNuloOuVazioException();
 		}
 		try {
 			Genero.valueOf(genero);
