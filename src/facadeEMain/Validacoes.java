@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import exception.AnoDeLancamentoMenorQue0Exception;
-import exception.AtributoInvalidoException;
-import exception.ClassificacaoInvalidaException;
-import exception.ClassificacaoNulaOuVaziaException;
-import exception.DescricaoInvalidaException;
-import exception.DuracaoInvalidaException;
-import exception.EmailInvalidoException;
-import exception.GeneroNuloOuVazioException;
-import exception.NomeDaPecaNuloOuVazioException;
-import exception.NomeDoItemNuloOuVazioException;
-import exception.NomeDoArtistaNuloOuVazioException;
-import exception.NomeInvalidoException;
-import exception.NumeroDeFaixasMenorQue1Exception;
-import exception.PlataformaNullOuVaziaException;
-import exception.PrecoInvalidoException;
-import exception.StringInvalidaException;
-import exception.TelefoneInvalidoException;
-import exception.TemporadaMenorQue1Exception;
+import exceptionsComplementares.AtributoInvalidoException;
+import exceptionsComplementares.NomeDoItemNuloOuVazioException;
+import exceptionsComplementares.NomeInvalidoException;
+import exceptionsComplementares.StringInvalidaException;
+import exceptionsItem.AnoDeLancamentoMenorQue0Exception;
+import exceptionsItem.ClassificacaoInvalidaException;
+import exceptionsItem.ClassificacaoNulaOuVaziaException;
+import exceptionsItem.DescricaoInvalidaException;
+import exceptionsItem.DuracaoInvalidaException;
+import exceptionsItem.GeneroNuloOuVazioException;
+import exceptionsItem.NomeDaPecaNuloOuVazioException;
+import exceptionsItem.NomeDoArtistaNuloOuVazioException;
+import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
+import exceptionsItem.PlataformaNullOuVaziaException;
+import exceptionsItem.PrecoInvalidoException;
+import exceptionsItem.TemporadaMenorQue1Exception;
+import exceptionsUsuario.EmailInvalidoException;
+import exceptionsUsuario.TelefoneInvalidoException;
 
 /**
  * 
@@ -196,18 +196,18 @@ public class Validacoes {
 	 * @throws PrecoInvalidoException Caso o preco seja invalido
 	 * @throws ClassificacaoNulaOuVaziaException Caso a Classificacao seja nula ou vazia
 	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
-	 * @throws NumeroDeFaixasMenorQue1Exception Caso o numero de faixas seja menor do que 1
+	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
 	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
 	 */
 	public static void validaCadastrarBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas,
-			String artista, String classificacao) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NumeroDeFaixasMenorQue1Exception, NomeDoArtistaNuloOuVazioException {
+			String artista, String classificacao) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NumeroDeFaixasMenorQue0Exception, NomeDoArtistaNuloOuVazioException {
 		String msg = "Erro ao cadastrar BluRay de Show: ";
 
 		validaItem(nomeItem, preco, msg);
 		validaBluRay(duracao, classificacao, msg);
 
 		if (numeroFaixas < 1) {
-			throw new NumeroDeFaixasMenorQue1Exception();
+			throw new NumeroDeFaixasMenorQue0Exception();
 		}
 		if (artista == null || artista.trim().equals("")) {
 			throw new NomeDoArtistaNuloOuVazioException();
@@ -285,7 +285,7 @@ public class Validacoes {
 	 * @param atributo O atributo que sera atualizado
 	 * @param valor O novo valor do atributo
 	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
-	 * @throws NumeroDeFaixasMenorQue1Exception Caso o numero de faixas seja menor do que 1
+	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
  	 * @throws PrecoInvalidoException Caso o preco seja invalido
 	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
@@ -297,7 +297,7 @@ public class Validacoes {
 	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
 	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor do que 1
 	 */
-	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, AtributoInvalidoException, DescricaoInvalidaException, TemporadaMenorQue1Exception {
+	public static void validaAtualizarItem(String atributo, String valor) throws IllegalArgumentException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, AtributoInvalidoException, DescricaoInvalidaException, TemporadaMenorQue1Exception {
 		String msg = "Erro na atualizacao de item: ";
 
 		if (atributo.trim().equalsIgnoreCase("nome")) {
@@ -334,7 +334,7 @@ public class Validacoes {
 			}
 		} else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
 			if (Integer.parseInt(valor) < 1) {
-				throw new NumeroDeFaixasMenorQue1Exception(msg);
+				throw new NumeroDeFaixasMenorQue0Exception(msg);
 			}
 		} else if (atributo.trim().equalsIgnoreCase("descricao")) {
 			if (valor == null || valor.trim().equals("")) {
@@ -371,7 +371,7 @@ public class Validacoes {
 	 * Valida a classificacao
 	 * 
 	 * @param classificacao A classificacao a ser validada
-	 * @param msg """""""'""""""""""""""""""""""""""""""""""""""""""""""
+	 * @param msg mensagem de erro para o cadastro do BluRay que está sendo feito
 	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja vazia ou nula 
 	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
 	 */

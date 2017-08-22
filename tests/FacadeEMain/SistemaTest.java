@@ -5,22 +5,22 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import exception.AnoDeLancamentoMenorQue0Exception;
-import exception.ClassificacaoInvalidaException;
-import exception.ClassificacaoNulaOuVaziaException;
-import exception.DuracaoInvalidaException;
-import exception.EmailInvalidoException;
-import exception.GeneroNuloOuVazioException;
-import exception.ItemCadastradoException;
-import exception.ItemNaoEncontradoException;
-import exception.NomeDoItemNuloOuVazioException;
-import exception.PecaPerdidaException;
-import exception.PlataformaNullOuVaziaException;
-import exception.PrecoInvalidoException;
-import exception.StringInvalidaException;
-import exception.TelefoneInvalidoException;
-import exception.UsuarioCadastradoException;
-import exception.UsuarioInvalidoException;
+import exceptionsComplementares.ItemCadastradoException;
+import exceptionsComplementares.ItemNaoEncontradoException;
+import exceptionsComplementares.NomeDoItemNuloOuVazioException;
+import exceptionsComplementares.StringInvalidaException;
+import exceptionsComplementares.UsuarioCadastradoException;
+import exceptionsItem.AnoDeLancamentoMenorQue0Exception;
+import exceptionsItem.ClassificacaoInvalidaException;
+import exceptionsItem.ClassificacaoNulaOuVaziaException;
+import exceptionsItem.DuracaoInvalidaException;
+import exceptionsItem.GeneroNuloOuVazioException;
+import exceptionsItem.PecaPerdidaException;
+import exceptionsItem.PlataformaNullOuVaziaException;
+import exceptionsItem.PrecoInvalidoException;
+import exceptionsUsuario.EmailInvalidoException;
+import exceptionsUsuario.TelefoneInvalidoException;
+import exceptionsUsuario.UsuarioInvalidoException;
 import facadeEMain.Facade;
 
 public class SistemaTest {

@@ -3,8 +3,8 @@ package item;
 import java.util.ArrayList;
 import java.util.List;
 
-import exception.GeneroNuloOuVazioException;
-import exception.TemporadaMenorQue1Exception;
+import exceptionsItem.GeneroNuloOuVazioException;
+import exceptionsItem.TemporadaMenorQue1Exception;
 
 public class Serie extends BluRay {
 

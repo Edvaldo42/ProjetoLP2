@@ -4,12 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import emprestimo.Emprestimo;
-import exception.ItemCadastradoException;
-import exception.ItemEmprestadoException;
-import exception.ItemNaoEncontradoException;
-import exception.PecaJaPerdidaException;
-import exception.SerieNaoValidaException;
-import exception.TemporadaMenorQue1Exception;
+import exceptionsComplementares.ItemCadastradoException;
+import exceptionsComplementares.ItemEmprestadoException;
+import exceptionsComplementares.ItemNaoEncontradoException;
+import exceptionsItem.PecaJaPerdidaException;
+import exceptionsItem.SerieNaoValidaException;
+import exceptionsItem.TemporadaMenorQue1Exception;
 import item.CRUDItem;
 import item.Item;
 import item.JogoDeTabuleiro;

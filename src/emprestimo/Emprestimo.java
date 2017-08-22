@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-import exception.ItemNaoEncontradoException;
-import exception.UsuarioInvalidoException;
+import exceptionsComplementares.ItemNaoEncontradoException;
+import exceptionsUsuario.UsuarioInvalidoException;
 import usuario.ControllerUsuario;
 import usuario.Usuario;
 

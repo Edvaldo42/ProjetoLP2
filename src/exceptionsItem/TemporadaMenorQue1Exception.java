@@ -1,4 +1,6 @@
-package exception;
+package exceptionsItem;
+
+import exceptionsComplementares.StringInvalidaException;
 
 public class TemporadaMenorQue1Exception extends StringInvalidaException {
 

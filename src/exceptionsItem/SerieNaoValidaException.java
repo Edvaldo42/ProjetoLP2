@@ -1,4 +1,4 @@
-package exception;
+package exceptionsItem;
 
 public class SerieNaoValidaException extends Exception {
 

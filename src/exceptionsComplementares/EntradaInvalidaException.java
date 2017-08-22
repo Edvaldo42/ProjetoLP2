@@ -1,4 +1,4 @@
-package exception;
+package exceptionsComplementares;
 
 public abstract class EntradaInvalidaException extends Exception {
 

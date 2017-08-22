@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import exception.ItemNaoEncontradoException;
-import exception.PlataformaNullOuVaziaException;
-import exception.TemporadaMenorQue1Exception;
+import exceptionsItem.PlataformaNullOuVaziaException;
+import exceptionsItem.TemporadaMenorQue1Exception;
 import facadeEMain.Validacoes;
 
 /**
@@ -34,7 +33,7 @@ public class CRUDItem {
 	 * @return O item criado
 	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 */
-	public Item criaEletronico(String nomeItem, double preco, String plataforma) throws PlataformaNullOuVaziaException {
+	public static Item criaEletronico(String nomeItem, double preco, String plataforma) throws PlataformaNullOuVaziaException {
 		if (Validacoes.validaPlataforma(plataforma)) {
 			Item jogoEletronico = new JogoEletronico(nomeItem, preco, plataforma);
 			return jogoEletronico;

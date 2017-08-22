@@ -1,4 +1,6 @@
-package exception;
+package exceptionsUsuario;
+
+import exceptionsComplementares.StringInvalidaException;
 
 public class NomeUsuarioException extends StringInvalidaException {
 

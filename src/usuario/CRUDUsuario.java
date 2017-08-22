@@ -2,10 +2,10 @@ package usuario;
 
 import java.util.Set;
 
-import exception.AtributoInvalidoException;
-import exception.StringInvalidaException;
-import exception.UsuarioCadastradoException;
-import exception.UsuarioInvalidoException;
+import exceptionsComplementares.AtributoInvalidoException;
+import exceptionsComplementares.StringInvalidaException;
+import exceptionsComplementares.UsuarioCadastradoException;
+import exceptionsUsuario.UsuarioInvalidoException;
 
 public class CRUDUsuario {
 

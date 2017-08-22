@@ -14,34 +14,33 @@ import comparator.OrdemPorReputacao;
 import comparator.OrdenaPorValor;
 import comparator.OrdenaPorVezesEmprestado;
 import emprestimo.Emprestimo;
-import exception.AnoDeLancamentoMenorQue0Exception;
-import exception.AtributoInvalidoException;
-import exception.ClassificacaoNulaOuVaziaException;
-import exception.DescricaoInvalidaException;
-import exception.DuracaoInvalidaException;
-import exception.EmprestimoNaoEncontradoException;
-import exception.GeneroNuloOuVazioException;
-import exception.ItemCadastradoException;
-import exception.ItemEmprestadoException;
-import exception.NomeDoItemNuloOuVazioException;
-import exception.ItemNaoEncontradoException;
-import exception.NomeDoArtistaNuloOuVazioException;
-import exception.NumeroDeFaixasMenorQue1Exception;
-import exception.PecaJaPerdidaException;
-import exception.PecaPerdidaException;
-import exception.PlataformaNullOuVaziaException;
-import exception.PrecoInvalidoException;
-import exception.SerieNaoValidaException;
-import exception.StringInvalidaException;
-import exception.TemporadaMenorQue1Exception;
-import exception.UsuarioCadastradoException;
-import exception.UsuarioInvalidoException;
+import exceptionsComplementares.AtributoInvalidoException;
+import exceptionsComplementares.EmprestimoNaoEncontradoException;
+import exceptionsComplementares.ItemCadastradoException;
+import exceptionsComplementares.ItemEmprestadoException;
+import exceptionsComplementares.ItemNaoEncontradoException;
+import exceptionsComplementares.NomeDoItemNuloOuVazioException;
+import exceptionsComplementares.StringInvalidaException;
+import exceptionsComplementares.UsuarioCadastradoException;
+import exceptionsItem.AnoDeLancamentoMenorQue0Exception;
+import exceptionsItem.ClassificacaoNulaOuVaziaException;
+import exceptionsItem.DescricaoInvalidaException;
+import exceptionsItem.DuracaoInvalidaException;
+import exceptionsItem.GeneroNuloOuVazioException;
+import exceptionsItem.NomeDoArtistaNuloOuVazioException;
+import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
+import exceptionsItem.PecaJaPerdidaException;
+import exceptionsItem.PecaPerdidaException;
+import exceptionsItem.PlataformaNullOuVaziaException;
+import exceptionsItem.PrecoInvalidoException;
+import exceptionsItem.SerieNaoValidaException;
+import exceptionsItem.TemporadaMenorQue1Exception;
+import exceptionsUsuario.UsuarioInvalidoException;
 import facadeEMain.Validacoes;
 import item.Item;
 
 public class ControllerUsuario {
 
-	private static final String nome = null;
 	private Set<Usuario> usuarios;
 	private Comparator<Item> ordenaItem;
 	private Comparator<Emprestimo> ordenaEmprestimo;
@@ -146,11 +145,12 @@ public class ControllerUsuario {
 	}
 
 	/**
+	 * Adiciona um "BluRay" a uma serie
 	 * 
-	 * @param nome
-	 * @param telefone
-	 * @param nomeBlurayTemporada
-	 * @param duracao
+	 * @param nome O nome do usuario que esta cadastrando o item
+	 * @param telefone O telefone do usuario esta cadastrando o item
+	 * @param nomeBlurayTemporada O nome do BluRay Serie em que sera adicionado 
+	 * @param duracao Representacao da duracao do BluRay a ser adicionado
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 * @throws SerieNaoValidaException Caso o item nao seja uma serie
@@ -203,10 +203,10 @@ public class ControllerUsuario {
 	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
 	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws NumeroDeFaixasMenorQue1Exception Caso o numero de faixas seja menor do que 1
+	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
 	 */
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
 		Usuario usuario = buscaUsuario(nome, telefone);
 
 		CRUDUsuario.validaUsuario(usuario);
@@ -260,12 +260,10 @@ public class ControllerUsuario {
 	 * @param user O usuario do qual se quer saber os emprestimos
 	 * @return A lista de emprestimos que o usuario emprestou o item
 	 */
-	private List<Emprestimo> getItensEmprestadosDono(Usuario user) {
+	private List<Emprestimo> getEmprestimosDono(Usuario user) {
 		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
-		for (Emprestimo emprestimo : user.getEmprestimosDono()) {
-			retornoEmprestimos.add(emprestimo);
-		}
-
+		retornoEmprestimos.addAll(user.getEmprestimosDono());
+		
 		return retornoEmprestimos;
 	}
 
@@ -274,7 +272,7 @@ public class ControllerUsuario {
 	 * 
 	 * @return Os itens que foram pegos emprestados por 1 usuario
 	 */
-	private List<Emprestimo> getItensEmprestadosRequerente(Usuario user) {
+	private List<Emprestimo> getEmprestimosRequerente(Usuario user) {
 		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
 		for (Emprestimo emprestimo : user.getEmprestimosRequerente()) {
 			retornoEmprestimos.add(emprestimo);
@@ -405,17 +403,16 @@ public class ControllerUsuario {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) throws UsuarioInvalidoException {
-		Usuario user = buscaUsuario(nome, telefone);
-		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 		String retorno = "Nenhum item emprestado";
-		List<Emprestimo> emprestimosTemp;
+		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 		
+		Usuario user = buscaUsuario(nome, telefone);
 		validaUsuario(user);
+		List<Emprestimo> emprestimosTemp = getEmprestimosDono(user);
+
 		
-		if (!getItensEmprestadosDono(user).isEmpty()) {
+		if (!emprestimosTemp.isEmpty()) {
 			retorno = "Emprestimos: ";
-			emprestimosTemp = new ArrayList<>();
-			emprestimosTemp.addAll(getItensEmprestadosDono(user));
 			Collections.sort(emprestimosTemp, ordenaEmprestimo);
 
 			for (Emprestimo emprestimo : emprestimosTemp) {
@@ -434,19 +431,18 @@ public class ControllerUsuario {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 */
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) throws UsuarioInvalidoException {
-		Usuario user = buscaUsuario(nome, telefone);
-		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 		String retorno = "Nenhum item pego emprestado";
-		List<Emprestimo> emprestimosTemp;
-		
-		validaUsuario(user);
-		
-		if (!getItensEmprestadosRequerente(user).isEmpty()) {
-			retorno = "Emprestimos pegos: ";
-			emprestimosTemp = new ArrayList<>();
-			emprestimosTemp.addAll(getItensEmprestadosRequerente(user));
-			Collections.sort(emprestimosTemp, ordenaEmprestimo);
+		ordenaEmprestimo = new OrdemAlfabeticaEmprestimo();
 
+		Usuario user = buscaUsuario(nome, telefone);
+		validaUsuario(user);
+		List<Emprestimo> emprestimosTemp = getEmprestimosRequerente(user);
+
+		
+		if (emprestimosTemp.isEmpty()) {
+			retorno = "Emprestimos pegos: ";
+			Collections.sort(emprestimosTemp, ordenaEmprestimo);
+			
 			for (Emprestimo emprestimo : emprestimosTemp) {
 				retorno += emprestimo.toString() + "|";
 			}
@@ -651,23 +647,6 @@ public class ControllerUsuario {
 				retornoItens.addAll(usuario.getItens());
 		}
 
-		return retornoItens;
-	}
-	
-	/**
-	 * Retorna uma lista com todos os itens que possuem um nome especifico
-	 * 
-	 * @param nomeItem O nome do item que ser quer
-	 * @return Lista com todos os itens que possuem um nome especifico
-	 */
-	private List<Item> getItem(String nomeItem) {
-		List<Item> retornoItens = new ArrayList<>();
-		for (Usuario usuario : getUsuarios()) {
-			if (usuario.getItens().contains(nomeItem));{
-				retornoItens.addAll(getItens());
-			}
-			
-		}
 		return retornoItens;
 	}
 	

@@ -2,7 +2,7 @@ package item;
 
 import java.util.Locale;
 
-import exception.TemporadaMenorQue1Exception;
+import exceptionsItem.TemporadaMenorQue1Exception;
 
 public abstract class Item {
 
@@ -24,22 +24,6 @@ public abstract class Item {
 	}
 	
 	/**
-	 * adiciona uma vez emprestada a cada vez que o metodo eh chamado
-	 */
-	public void addVezEmprestada() {
-		this.quantidadeEmprestado++;
-	}
-	
-	/**
-	 * Retorna quantas vezes o item foi emprestado
-	 * 
-	 * @return Quantas vezes o item foi emprestado
-	 */
-	public int getVezesEmprestado() {
-		return this.quantidadeEmprestado;
-	}
-	
-	/**
 	 * Adiciona um BluRay
 	 * 
 	 * @param duracao A duracao do BluRay
@@ -54,6 +38,22 @@ public abstract class Item {
 	 */
 	public String getPecasPerdidas() {
 		return null;
+	}
+	
+	/**
+	 * Adiciona uma vez emprestada a cada vez que o metodo eh chamado
+	 */
+	public void addVezEmprestada() {
+		this.quantidadeEmprestado++;
+	}
+	
+	/**
+	 * Retorna quantas vezes o item foi emprestado
+	 * 
+	 * @return Quantas vezes o item foi emprestado
+	 */
+	public int getVezesEmprestado() {
+		return this.quantidadeEmprestado;
 	}
 	
 	/**
@@ -115,7 +115,8 @@ public abstract class Item {
 	 * 
 	 * @param valor A plataforma do jogo
 	 */
-	public void setPlataforma(String plataforma) {}
+	public void setPlataforma(String plataforma) {
+	}
 	
 	/**
 	 * Retorna a plataforma em um jogo eletronico

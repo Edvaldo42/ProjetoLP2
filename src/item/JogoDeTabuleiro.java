@@ -3,8 +3,8 @@ package item;
 import java.util.ArrayList;
 import java.util.List;
 
-import exception.PecaJaPerdidaException;
-import exception.PecaPerdidaException;
+import exceptionsItem.PecaJaPerdidaException;
+import exceptionsItem.PecaPerdidaException;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package exception;
+package exceptionsComplementares;
 
 public class AtributoInvalidoException extends StringInvalidaException {
 

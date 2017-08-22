@@ -1,26 +1,26 @@
 package facadeEMain;
 
-import exception.AnoDeLancamentoMenorQue0Exception;
-import exception.AtributoInvalidoException;
-import exception.ClassificacaoInvalidaException;
-import exception.ClassificacaoNulaOuVaziaException;
-import exception.DescricaoInvalidaException;
-import exception.DuracaoInvalidaException;
-import exception.EmprestimoNaoEncontradoException;
-import exception.GeneroNuloOuVazioException;
-import exception.ItemCadastradoException;
-import exception.ItemEmprestadoException;
-import exception.NomeDoItemNuloOuVazioException;
-import exception.ItemNaoEncontradoException;
-import exception.NomeDoArtistaNuloOuVazioException;
-import exception.NumeroDeFaixasMenorQue1Exception;
-import exception.PlataformaNullOuVaziaException;
-import exception.PrecoInvalidoException;
-import exception.SerieNaoValidaException;
-import exception.StringInvalidaException;
-import exception.TemporadaMenorQue1Exception;
-import exception.UsuarioCadastradoException;
-import exception.UsuarioInvalidoException;
+import exceptionsComplementares.AtributoInvalidoException;
+import exceptionsComplementares.EmprestimoNaoEncontradoException;
+import exceptionsComplementares.ItemCadastradoException;
+import exceptionsComplementares.ItemEmprestadoException;
+import exceptionsComplementares.ItemNaoEncontradoException;
+import exceptionsComplementares.NomeDoItemNuloOuVazioException;
+import exceptionsComplementares.StringInvalidaException;
+import exceptionsComplementares.UsuarioCadastradoException;
+import exceptionsItem.AnoDeLancamentoMenorQue0Exception;
+import exceptionsItem.ClassificacaoInvalidaException;
+import exceptionsItem.ClassificacaoNulaOuVaziaException;
+import exceptionsItem.DescricaoInvalidaException;
+import exceptionsItem.DuracaoInvalidaException;
+import exceptionsItem.GeneroNuloOuVazioException;
+import exceptionsItem.NomeDoArtistaNuloOuVazioException;
+import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
+import exceptionsItem.PlataformaNullOuVaziaException;
+import exceptionsItem.PrecoInvalidoException;
+import exceptionsItem.SerieNaoValidaException;
+import exceptionsItem.TemporadaMenorQue1Exception;
+import exceptionsUsuario.UsuarioInvalidoException;
 
 /**
  * Delega acoes para o sistema
@@ -191,11 +191,11 @@ public class Facade {
 	 * @throws PrecoInvalidoException 
 	 * @throws ClassificacaoNulaOuVaziaException 
 	 * @throws ClassificacaoInvalidaException 
-	 * @throws NumeroDeFaixasMenorQue1Exception 
+	 * @throws NumeroDeFaixasMenorQue0Exception 
 	 * @throws NomeDoArtistaNuloOuVazioException 
 	 * @throws ItemCadastradoException 
 	 */
-	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, ItemCadastradoException {
+	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao, int nomeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, IllegalArgumentException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, ItemCadastradoException {
 		sistema.cadastrarBluRayShow(nome, telefone, nomeItem, preco, duracao, nomeroFaixas, artista, classificacao);
 	}
 	
@@ -284,9 +284,9 @@ public class Facade {
 	 * @throws DuracaoInvalidaException 
 	 * @throws PlataformaNullOuVaziaException 
 	 * @throws PrecoInvalidoException 
-	 * @throws NumeroDeFaixasMenorQue1Exception 
+	 * @throws NumeroDeFaixasMenorQue0Exception 
 	 */
-	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
+	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor) throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, IllegalArgumentException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
 		sistema.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 	

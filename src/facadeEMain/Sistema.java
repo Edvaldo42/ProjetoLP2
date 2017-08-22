@@ -2,30 +2,30 @@ package facadeEMain;
 
 
 import emprestimo.Emprestimo;
-import exception.AnoDeLancamentoMenorQue0Exception;
-import exception.AtributoInvalidoException;
-import exception.ClassificacaoInvalidaException;
-import exception.ClassificacaoNulaOuVaziaException;
-import exception.DescricaoInvalidaException;
-import exception.DuracaoInvalidaException;
-import exception.EmprestimoNaoEncontradoException;
-import exception.GeneroNuloOuVazioException;
-import exception.ItemCadastradoException;
-import exception.ItemEmprestadoException;
-import exception.NomeDoItemNuloOuVazioException;
-import exception.ItemNaoEncontradoException;
-import exception.NomeDaPecaNuloOuVazioException;
-import exception.NomeDoArtistaNuloOuVazioException;
-import exception.NumeroDeFaixasMenorQue1Exception;
-import exception.PecaJaPerdidaException;
-import exception.PecaPerdidaException;
-import exception.PlataformaNullOuVaziaException;
-import exception.PrecoInvalidoException;
-import exception.SerieNaoValidaException;
-import exception.StringInvalidaException;
-import exception.TemporadaMenorQue1Exception;
-import exception.UsuarioCadastradoException;
-import exception.UsuarioInvalidoException;
+import exceptionsComplementares.AtributoInvalidoException;
+import exceptionsComplementares.EmprestimoNaoEncontradoException;
+import exceptionsComplementares.ItemCadastradoException;
+import exceptionsComplementares.ItemEmprestadoException;
+import exceptionsComplementares.ItemNaoEncontradoException;
+import exceptionsComplementares.NomeDoItemNuloOuVazioException;
+import exceptionsComplementares.StringInvalidaException;
+import exceptionsComplementares.UsuarioCadastradoException;
+import exceptionsItem.AnoDeLancamentoMenorQue0Exception;
+import exceptionsItem.ClassificacaoInvalidaException;
+import exceptionsItem.ClassificacaoNulaOuVaziaException;
+import exceptionsItem.DescricaoInvalidaException;
+import exceptionsItem.DuracaoInvalidaException;
+import exceptionsItem.GeneroNuloOuVazioException;
+import exceptionsItem.NomeDaPecaNuloOuVazioException;
+import exceptionsItem.NomeDoArtistaNuloOuVazioException;
+import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
+import exceptionsItem.PecaJaPerdidaException;
+import exceptionsItem.PecaPerdidaException;
+import exceptionsItem.PlataformaNullOuVaziaException;
+import exceptionsItem.PrecoInvalidoException;
+import exceptionsItem.SerieNaoValidaException;
+import exceptionsItem.TemporadaMenorQue1Exception;
+import exceptionsUsuario.UsuarioInvalidoException;
 import item.CRUDItem;
 import usuario.ControllerUsuario;
 
@@ -33,14 +33,12 @@ import usuario.ControllerUsuario;
 public class Sistema {
 
 	private ControllerUsuario controllerUsuario;
-	private CRUDItem crudItem;
 	
 	/**
 	 * Construtor do Sistema
 	 */
 	public Sistema() {
 		this.controllerUsuario = new ControllerUsuario();
-		this.crudItem = new CRUDItem();
 	}
 
 	/** Envia para o ControllerUsuario as informacoes de um usuario que devera ser cadastrado no sistema 
@@ -115,7 +113,7 @@ public class Sistema {
 			throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException, ItemCadastradoException {
 		Validacoes.validaCadastrarEletronico(nomeItem, preco, plataforma.toUpperCase());
 		controllerUsuario.cadastrarItem(nome, telefone,
-				crudItem.criaEletronico(nomeItem, preco, plataforma.toUpperCase()));
+				CRUDItem.criaEletronico(nomeItem, preco, plataforma.toUpperCase()));
 	}
 
 	/**
@@ -133,7 +131,7 @@ public class Sistema {
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco)
 			throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, ItemCadastradoException {
 		Validacoes.validaCadastrarJogoTabuleiro(nomeItem, preco);
-		controllerUsuario.cadastrarItem(nome, telefone, crudItem.criaJogoTabuleiro(nomeItem, preco));
+		controllerUsuario.cadastrarItem(nome, telefone, CRUDItem.criaJogoTabuleiro(nomeItem, preco));
 	}
 
 	/**
@@ -179,7 +177,7 @@ public class Sistema {
 			String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException, ItemCadastradoException {
 		Validacoes.validaCadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 		controllerUsuario.cadastrarItem(nome, telefone,
-				crudItem.criaBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento));
+				CRUDItem.criaBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento));
 	}
 
 	/**
@@ -199,15 +197,15 @@ public class Sistema {
 	 * @throws PrecoInvalidoException Caso o preco seja invalido
 	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja nula ou vazia
 	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
-	 * @throws NumeroDeFaixasMenorQue1Exception Caso o numero de faixas seja menor do que 1
+	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
 	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
 	 * @throws ItemCadastradoException Caso o BluRay do show ja tenha sido cadastrado
 	 */
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
-			int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, ItemCadastradoException {
+			int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, ItemCadastradoException {
 		Validacoes.validaCadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 		controllerUsuario.cadastrarItem(nome, telefone,
-				crudItem.criaBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao));
+				CRUDItem.criaBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao));
 	}
 
 	/**
@@ -237,7 +235,7 @@ public class Sistema {
 			int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, DescricaoInvalidaException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, ItemCadastradoException {
 		Validacoes.validaCadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 		controllerUsuario.cadastrarItem(nome, telefone,
-				crudItem.criaBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada));
+				CRUDItem.criaBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada));
 	}
 
 	/**
@@ -281,6 +279,7 @@ public class Sistema {
 	 * @param nomeItem O nome do item
 	 * @param atributo O atributo que sera mudado
 	 * @param valor O novo valor do atributo
+	 * 
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
@@ -294,10 +293,10 @@ public class Sistema {
 	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
 	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws NumeroDeFaixasMenorQue1Exception Caso o numero de faixas seja menor do que 1
+	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
 	 */
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue1Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
 		controllerUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 
