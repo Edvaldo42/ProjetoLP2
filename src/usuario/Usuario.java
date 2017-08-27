@@ -4,10 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import emprestimo.Emprestimo;
+import exceptionsComplementares.AtributoInvalidoException;
 import exceptionsComplementares.ItemCadastradoException;
 import exceptionsComplementares.ItemEmprestadoException;
 import exceptionsComplementares.ItemNaoEncontradoException;
-import exceptionsItem.PecaJaPerdidaException;
+import exceptionsItem.PecaJaRegistrada;
 import exceptionsItem.SerieNaoValidaException;
 import exceptionsItem.TemporadaMenorQue1Exception;
 import item.CRUDItem;
@@ -38,6 +39,7 @@ public class Usuario {
 	 * @param email O email do usuario
 	 */
 	public Usuario(String nome, String telefone, String email) {
+		
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
@@ -45,7 +47,7 @@ public class Usuario {
 		this.emprestimosDono = new HashSet<>();
 		this.emprestimosRequerente = new HashSet<>();
 		this.reputacao = 0;
-		this.cartao = Cartao.FREE_RYDER;
+		this.cartao = Cartao.NOOB;
 	}
 	
 	/**
@@ -55,26 +57,13 @@ public class Usuario {
 	 * @throws ItemCadastradoException 
 	 */
 	public void cadastrarItem(Item item) throws ItemCadastradoException {
+		
 		if (!itens.add(item)) {
 			throw new ItemCadastradoException();
 		}
 		aumentaReputacao(item.getPreco(), 0.05);
 	}
 	
-	/**
-	 * Adiciona uma peca perdida á um jogo de tabuleiro
-	 * 
-	 * @param nomeItem Nome do jogo de tabuleiro
-	 * @param nomePeca Nome da peca perdida
-	 * @throws ItemNaoEncontradoException
-	 * @throws PecaJaPerdidaException 
-	 */
-	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException, PecaJaPerdidaException {
-		Item itemBuscado = buscaItem(nomeItem);
-		if (itemBuscado instanceof JogoDeTabuleiro) {
-			((JogoDeTabuleiro) itemBuscado).adicionaPecaPerdida(nomePeca);
-		}
-	}
 	
 	/**
 	 * Adiciona um EP ao box
@@ -115,9 +104,10 @@ public class Usuario {
 	 * @throws ItemNaoEncontradoException
 	 * @throws NumberFormatException 
 	 * @throws TemporadaMenorQue1Exception 
+	 * @throws AtributoInvalidoException 
 	 */
 
-	public void atualizarItem(String nomeItem, String atributo, String valor) throws ItemNaoEncontradoException, TemporadaMenorQue1Exception, NumberFormatException {
+	public void atualizarItem(String nomeItem, String atributo, String valor) throws ItemNaoEncontradoException, TemporadaMenorQue1Exception, NumberFormatException, AtributoInvalidoException {
 		Item item = buscaItem(nomeItem);
 		CRUDItem.atualizarItem(item, atributo, valor);
 	}
@@ -131,9 +121,25 @@ public class Usuario {
 	 */
 
 	public String detalhesItem(String nomeItem) throws ItemNaoEncontradoException {
-			return buscaItem(nomeItem).toString();
+		return buscaItem(nomeItem).toString();
 	}
 	
+	/**
+	 * Adiciona uma peca perdida á um jogo de tabuleiro
+	 * 
+	 * @param nomeItem Nome do jogo de tabuleiro
+	 * @param nomePeca Nome da peca perdida
+	 * @throws ItemNaoEncontradoException
+	 * @throws PecaJaRegistrada 
+	 */
+	public void adicionarPecaPerdida(String nomeItem, String nomePeca) throws ItemNaoEncontradoException, PecaJaRegistrada {
+		
+		Item itemBuscado = buscaItem(nomeItem);
+		if (itemBuscado instanceof JogoDeTabuleiro) {
+			((JogoDeTabuleiro) itemBuscado).adicionaPecaPerdida(nomePeca);
+		}
+	}
+
 	/**
 	 * Retorna uma informacao (passada como atributo) de um item
 	 * 
@@ -141,9 +147,11 @@ public class Usuario {
 	 * @param atributo A informacao que esta sendo buscada
 	 * @return
 	 * @throws ItemNaoEncontradoException
+	 * @throws AtributoInvalidoException 
 	 */
 	
-	public String getInfoItem(String nomeItem, String atributo) throws ItemNaoEncontradoException {
+	public String getInfoItem(String nomeItem, String atributo) throws ItemNaoEncontradoException, AtributoInvalidoException {
+		
 		Item item = buscaItem(nomeItem);
 		return CRUDItem.getInfoItem(item, atributo);
 	}
@@ -158,11 +166,13 @@ public class Usuario {
 	 */
 
 	public Item buscaItem(String nomeItem) throws ItemNaoEncontradoException {
+		
 		for (Item item : itens) {
 			if (item.getNomeDoItem().equals(nomeItem)) {
 				return item;
 			}
 		}
+		
 		throw new ItemNaoEncontradoException();
 	}
 		
@@ -174,7 +184,9 @@ public class Usuario {
 	 * @throws ItemEmprestadoException 
 	 */
 	public void emprestaItem(String nomeItem) throws ItemNaoEncontradoException, ItemEmprestadoException {
+		
 		Item itemBuscado = buscaItem(nomeItem);
+		
 		if (itemBuscado.isEmprestado()) {
 			throw new ItemEmprestadoException();
 		}
@@ -193,6 +205,7 @@ public class Usuario {
 	 * @throws ItemNaoEncontradoException
 	 */
 	public void devolveItem(Usuario dono, String nomeItem, String dataDevolucao) throws ItemNaoEncontradoException {
+		
 		Item itemBuscado = 	dono.buscaItem(nomeItem);	
 		if (!itemBuscado.isEmprestado()) {
 			return;

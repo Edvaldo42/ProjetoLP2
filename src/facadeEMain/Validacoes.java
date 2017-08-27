@@ -71,6 +71,10 @@ public class Validacoes {
 	 * @throws StringInvalidaException Caso alguma string seja nula ou vazia
 	 */
 	public static void validaAtualizarUsuario(String atributo, String valor) throws StringInvalidaException {
+		//switch (atributo.toLowerCase()) {
+		//case "nome":
+		//}
+		
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			if (!validaNome(valor)) {
 				throw new NomeInvalidoException(ERRO_ATUALIZACAO);
@@ -102,8 +106,8 @@ public class Validacoes {
 	 */
 	public static void validaCadastrarEletronico(String nomeItem, double preco, String plataforma) 
 			throws NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException {
+		
 		String msg = "Erro ao cadastrar Jogo Eletronico: ";
-
 		validaItem(nomeItem, preco, msg);
 		validaPlataforma(plataforma);
 
@@ -131,6 +135,7 @@ public class Validacoes {
 	 */
 	public static void validaCadastrarJogoTabuleiro(String nomeItem, double preco) 
 			throws NomeDoItemNuloOuVazioException, PrecoInvalidoException {
+		
 		String msg = "Erro ao cadastrar Jogo de Tabuleiro: ";
 		validaItem(nomeItem, preco, msg);
 	}
@@ -144,6 +149,7 @@ public class Validacoes {
 	 */
 	public static void validaAdicionarPecaPerdida(String nomeItem, String nomePeca) 
 			throws NomeDoItemNuloOuVazioException, NomeDaPecaNuloOuVazioException {
+		
 		String msg = "Erro ao adicionar Peca Perdida: ";
 
 		if (nomeItem == null || nomeItem.trim().equals("")) {
@@ -208,6 +214,7 @@ public class Validacoes {
 			String artista, String classificacao) throws NomeDoItemNuloOuVazioException, DuracaoInvalidaException, 
 			PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, 
 			NumeroDeFaixasMenorQue0Exception, NomeDoArtistaNuloOuVazioException {
+		
 		String msg = "Erro ao cadastrar BluRay de Show: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -244,6 +251,7 @@ public class Validacoes {
 			String classificacao, String genero, int temporada) throws NomeDoItemNuloOuVazioException, 
 			DuracaoInvalidaException, PrecoInvalidoException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception,
 			DescricaoInvalidaException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException {
+		
 		String msg = "Erro ao cadastrar BluRay de Serie: ";
 
 		validaItem(nomeItem, preco, msg);
@@ -312,8 +320,81 @@ public class Validacoes {
 	PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, 
 	GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, 
 	AtributoInvalidoException, DescricaoInvalidaException, TemporadaMenorQue1Exception {
+		
 		String msg = "Erro na atualizacao de item: ";
 
+		switch(atributo.toLowerCase()) {
+		case "nome":
+			if (valor == null || valor.trim().equals("")) {
+				throw new NomeDoItemNuloOuVazioException(msg); 
+			}
+			break;
+			
+		case "preco":
+			if (Double.parseDouble(valor) < 0) {
+				throw new PrecoInvalidoException(msg);
+			}
+			break;
+			
+		case "plataforma":
+			if (valor == null || valor.trim().equals("")) {
+				throw new PlataformaNullOuVaziaException(msg);
+			}
+			break;
+			
+		case "duracao":
+			if (Integer.parseInt(valor) < 0) {
+				throw new DuracaoInvalidaException(msg);
+			}
+			break;
+			
+		case "classificacao":
+			if (valor == null || valor.trim().equals("")) {
+				throw new ClassificacaoNulaOuVaziaException(msg);
+			}
+			break;
+			
+		case "genero":
+			if (valor == null || valor.trim().equals("")) {
+				throw new GeneroNuloOuVazioException(msg);
+			}
+			break;
+			
+		case "ano de lancamento":
+			if (Integer.parseInt(valor) < 0) {
+				throw new AnoDeLancamentoMenorQue0Exception(msg);
+			}
+			break;
+			
+		case "nome do artista":
+			if (valor == null || valor.trim().equals("")) {
+				throw new NomeDoArtistaNuloOuVazioException(msg);
+			}
+			break;
+			
+		case "numero de faixas":
+			if (Integer.parseInt(valor) < 1) {
+				throw new NumeroDeFaixasMenorQue0Exception(msg);
+			}
+			break;
+			
+		case "descricao":
+			if (valor == null || valor.trim().equals("")) {
+				throw new DescricaoInvalidaException(msg);
+			}
+			break;
+			
+		case "temporada":
+			if (Integer.parseInt(valor) < 0) {
+				throw new TemporadaMenorQue1Exception(msg);
+			}
+			break;
+			
+		default:
+			throw new AtributoInvalidoException();
+		}
+	}
+		/*
 		if (atributo.trim().equalsIgnoreCase("nome")) {
 			if (valor == null || valor.trim().equals("")) {
 				throw new NomeDoItemNuloOuVazioException(msg);
@@ -379,6 +460,7 @@ public class Validacoes {
 		if (duracao < 0) {
 			throw new DuracaoInvalidaException(msg);
 		}
+		
 		validaClassificacao(classificacao, msg);
 	}
 	
@@ -391,7 +473,8 @@ public class Validacoes {
 	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
 	 */
 	private static void validaClassificacao(String classificacao, String msg) 
-			throws ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException{
+			throws ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException {
+		
 		if (classificacao == null || classificacao.trim().equals("")) {
 			throw new ClassificacaoNulaOuVaziaException(msg);
 		}
@@ -411,6 +494,7 @@ public class Validacoes {
 	 */
 	private static void validaItem(String nomeItem, double preco, String msg) 
 			throws NomeDoItemNuloOuVazioException, PrecoInvalidoException {
+		
 		if (nomeItem == null || nomeItem.trim().equals("")) {
 			throw new NomeDoItemNuloOuVazioException();
 		}
@@ -488,7 +572,7 @@ public class Validacoes {
 		int arrobas = 0;
 		int pontos = 0;
 
-		if (email.charAt(0) == '@' || email.charAt(email.length() - 1) == '@'
+		if (email.charAt(0) == '@' || email.charAt(email.length() - 1) == '@' 
 				|| email.charAt(email.length() - 1) == '.') {
 			return false;
 		}

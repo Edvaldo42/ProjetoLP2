@@ -3,7 +3,7 @@ package item;
 import java.util.ArrayList;
 import java.util.List;
 
-import exceptionsItem.PecaJaPerdidaException;
+import exceptionsItem.PecaJaRegistrada;
 
 /**
  * 
@@ -48,12 +48,13 @@ public class JogoDeTabuleiro extends Item{
 	 * Adciona uma peca perdida ao jogo
 	 * 
 	 * @param nomePeca O nome da peca perdida
-	 * @throws PecaJaPerdidaException Caso a peca perdida ja tenha sido adicionada
+	 * @throws PecaJaRegistrada Caso a peca perdida ja tenha sido adicionada
 	 */
-	public void adicionaPecaPerdida (String nomePeca) throws PecaJaPerdidaException {
+	public void adicionaPecaPerdida (String nomePeca) throws PecaJaRegistrada {
 		if (pecasPerdidas.contains(nomePeca)) {
-			throw new PecaJaPerdidaException();
+			throw new PecaJaRegistrada();
 		}
+		
 		pecasPerdidas.add(nomePeca);
 	}
 

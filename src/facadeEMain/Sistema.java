@@ -19,7 +19,7 @@ import exceptionsItem.GeneroNuloOuVazioException;
 import exceptionsItem.NomeDaPecaNuloOuVazioException;
 import exceptionsItem.NomeDoArtistaNuloOuVazioException;
 import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
-import exceptionsItem.PecaJaPerdidaException;
+import exceptionsItem.PecaJaRegistrada;
 import exceptionsItem.PecaPerdidaException;
 import exceptionsItem.PlataformaNullOuVaziaException;
 import exceptionsItem.PrecoInvalidoException;
@@ -111,6 +111,7 @@ public class Sistema {
 	 */
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma)
 			throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException, ItemCadastradoException {
+		
 		Validacoes.validaCadastrarEletronico(nomeItem, preco, plataforma.toUpperCase());
 		controllerUsuario.cadastrarItem(nome, telefone,
 				CRUDItem.criaEletronico(nomeItem, preco, plataforma.toUpperCase()));
@@ -130,6 +131,7 @@ public class Sistema {
 	 */
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco)
 			throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, ItemCadastradoException {
+		
 		Validacoes.validaCadastrarJogoTabuleiro(nomeItem, preco);
 		controllerUsuario.cadastrarItem(nome, telefone, CRUDItem.criaJogoTabuleiro(nomeItem, preco));
 	}
@@ -141,14 +143,14 @@ public class Sistema {
 	 * @param telefone O telefone do dono do jogo
 	 * @param nomeItem O nome do jogo
 	 * @param nomePeca O nome da peca
-	 * @throws PecaJaPerdidaException Caso a peca perdida ja tenha sido adicionada
+	 * @throws PecaJaRegistrada Caso a peca perdida ja tenha sido adicionada
 	 * @throws ItemNaoEncontradoException Caso o item nao tenha sido encontrado
 	 * @throws PecaPerdidaException Caso haja algum erro ao se adcionar a peca perdida
 	 * @throws NomeDaPecaNuloOuVazioException Caso o nome da peca seja nulo ou vazio
 	 * @throws NomeDoItemNuloOuVazioException Caso o nome da peca seja nulo ou vazio
 	 * @throws UsuarioInvalidoException 
 	 */
-	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaPerdidaException, NomeDoItemNuloOuVazioException, NomeDaPecaNuloOuVazioException, UsuarioInvalidoException {
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaRegistrada, NomeDoItemNuloOuVazioException, NomeDaPecaNuloOuVazioException, UsuarioInvalidoException {
 		Validacoes.validaAdicionarPecaPerdida(nomeItem, nomePeca);
 		controllerUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
@@ -204,6 +206,7 @@ public class Sistema {
 	 */
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
 			int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, ItemCadastradoException {
+		
 		Validacoes.validaCadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 		controllerUsuario.cadastrarItem(nome, telefone,
 				CRUDItem.criaBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao));
@@ -234,6 +237,7 @@ public class Sistema {
 	 */
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
 			int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, DescricaoInvalidaException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, ItemCadastradoException {
+		
 		Validacoes.validaCadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 		controllerUsuario.cadastrarItem(nome, telefone,
 				CRUDItem.criaBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada));
@@ -311,9 +315,10 @@ public class Sistema {
 	 * @return A informacao pedida do item
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 * @throws AtributoInvalidoException 
 	 */
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException {
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, AtributoInvalidoException {
 
 		return controllerUsuario.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
@@ -369,10 +374,8 @@ public class Sistema {
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeRequerente,
 			String telefoneRequerente, String nomeItem, String dataEmprestimo, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException, ItemEmprestadoException {
 	  
-		Emprestimo emprestimo =  new Emprestimo(controllerUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente,
-	    		nomeItem, dataEmprestimo, periodo);
-		controllerUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente,
-				telefoneRequerente, emprestimo);
+		Emprestimo emprestimo =  new Emprestimo(controllerUsuario, nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, nomeItem, dataEmprestimo, periodo);
+		controllerUsuario.registrarEmprestimo(nomeDono, telefoneDono, nomeRequerente, telefoneRequerente, emprestimo);
 	}
 
 	/**

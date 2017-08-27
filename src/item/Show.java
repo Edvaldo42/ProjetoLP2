@@ -26,7 +26,7 @@ public class Show extends BluRay {
 	 * 
 	 * @return O artista do BluRay de show
 	 */
-	public String getArtista() {
+	public String getNomeArtista() {
 		return artista;
 	}
 
@@ -64,7 +64,5 @@ public class Show extends BluRay {
 	public String toString() {
 		return "SHOW: " + super.toString() + ", " + this.artista + ", " + this.numeroFaixas + " faixas";
 	}
-	
-	
 
 }

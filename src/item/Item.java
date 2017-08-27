@@ -28,8 +28,7 @@ public abstract class Item {
 	 * 
 	 * @param duracao A duracao do BluRay
 	 */
-	public void adicionarBluRay(int duracao) {
-	}
+	public void adicionarBluRay(int duracao) {}
 	
 	/**
 	 * Retorna as percas perdidades de um jogo de tabuleiro
@@ -115,8 +114,7 @@ public abstract class Item {
 	 * 
 	 * @param valor A plataforma do jogo
 	 */
-	public void setPlataforma(String plataforma) {
-	}
+	public void setPlataforma(String plataforma) {}
 	
 	/**
 	 * Retorna a plataforma em um jogo eletronico
@@ -192,7 +190,7 @@ public abstract class Item {
 	 * @param nomeArtista O nome do artista
 	 */
 	public String getNomeArtista() {
-		return null;
+		return "";
 	}
 	
 	/**
@@ -220,7 +218,7 @@ public abstract class Item {
 	 * Retorna a descricao
 	 */
 	public String getDescricao() {
-		return null;
+		return "";
 	}
 	
 	/**
@@ -237,6 +235,7 @@ public abstract class Item {
 	public int getTemporada() {
 		return -1;
 	}
+	
 	/**
 	 * Retorna uma representacao textual do Item
 	 */

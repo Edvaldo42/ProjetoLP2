@@ -29,7 +29,7 @@ import exceptionsItem.DuracaoInvalidaException;
 import exceptionsItem.GeneroNuloOuVazioException;
 import exceptionsItem.NomeDoArtistaNuloOuVazioException;
 import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
-import exceptionsItem.PecaJaPerdidaException;
+import exceptionsItem.PecaJaRegistrada;
 import exceptionsItem.PecaPerdidaException;
 import exceptionsItem.PlataformaNullOuVaziaException;
 import exceptionsItem.PrecoInvalidoException;
@@ -70,6 +70,7 @@ public class ControllerUsuario {
 	 */
 	public void cadastraUsuario(String nome, String telefone, String email)
 			throws UsuarioCadastradoException, StringInvalidaException {
+	
 		Validacoes.validaCadastrarUsuario(nome, telefone, email);
 		CRUDUsuario.cadastraUsuario(nome, telefone, email, this.usuarios);
 	}
@@ -96,6 +97,7 @@ public class ControllerUsuario {
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor)
 			throws StringInvalidaException {
+		
 		Validacoes.validaAtualizarUsuario(atributo, valor);
 		CRUDUsuario.atualizarUsuario(nome, telefone, atributo, valor, this.usuarios);
 	}
@@ -122,11 +124,14 @@ public class ControllerUsuario {
 	 * @param nomePeca O nome da peca perdida
 	 * @throws PecaPerdidaException Caso a informacao nao possa ser adicionada
 	 * @throws ItemNaoEncontradoException Caso o jogo nao esteja cadastrado
-	 * @throws PecaJaPerdidaException Caso a informacao da peca perdida ja tenha sido adcionada
+	 * @throws PecaJaRegistrada Caso a informacao da peca perdida ja tenha sido adcionada
 	 * @throws UsuarioInvalidoException 
 	 */
-	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaPerdidaException, UsuarioInvalidoException {
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) 
+			throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaRegistrada, UsuarioInvalidoException {
+		
 		Usuario usuario = buscaUsuario(nome, telefone);
+		
 		if (usuario == null) {
 			throw new PecaPerdidaException();
 		}
@@ -143,7 +148,9 @@ public class ControllerUsuario {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemCadastradoException Caso o item ja esteja cadastrado
 	 */
-	public void cadastrarItem(String nome, String telefone, Item item) throws UsuarioInvalidoException, ItemCadastradoException {
+	public void cadastrarItem(String nome, String telefone, Item item) 
+			throws UsuarioInvalidoException, ItemCadastradoException {
+		
 		Usuario usuario = buscaUsuario(nome, telefone);
 		usuario.cadastrarItem(item);
 	}
@@ -161,6 +168,7 @@ public class ControllerUsuario {
 	 */
 	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException, SerieNaoValidaException {
+		
 		Usuario usuario = buscaUsuario(nome, telefone);
 		usuario.adicionarBluRay(nomeBlurayTemporada, duracao);
 	}
@@ -174,7 +182,9 @@ public class ControllerUsuario {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado no sistema
 	 */
-	public void removerItem(String nome, String telefone, String nomeItem)	throws UsuarioInvalidoException, ItemNaoEncontradoException {
+	public void removerItem(String nome, String telefone, String nomeItem)	throws UsuarioInvalidoException, 
+	ItemNaoEncontradoException {
+		
 		Usuario usuario = buscaUsuario(nome, telefone);
 		usuario.removerItem(nomeItem);
 	}
@@ -204,9 +214,14 @@ public class ControllerUsuario {
 	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
 	 */
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
-		Usuario usuario = buscaUsuario(nome, telefone);
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, 
+			NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, 
+			DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, 
+			AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, 
+			DescricaoInvalidaException, AtributoInvalidoException {
+
 		Validacoes.validaAtualizarItem(atributo, valor);
+		Usuario usuario = buscaUsuario(nome, telefone);
 		usuario.atualizarItem(nomeItem, atributo, valor);
 	}
 
@@ -220,11 +235,12 @@ public class ControllerUsuario {
 	 * @return A informacao pedida do item
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
+	 * @throws AtributoInvalidoException 
 	 */
 	public String getInfoItem(String nome, String telefone, String nomeItem, String atributo)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException {
+			throws UsuarioInvalidoException, ItemNaoEncontradoException, AtributoInvalidoException {
+		
 		Usuario usuario = buscaUsuario(nome, telefone);
-
 		return usuario.getInfoItem(nomeItem, atributo);
 	}
 
@@ -240,8 +256,8 @@ public class ControllerUsuario {
 	 */
 	public String pesquisarDetalhesItem(String nomeDono, String telefoneDono, String nomeItem)
 			throws UsuarioInvalidoException, ItemNaoEncontradoException {
+		
 		Usuario usuario = buscaUsuario(nomeDono, telefoneDono);
-
 		return usuario.detalhesItem(nomeItem);
 	}
 	
@@ -252,9 +268,9 @@ public class ControllerUsuario {
 	 * @return A lista de emprestimos que o usuario emprestou o item
 	 */
 	private List<Emprestimo> getEmprestimosDono(Usuario user) {
+	
 		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
 		retornoEmprestimos.addAll(user.getEmprestimosDono());
-		
 		return retornoEmprestimos;
 	}
 
@@ -264,6 +280,7 @@ public class ControllerUsuario {
 	 * @return Os itens que foram pegos emprestados por 1 usuario
 	 */
 	private List<Emprestimo> getEmprestimosRequerente(Usuario user) {
+		
 		List<Emprestimo> retornoEmprestimos = new ArrayList<>();
 		for (Emprestimo emprestimo : user.getEmprestimosRequerente()) {
 			retornoEmprestimos.add(emprestimo);
@@ -277,10 +294,15 @@ public class ControllerUsuario {
 	 * @return A lista ordenada dos itens pela ordem alfabetica
 	 */
 	public String listarItensOrdenadosPorNome() {
+		String retorno = "";
 		ordenaItem = new OrdemAlfabeticaItem();
 		List<Item> itens = getItens();
+		
+		if (itens.size() == 0) {
+			return "Nenhum item";
+		}
+		
 		Collections.sort(itens, ordenaItem);
-		String retorno = "";
 		
 		for (Item item : itens) {
 			retorno += item.toString() + "|";
@@ -295,10 +317,15 @@ public class ControllerUsuario {
 	 * @return A lista ordenada dos itens pelo valor dos itens
 	 */
 	public String listarItensOrdenadosPorValor() {
+		String retorno = "";
 		ordenaItem = new OrdenaPorValor();
 		List<Item> itens = getItens();
+		
+		if (itens.size() == 0) {
+			return "Nenhum item";
+		}
+		
 		Collections.sort(itens, ordenaItem);
-		String retorno = "";
 		
 		for (Item item: itens) {
 			retorno += item.toString() + "|";
@@ -357,16 +384,12 @@ public class ControllerUsuario {
 	 * @throws EmprestimoNaoEncontradoException Caso o emprestimo nao esteja cadastrado
 	 */
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeRequerente, String telefoneRequerente,
-			String nomeItem, String dataEmprestimo, String dataDevolucao)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException, EmprestimoNaoEncontradoException {
+			String nomeItem, String dataEmprestimo, String dataDevolucao) throws UsuarioInvalidoException, 
+			ItemNaoEncontradoException, EmprestimoNaoEncontradoException {
 
 		Usuario dono = buscaUsuario(nomeDono, telefoneDono);
 		Usuario requerente = buscaUsuario(nomeRequerente, telefoneRequerente);
 		Emprestimo emprestimo = buscaEmprestimo(dono, requerente, nomeItem, dataEmprestimo);
-		
-		if (emprestimo == null) {
-			throw new EmprestimoNaoEncontradoException();
-		}
 		
 		requerente.devolveItem(dono, nomeItem, dataDevolucao);
 		
@@ -635,16 +658,17 @@ public class ControllerUsuario {
 	 * @param nomeItem O nome do item emprestado
 	 * @param data A data do emprestimo
 	 * @return Um emprestimo especifico
+	 * @throws EmprestimoNaoEncontradoException 
 	 */
-	private Emprestimo buscaEmprestimo(Usuario dono, Usuario requerente, String nomeItem, String data){
-		Emprestimo emprestimoBuscado = null;
+	private Emprestimo buscaEmprestimo(Usuario dono, Usuario requerente, String nomeItem, String data) throws EmprestimoNaoEncontradoException{
+		
 		for (Emprestimo emprestimo : emprestimos) {
 			if (emprestimo.getDono().equals(dono) && emprestimo.getRequerente().equals(requerente) &&
 			emprestimo.getItemEmprestado().equals(nomeItem) && emprestimo.getDataEmprestimo().equals(data)) {
-				emprestimoBuscado = emprestimo;
+				return emprestimo;
 			}
 		}
 			
-		return emprestimoBuscado;
+		throw new EmprestimoNaoEncontradoException();
 	}
 }

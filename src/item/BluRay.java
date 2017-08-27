@@ -5,7 +5,7 @@ package item;
  *
  */
 public abstract class BluRay extends Item {
-
+	
 	private int duracao;
 	private Classificacao classificacao;
 	
@@ -57,6 +57,9 @@ public abstract class BluRay extends Item {
 		this.classificacao = Classificacao.valueOf(classificacao);
 	}
 	
+	public String getDescricao() {
+		return "";
+	}
 	/**
 	 * Retorna a representacao textual de um BluRay
 	 */
@@ -65,6 +68,4 @@ public abstract class BluRay extends Item {
 		return super.toString() + ", " + this.duracao + " min, " +
 				this.classificacao.getClassificacao();
 	}
-	
-	
 }

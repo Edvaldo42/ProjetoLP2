@@ -11,16 +11,6 @@ import usuario.Usuario;
 
 public class Emprestimo {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "EMPRESTIMO - De: " + dono.getNome() + ", Para: " + requerente.getNome() + ", " + itemEmprestado + ", "
-				+ this.getDataEmprestimo() + ", " + periodo + " dias" + ", ENTREGA: " + this.getDataDevolucao();
-	}
 
 	private Usuario dono;
 	private Usuario requerente;
@@ -44,32 +34,40 @@ public class Emprestimo {
 	 * @throws UsuarioInvalidoException
 	 */
 	public Emprestimo(ControllerUsuario controllerUsuario, String nomeDono, String telefoneDono, String nomeRequerente,
-			String telefoneRequerente, String nomeItem, String data, int periodo) throws ItemNaoEncontradoException, UsuarioInvalidoException {
+			String telefoneRequerente, String nomeItem, String data, int periodo) throws ItemNaoEncontradoException, 
+			UsuarioInvalidoException {
+		
+		if (periodo <= 0) {
+			throw new IllegalArgumentException("Periodo precisa ser maior que 0");
+		}
+		
 		this.dono = controllerUsuario.buscaUsuario(nomeDono, telefoneDono);
 		this.requerente = controllerUsuario.buscaUsuario(nomeRequerente, telefoneRequerente);
-		
-		if (dono == null || this.requerente == null) {
-			throw new UsuarioInvalidoException();
-		}
-		if (this.requerente.getCartao().equals("Caloteiro")) {
-			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
-		}
-		if (this.requerente.getCartao().equals("FreeRyder") && periodo > 5) {
-			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
-		}
-		if (this.requerente.getCartao().equals("Noob") && periodo > 7) {
-			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
-		}
-		if (this.requerente.getCartao().equals("BomAmigo") && periodo > 14) {
-			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
-		}
-		
+		verificaCartao(periodo);
 		this.itemEmprestado = nomeItem;
 		this.dataEmprestimo = converteData(data);
 		this.periodo = periodo;
 		this.dataDevolucao = null;
 	}
 
+	private void verificaCartao(int periodo) {
+		if (this.requerente.getCartao().equals("Caloteiro")) {
+			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
+		}
+		
+		if (this.requerente.getCartao().equals("FreeRyder") && periodo > 5) {
+			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
+		}
+		
+		if (this.requerente.getCartao().equals("Noob") && periodo > 7) {
+			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
+		}
+		
+		if (this.requerente.getCartao().equals("BomAmigo") && periodo > 14) {
+			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
+		}
+	}
+	
 	/**
 	 * Retorna a data de devolucao do emprestimo
 	 * 
@@ -226,6 +224,17 @@ public class Emprestimo {
 		int atraso;
 		atraso = this.periodo - getTempoComItem();
 		return atraso;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EMPRESTIMO - De: " + dono.getNome() + ", Para: " + requerente.getNome() + ", " + itemEmprestado + ", "
+				+ this.getDataEmprestimo() + ", " + periodo + " dias" + ", ENTREGA: " + this.getDataDevolucao();
 	}
 
 	/**

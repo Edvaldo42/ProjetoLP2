@@ -42,7 +42,4 @@ public enum Genero {
 		return this.genero; 
 	}
 	
-
 }
-
-

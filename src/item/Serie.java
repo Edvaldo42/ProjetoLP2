@@ -10,6 +10,8 @@ public class Serie extends BluRay {
 	private List<Integer> colecao;
 	private Genero genero;
 	private int temporada;
+	private String descricao;
+	
 	/**
 	 * Creator de Serie
 	 * 
@@ -25,7 +27,9 @@ public class Serie extends BluRay {
 		super(nomeItem, preco, duracao, classificacao);
 		this.genero = Genero.valueOf(genero);
 		this.temporada = temporada;
+		this.descricao = descricao;
 		colecao = new ArrayList<>();
+		adicionarBluRay(duracao);
 	}
 
 	/**
@@ -45,9 +49,11 @@ public class Serie extends BluRay {
 	@Override
 	public int getDuracao() {
 		int duracao = 0;
+		
 		for (int episodio : colecao) {
 			duracao += episodio;
 		}
+		
 		return duracao;
 	}
 	
@@ -79,12 +85,15 @@ public class Serie extends BluRay {
 	 * Estabelece a temporada de uma serie
 	 */
 	public void setTemporada(int temporada) throws TemporadaMenorQue1Exception {
-		if (temporada >= 1) {
-			this.temporada = temporada;			
-		}
-		else {
+		if (temporada < 1) {
 			throw new TemporadaMenorQue1Exception();
 		}
+
+		this.temporada = temporada;
+	}
+	
+	public String getDescricao() {
+		return this.descricao;
 	}
 	
 	/**
@@ -122,6 +131,5 @@ public class Serie extends BluRay {
 			return false;
 		return true;
 	}
-
-
+	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import exceptionsComplementares.AtributoInvalidoException;
 import exceptionsItem.PlataformaNullOuVaziaException;
 import exceptionsItem.TemporadaMenorQue1Exception;
 import facadeEMain.Validacoes;
@@ -33,7 +34,9 @@ public class CRUDItem {
 	 * @return O item criado
 	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 */
-	public static Item criaEletronico(String nomeItem, double preco, String plataforma) throws PlataformaNullOuVaziaException {
+	public static Item criaEletronico(String nomeItem, double preco, String plataforma) 
+			throws PlataformaNullOuVaziaException {
+		
 		if (Validacoes.validaPlataforma(plataforma)) {
 			Item jogoEletronico = new JogoEletronico(nomeItem, preco, plataforma);
 			return jogoEletronico;
@@ -66,8 +69,9 @@ public class CRUDItem {
 	 * @param anoLancamento O ano de lancamento do filme
 	 * @return O item criado
 	 */
-	public static Item criaBluRayFilme(String nomeItem, double preco, int duracao, String genero, String classificacao,
-			int anoLancamento) {
+	public static Item criaBluRayFilme(String nomeItem, double preco, int duracao, String genero, 
+			String classificacao, int anoLancamento) {
+		
 		if (Validacoes.validaGenero(genero)) {
 			Item filme = new Filme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 			return filme;
@@ -88,8 +92,9 @@ public class CRUDItem {
 	 * @param classificacao A classificacao etaria para o show
 	 * @return O item criado
 	 */
-	public static Item criaBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas, String artista,
-			String classificacao) {
+	public static Item criaBluRayShow(String nomeItem, double preco, int duracao, int numeroFaixas,
+			String artista, String classificacao) {
+		
 		Item show = new Show(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 		return show;
 	}
@@ -125,33 +130,45 @@ public class CRUDItem {
 	 * @param atributo A informacao a qual se quer saber 
 	 * @return Uma informacao , passado atraves do atributo sobre um item
 	 */
-	public static String getInfoItem(Item item, String atributo) {
-		String info = "";
-		if (atributo.trim().equalsIgnoreCase("preco")) {
-			info += item.getPreco();
-		} 
-		else if (atributo.trim().equalsIgnoreCase("peca perdida")) {
-			info = item.getPecasPerdidas();
+	public static String getInfoItem(Item item, String atributo) throws AtributoInvalidoException {
+		
+		switch (atributo.toLowerCase()) {
+		case "preco":
+			return String.valueOf(item.getPreco());
+			
+		case "peca perdida":
+			return item.getPecasPerdidas();
+		
+		case "nome":
+			return item.getNomeDoItem();
+		
+		case "plataforma":
+			return item.getPlataforma();
+		
+		case "duracao":
+			return String.valueOf(item.getDuracao());
+		
+		case "genero":
+			return item.getGenero();
+		
+		case "classificacao":
+			return item.getClassificacao();
+		
+		case "ano de lancamento":
+			return String.valueOf(item.getAnoLancamento());
+			
+		case "descricao":
+			return item.getDescricao();
+			
+		case "nome do artista":
+			return item.getNomeArtista();
+			
+		case "temporada":
+			return String.valueOf(item.getTemporada());
+			
+		default:
+			throw new AtributoInvalidoException();
 		}
-		else if (atributo.trim().equalsIgnoreCase("nome")) {
-			info = item.getNomeDoItem();
-		}
-		else if (atributo.trim().equalsIgnoreCase("plataforma")) {
-			info = item.getPlataforma();
-		}
-		else if (atributo.trim().equalsIgnoreCase("duracao")) {
-			info += item.getDuracao();
-		}
-		else if (atributo.trim().equalsIgnoreCase("genero")) {
-			info += item.getGenero();
-		}
-		else if (atributo.trim().equalsIgnoreCase("classificacao")) {
-			info += item.getClassificacao();
-		}
-		else if (atributo.trim().equalsIgnoreCase("ano de lancamento")) {
-			info += item.getAnoLancamento();
-		}
-		return info;
 	}
 	
 	/**
@@ -162,9 +179,57 @@ public class CRUDItem {
 	 * @param valor O novo valor da informacao atualizada
 	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor que 1
 	 * @throws NumberFormatException Caso o formato do ano passado seja invalido
+	 * @throws AtributoInvalidoException 
 	 */
-	public static void atualizarItem(Item item, String atributo, String valor) throws TemporadaMenorQue1Exception, NumberFormatException {
-		if (atributo.trim().equalsIgnoreCase("nome")) {
+	public static void atualizarItem(Item item, String atributo, String valor) throws TemporadaMenorQue1Exception, NumberFormatException, AtributoInvalidoException {
+		
+		switch (atributo.toLowerCase()) {
+		case "nome":
+			item.setNomeItem(valor);
+			break;
+		
+		case "preco":
+			item.setPreco(Double.parseDouble(valor));
+			break;
+			
+		case "classificacao":
+			item.setClassificacao(valor);
+			break;
+		
+		case "duracao":
+			item.setDuracao(Integer.parseInt(valor));
+			break;
+			
+		case "genero":
+			item.setGenero(valor);
+			break;
+		
+		case "ano de lancamento":
+			item.setAnoLancamento(Integer.parseInt(valor));
+			break;
+			
+		case "artista":
+			item.setNomeArtista(valor);
+			break;
+		
+		case "numero de faixas":
+			item.setNumeroFaixas(Integer.parseInt(valor));
+			break;
+			
+		case "temporada":
+			item.setTemporada(Integer.parseInt(valor));
+			break;
+			
+		case "plataforma":
+			item.setPlataforma(valor);
+			break;
+		
+		default:
+			throw new AtributoInvalidoException();
+			
+		}
+		
+		/*if (atributo.trim().equalsIgnoreCase("nome")) {
 			item.setNomeItem(valor);
 		} else if (atributo.trim().equalsIgnoreCase("preco")) {
 			item.setPreco(Double.parseDouble(valor));
@@ -184,7 +249,7 @@ public class CRUDItem {
 			item.setTemporada(Integer.parseInt(valor));
 		} else if (atributo.trim().equalsIgnoreCase("plataforma")) {
 			item.setPlataforma(valor);
-		}
+		}*/
 	}
 
 	/**

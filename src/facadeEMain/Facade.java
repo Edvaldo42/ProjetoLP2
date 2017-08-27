@@ -301,8 +301,9 @@ public class Facade {
 	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
 	 * {@link Sistema#getInfoItem(String, String, String, String)}
+	 * @throws AtributoInvalidoException 
 	 */
-	public String getInfoItem(String nome, String telefone, String nomeItem,String atributo) throws UsuarioInvalidoException, ItemNaoEncontradoException {
+	public String getInfoItem(String nome, String telefone, String nomeItem,String atributo) throws UsuarioInvalidoException, ItemNaoEncontradoException, AtributoInvalidoException {
 		return sistema.getInfoItem(nome, telefone, nomeItem, atributo);
 	}
 	
