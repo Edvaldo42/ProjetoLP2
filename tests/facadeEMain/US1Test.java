@@ -1,4 +1,4 @@
-package FacadeEMain;
+package facadeEMain;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,7 +31,7 @@ public class US1Test {
 	// cadastrarUsuario, atualizarUsuario, getInfoUsuario, removerUsuario
 	
 	@Test
-	public void testCadastrarUsuario() throws Exception {
+	public void testCadastrarUsuario() throws StringInvalidaException, UsuarioCadastradoException {
 		facade.cadastrarUsuario("Pedro", "98888-8888", "pedro@email.com");
 		facade.cadastrarUsuario("Paulo", "99999-9999", "paulo@email.com");	
 		facade.cadastrarUsuario("Matheus", "98888-8888", "Matheus@email.com");
@@ -124,7 +124,7 @@ public class US1Test {
 	
 	@Test (expected= TelefoneInvalidoException.class)
 	public void testAtualizarCadastroTelefoneInvalido() throws StringInvalidaException, UsuarioCadastradoException {
-		facade.atualizarUsuario("Andre", "99999-9999", "telefone", "telefone");
+		facade.atualizarUsuario("Andre", "99999-9999", "telefone", "-8888999");
 	}
 	
 	@Test (expected= AtributoInvalidoException.class)
@@ -143,30 +143,5 @@ public class US1Test {
 	public void testRemoverUsuarioInexistente() throws UsuarioInvalidoException {
 		facade.removerUsuario("Augusto", "99999-9999");
 	}
-	
-
-	// ------------------------------------------US5--------------------------------------------------
-	// listarEmprestimosUsuarioEmprestando, listarEmprestimosUsuarioPegandoEmprestado, 
-	// listarEmprestimosItem, listarItensNaoEmprestados, listarItensEmprestados
-	
-	
-	
-	// ------------------------------------------US6--------------------------------------------------
-	// getInfoUsuario - reputacao
-	
-	
-	
-	// ------------------------------------------US7--------------------------------------------------
-	// getInfoUsuario - cartao
-	
-	
-	
-	// ------------------------------------------US8--------------------------------------------------
-	// listarCaloteiros, listarTop10MelhoresUsuarios, listarTop10PioresUsuarios
-	
-	
-	
-	// ------------------------------------------US9--------------------------------------------------
-
 
 }

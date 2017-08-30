@@ -277,7 +277,7 @@ public class Usuario {
 	/**
 	 * Retorna o email do usuario
 	 * 
-	 * @return
+	 * @return O email do usuario
 	 */
 	public String getEmail() {
 		return email;
@@ -286,7 +286,7 @@ public class Usuario {
 	/**
 	 * Altera o emial do usuario
 	 * 
-	 * @param email
+	 * @param email O email do usuario
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -295,7 +295,7 @@ public class Usuario {
 	/**
 	 * Retorna o nome do Usuario
 	 * 
-	 * @return
+	 * @return O nome do usuario
 	 */
 	public String getNome() {
 		return nome;
@@ -304,7 +304,7 @@ public class Usuario {
 	/**
 	 * Altera o nome do usuario
 	 * 
-	 * @param nome
+	 * @param nome O nome do usuario
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -313,7 +313,7 @@ public class Usuario {
 	/**
 	 * Retorna o telefone do usuario
 	 * 
-	 * @return
+	 * @return O telefone do usuario
 	 */
 	public String getTelefone() {
 		return telefone;
@@ -322,7 +322,7 @@ public class Usuario {
 	/**
 	 * Altera o telefone do usuario
 	 * 
-	 * @param telefone
+	 * @param telefone O telefone do usuario
 	 */
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
@@ -331,7 +331,7 @@ public class Usuario {
 	/**
 	 * Retorna a lista de itens do usuario
 	 * 
-	 * @return
+	 * @return Um conjunto de itens
 	 */
 	public Set<Item> getItens() {
 		return this.itens;
@@ -341,16 +341,16 @@ public class Usuario {
 	/**
 	 * Retorna os itens emprestados pelo usuario
 	 * 
-	 * @return
+	 * @return A representacao textual dos itens que o dono emprestou
 	 */
 	public Set<Emprestimo> getItensEmprestadosDono() {
 		return this.emprestimosDono;
 	}
 
 	/**
-	 * Retorna a lista de emprestimos que o usuario fez
+	 * Mostra a listagem de emprestimos que o usuario participou como dono
 	 * 
-	 * @return 
+	 * @return A representacao textual dos itens que o dono pegou emprestados
 	 */
 	public Set<Emprestimo> getEmprestimosDono() {
 		
@@ -358,9 +358,9 @@ public class Usuario {
 	}
 	
 	/**
-	 * Retorna a lista de emprestimos que o usuario participou como requerente
+	 * Mostra a listagem de emprestimos que o usuario participou como requerente
 	 * 
-	 * @return O conjunto de emprestimos que o requerente pegou por um tempo.
+	 * @return A representacao textual dos itens que o requerente pegou emprestados
 	 */
 	public Set<Emprestimo> getEmprestimosRequerente() {
 		return emprestimosRequerente;
@@ -369,23 +369,23 @@ public class Usuario {
 	/**
 	 * Retorna a reputacao do usuario
 	 * 
-	 * @return
+	 * @return A reputacao do usuario
 	 */
 	public double getReputacao() {
 		return this.reputacao;
 	}
 	
 	/**
-	 * Retorna o status do usuario
+	 * Retorna o cartao do usuario
 	 * 
-	 * @return
+	 * @return Uma string com o cartao do usuario
 	 */
 	public String getCartao() {
 		return this.cartao.getCartao();
 	}
 	
 	/**
-	 * Altera o status do usuario
+	 * Altera o cartao do usuario
 	 */
 	public void setCartao() {
 		if (getReputacao() >= 0) {

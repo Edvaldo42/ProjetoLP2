@@ -1,5 +1,9 @@
 package item;
 
+/**
+ * 
+ *
+ */
 public class Show extends BluRay {
 
 	private String artista;

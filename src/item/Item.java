@@ -4,6 +4,10 @@ import java.util.Locale;
 
 import exceptionsItem.TemporadaMenorQue1Exception;
 
+/**
+ * 
+ *
+ */
 public abstract class Item {
 
 	private String nomeItem;

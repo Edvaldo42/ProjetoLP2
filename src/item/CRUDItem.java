@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import exceptionsComplementares.AtributoInvalidoException;
-import exceptionsItem.PlataformaNullOuVaziaException;
+import exceptionsComplementares.StringInvalidaException;
 import exceptionsItem.TemporadaMenorQue1Exception;
 import facadeEMain.Validacoes;
 
@@ -32,10 +32,9 @@ public class CRUDItem {
 	 * @param preco O preco do jogo
 	 * @param plataforma A plataforma em que o jogo esta
 	 * @return O item criado
-	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
+	 * @throws StringInvalidaException 
 	 */
-	public static Item criaEletronico(String nomeItem, double preco, String plataforma) 
-			throws PlataformaNullOuVaziaException {
+	public static Item criaEletronico(String nomeItem, double preco, String plataforma) throws StringInvalidaException {
 		
 		if (Validacoes.validaPlataforma(plataforma)) {
 			Item jogoEletronico = new JogoEletronico(nomeItem, preco, plataforma);
@@ -228,28 +227,6 @@ public class CRUDItem {
 			throw new AtributoInvalidoException();
 			
 		}
-		
-		/*if (atributo.trim().equalsIgnoreCase("nome")) {
-			item.setNomeItem(valor);
-		} else if (atributo.trim().equalsIgnoreCase("preco")) {
-			item.setPreco(Double.parseDouble(valor));
-		} else if (atributo.trim().equalsIgnoreCase("classificacao")) {
-			item.setClassificacao(valor);
-		} else if (atributo.trim().equalsIgnoreCase("duracao")) {
-			item.setDuracao(Integer.parseInt(valor));
-		} else if (atributo.trim().equalsIgnoreCase("genero")) {
-			item.setGenero(valor);
-		} else if (atributo.trim().equalsIgnoreCase("anoLancamento")) {
-			item.setAnoLancamento(Integer.parseInt(valor));
-		} else if (atributo.trim().equalsIgnoreCase("artista")) {
-			item.setNomeArtista(valor);
-		} else if (atributo.trim().equalsIgnoreCase("numeroFaixas")) {
-			item.setNumeroFaixas(Integer.parseInt(valor));
-		} else if (atributo.trim().equalsIgnoreCase("temporada")) {
-			item.setTemporada(Integer.parseInt(valor));
-		} else if (atributo.trim().equalsIgnoreCase("plataforma")) {
-			item.setPlataforma(valor);
-		}*/
 	}
 
 	/**

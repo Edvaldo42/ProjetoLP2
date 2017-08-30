@@ -7,29 +7,18 @@ import exceptionsComplementares.EmprestimoNaoEncontradoException;
 import exceptionsComplementares.ItemCadastradoException;
 import exceptionsComplementares.ItemEmprestadoException;
 import exceptionsComplementares.ItemNaoEncontradoException;
-import exceptionsComplementares.NomeDoItemNuloOuVazioException;
 import exceptionsComplementares.StringInvalidaException;
 import exceptionsComplementares.UsuarioCadastradoException;
-import exceptionsItem.AnoDeLancamentoMenorQue0Exception;
-import exceptionsItem.ClassificacaoInvalidaException;
-import exceptionsItem.ClassificacaoNulaOuVaziaException;
-import exceptionsItem.DescricaoInvalidaException;
-import exceptionsItem.DuracaoInvalidaException;
-import exceptionsItem.GeneroNuloOuVazioException;
-import exceptionsItem.NomeDaPecaNuloOuVazioException;
-import exceptionsItem.NomeDoArtistaNuloOuVazioException;
-import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
 import exceptionsItem.PecaJaRegistrada;
-import exceptionsItem.PecaPerdidaException;
-import exceptionsItem.PlataformaNullOuVaziaException;
-import exceptionsItem.PrecoInvalidoException;
 import exceptionsItem.SerieNaoValidaException;
-import exceptionsItem.TemporadaMenorQue1Exception;
 import exceptionsUsuario.UsuarioInvalidoException;
 import item.CRUDItem;
 import usuario.ControllerUsuario;
 
-
+/**
+ * 
+ *
+ */
 public class Sistema {
 
 	private ControllerUsuario controllerUsuario;
@@ -102,15 +91,12 @@ public class Sistema {
 	 * @param nomeItem O nome do jogo
 	 * @param preco O preco do jogo
 	 * @param plataforma A plataforma em que o jogo esta
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
-   	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
-	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
 	 * @throws ItemCadastradoException Caso o item ja tenha sido cadastrado
+	 * @throws StringInvalidaException 
 	 * @throws UsuarioCadastradoException Caso o usuario nao esteja cadastrado
 	 */
 	public void cadastrarEletronico(String nome, String telefone, String nomeItem, double preco, String plataforma)
-			throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, PlataformaNullOuVaziaException, ItemCadastradoException {
+			throws ItemCadastradoException, StringInvalidaException {
 		
 		Validacoes.validaCadastrarEletronico(nomeItem, preco, plataforma.toUpperCase());
 		controllerUsuario.cadastrarItem(nome, telefone,
@@ -124,13 +110,11 @@ public class Sistema {
 	 * @param telefone O telefone do dono do jogo
 	 * @param nomeItem O nome do jogo
 	 * @param preco O preco do jogo
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
-	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
-	 * @throws PrecoInvalidoException Caso o preco seja invalido
 	 * @throws ItemCadastradoException Caso o jogo de tabuleiro ja esteja cadastrado
+	 * @throws StringInvalidaException 
 	 */
 	public void cadastrarJogoTabuleiro(String nome, String telefone, String nomeItem, double preco)
-			throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, PrecoInvalidoException, ItemCadastradoException {
+			throws ItemCadastradoException, StringInvalidaException {
 		
 		Validacoes.validaCadastrarJogoTabuleiro(nomeItem, preco);
 		controllerUsuario.cadastrarItem(nome, telefone, CRUDItem.criaJogoTabuleiro(nomeItem, preco));
@@ -145,12 +129,11 @@ public class Sistema {
 	 * @param nomePeca O nome da peca
 	 * @throws PecaJaRegistrada Caso a peca perdida ja tenha sido adicionada
 	 * @throws ItemNaoEncontradoException Caso o item nao tenha sido encontrado
-	 * @throws PecaPerdidaException Caso haja algum erro ao se adcionar a peca perdida
+	 * @throws StringInvalidaException 
 	 * @throws NomeDaPecaNuloOuVazioException Caso o nome da peca seja nulo ou vazio
 	 * @throws NomeDoItemNuloOuVazioException Caso o nome da peca seja nulo ou vazio
-	 * @throws UsuarioInvalidoException 
 	 */
-	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaRegistrada, NomeDoItemNuloOuVazioException, NomeDaPecaNuloOuVazioException, UsuarioInvalidoException {
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws ItemNaoEncontradoException, PecaJaRegistrada, StringInvalidaException {
 		Validacoes.validaAdicionarPecaPerdida(nomeItem, nomePeca);
 		controllerUsuario.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
@@ -166,18 +149,11 @@ public class Sistema {
 	 * @param genero O genero do filme
 	 * @param classificacao A classificacao etaria do filme
 	 * @param anoLancamento O ano de lancamento do filme
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
-	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
-	 * @throws NomeDoItemNuloOuVazioException Caso o nome do tem seja nulo ou vazio
-	 * @throws PrecoInvalidoException Caso o preco do item seja nulo ou vazio
-	 * @throws ClassificacaoNulaOuVaziaException Caso a Classificacao seja nula ou vazia
-	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
-	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
-	 * @throws AnoDeLancamentoMenorQue0Exception caso o ano de lancamento seja menor que 0
 	 * @throws ItemCadastradoException Caso o filme ja esteja cadastrado
+	 * @throws StringInvalidaException 
 	 */
 	public void cadastrarBluRayFilme(String nome, String telefone, String nomeItem, double preco, int duracao,
-			String genero, String classificacao, int anoLancamento) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, AnoDeLancamentoMenorQue0Exception, GeneroNuloOuVazioException, ClassificacaoInvalidaException, ItemCadastradoException {
+			String genero, String classificacao, int anoLancamento) throws ItemCadastradoException, StringInvalidaException {
 		Validacoes.validaCadastrarBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento);
 		controllerUsuario.cadastrarItem(nome, telefone,
 				CRUDItem.criaBluRayFilme(nomeItem, preco, duracao, genero, classificacao, anoLancamento));
@@ -194,18 +170,11 @@ public class Sistema {
 	 * @param nomeroFaixas O numero de faixas do show
 	 * @param artista O nome do artista
 	 * @param classificacao A classificacao etaria do show
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
-	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
-	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
-	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja nula ou vazia
-	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
-	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
-	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
 	 * @throws ItemCadastradoException Caso o BluRay do show ja tenha sido cadastrado
+	 * @throws StringInvalidaException 
 	 */
 	public void cadastrarBluRayShow(String nome, String telefone, String nomeItem, double preco, int duracao,
-			int numeroFaixas, String artista, String classificacao) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, NomeDoArtistaNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, ItemCadastradoException {
+			int numeroFaixas, String artista, String classificacao) throws ItemCadastradoException, StringInvalidaException {
 		
 		Validacoes.validaCadastrarBluRayShow(nomeItem, preco, duracao, numeroFaixas, artista, classificacao);
 		controllerUsuario.cadastrarItem(nome, telefone,
@@ -224,19 +193,11 @@ public class Sistema {
 	 * @param classificacao A classificacao etaria da serie
 	 * @param genero O genero da serie
 	 * @param temporada A temporada da serie
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
-	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
-	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
-	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
-	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor do que 1
-	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
-	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja nula ou vazia
-	 * @throws ClassificacaoInvalidaException Caso a classificacao seja invalida
 	 * @throws ItemCadastradoException Caso o BluRay da serie ja tenha sido cadastrado
+	 * @throws StringInvalidaException 
 	 */
 	public void cadastrarBluRaySerie(String nome, String telefone, String nomeItem, double preco, String descricao,
-			int duracao, String classificacao, String genero, int temporada) throws UsuarioInvalidoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, PrecoInvalidoException, DescricaoInvalidaException, GeneroNuloOuVazioException, TemporadaMenorQue1Exception, ClassificacaoNulaOuVaziaException, ClassificacaoInvalidaException, ItemCadastradoException {
+			int duracao, String classificacao, String genero, int temporada) throws ItemCadastradoException, StringInvalidaException {
 		
 		Validacoes.validaCadastrarBluRaySerie(nomeItem, preco, descricao, duracao, classificacao, genero, temporada);
 		controllerUsuario.cadastrarItem(nome, telefone,
@@ -250,14 +211,13 @@ public class Sistema {
 	 * @param telefone O telefone do dono do item
 	 * @param nomeBlurayTemporada O nome da temporada
 	 * @param duracao A duracao da temporada
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
-	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
 	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
 	 * @throws SerieNaoValidaException Caso o item nao seja uma serie
+	 * @throws StringInvalidaException 
+	 * @throws IllegalArgumentException 
 	 */
-	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, DuracaoInvalidaException, SerieNaoValidaException {
+	public void adicionarBluRay(String nome, String telefone, String nomeBlurayTemporada, int duracao) throws ItemNaoEncontradoException, SerieNaoValidaException, IllegalArgumentException, StringInvalidaException {
 		Validacoes.validaAdicionarBluRay(nomeBlurayTemporada, duracao);
 		controllerUsuario.adicionarBluRay(nome, telefone, nomeBlurayTemporada, duracao);
 	}
@@ -285,23 +245,12 @@ public class Sistema {
 	 * @param atributo O atributo que sera mudado
 	 * @param valor O novo valor do atributo
 	 * 
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
-	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
-	 * @throws AtributoInvalidoException Caso o atributo seja invalido
-	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
-	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor do que 1
-	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
-	 * @throws AnoDeLancamentoMenorQue0Exception Caso o ano de lancamento seja menor que 0
-	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
-	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja nula ou vazia
-	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
-	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
-	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
+	 * @throws StringInvalidaException 
+	 * @throws IllegalArgumentException 
 	 */
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, DescricaoInvalidaException, AtributoInvalidoException {
+			throws ItemNaoEncontradoException, IllegalArgumentException, StringInvalidaException {
 		controllerUsuario.atualizarItem(nome, telefone, nomeItem, atributo, valor);
 	}
 

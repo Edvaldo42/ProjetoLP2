@@ -1,4 +1,4 @@
-package FacadeEMain;
+package facadeEMain;
 
 import static org.junit.Assert.assertEquals;
 

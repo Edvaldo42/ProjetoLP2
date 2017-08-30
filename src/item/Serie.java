@@ -5,6 +5,10 @@ import java.util.List;
 
 import exceptionsItem.TemporadaMenorQue1Exception;
 
+/**
+ * 
+ *
+ */
 public class Serie extends BluRay {
 
 	private List<Integer> colecao;
@@ -116,7 +120,7 @@ public class Serie extends BluRay {
 	}
 
 	/**
-	 * Equal de Serie
+	 * Equals de Serie
 	 */
 	@Override
 	public boolean equals(Object obj) {

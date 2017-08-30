@@ -1,5 +1,9 @@
 package item;
 
+/**
+ * 
+ *
+ */
 public enum Plataforma {
 
 	PC ("PC"),

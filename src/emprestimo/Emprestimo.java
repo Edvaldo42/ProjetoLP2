@@ -9,8 +9,11 @@ import exceptionsUsuario.UsuarioInvalidoException;
 import usuario.ControllerUsuario;
 import usuario.Usuario;
 
+/**
+ * 
+ *
+ */
 public class Emprestimo {
-
 
 	private Usuario dono;
 	private Usuario requerente;
@@ -50,6 +53,10 @@ public class Emprestimo {
 		this.dataDevolucao = null;
 	}
 
+	/**
+	 * 
+	 * @param periodo
+	 */
 	private void verificaCartao(int periodo) {
 		if (this.requerente.getCartao().equals("Caloteiro")) {
 			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
@@ -84,15 +91,14 @@ public class Emprestimo {
 	/**
 	 * Estabelece a data devolucao do emprestimo
 	 * 
-	 * @param dataDevolucao
-	 *            the dataDevolucao to set
+	 * @param dataDevolucao A data de devolucao do item
 	 */
 	public void setDataDevolucao(String dataDevolucao) {
 		this.dataDevolucao = converteData(dataDevolucao);
 	}
 
 	/**
-	 * Coverte a data do emprestimo para uma data padrão
+	 * Converte a data do emprestimo para uma data padrao
 	 * 
 	 * @param data
 	 * @return
@@ -145,6 +151,7 @@ public class Emprestimo {
 
 	/**
 	 * Estabelece o usuario que pegou um item emprestado
+	 * 
 	 * @param requerente
 	 */
 	public void setRequerente(Usuario requerente) {
@@ -162,6 +169,7 @@ public class Emprestimo {
 
 	/**
 	 * Estabelece o item que esta fazendo parte do emprestimo
+	 * 
 	 * @param itemEmprestado
 	 */
 	public void setItemEmprestado(String itemEmprestado) {
@@ -226,10 +234,8 @@ public class Emprestimo {
 		return atraso;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
@@ -238,7 +244,7 @@ public class Emprestimo {
 	}
 
 	/**
-	 * Hash Code de Emprestimo
+	 * HashCode de Emprestimo
 	 */
 	@Override
 	public int hashCode() {

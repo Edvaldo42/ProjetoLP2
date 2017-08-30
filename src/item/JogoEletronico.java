@@ -1,5 +1,9 @@
 package item;
 
+/**
+ * 
+ *
+ */
 public class JogoEletronico extends Item {
 	
 	private Plataforma plataforma;

@@ -1,5 +1,7 @@
 package usuario;
 
+import item.Item;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,31 +15,19 @@ import comparator.OrdemAlfabeticaUsuario;
 import comparator.OrdemPorReputacao;
 import comparator.OrdenaPorValor;
 import comparator.OrdenaPorVezesEmprestado;
+
 import emprestimo.Emprestimo;
 import exceptionsComplementares.AtributoInvalidoException;
 import exceptionsComplementares.EmprestimoNaoEncontradoException;
 import exceptionsComplementares.ItemCadastradoException;
 import exceptionsComplementares.ItemEmprestadoException;
 import exceptionsComplementares.ItemNaoEncontradoException;
-import exceptionsComplementares.NomeDoItemNuloOuVazioException;
 import exceptionsComplementares.StringInvalidaException;
 import exceptionsComplementares.UsuarioCadastradoException;
-import exceptionsItem.AnoDeLancamentoMenorQue0Exception;
-import exceptionsItem.ClassificacaoNulaOuVaziaException;
-import exceptionsItem.DescricaoInvalidaException;
-import exceptionsItem.DuracaoInvalidaException;
-import exceptionsItem.GeneroNuloOuVazioException;
-import exceptionsItem.NomeDoArtistaNuloOuVazioException;
-import exceptionsItem.NumeroDeFaixasMenorQue0Exception;
 import exceptionsItem.PecaJaRegistrada;
-import exceptionsItem.PecaPerdidaException;
-import exceptionsItem.PlataformaNullOuVaziaException;
-import exceptionsItem.PrecoInvalidoException;
 import exceptionsItem.SerieNaoValidaException;
-import exceptionsItem.TemporadaMenorQue1Exception;
 import exceptionsUsuario.UsuarioInvalidoException;
 import facadeEMain.Validacoes;
-import item.Item;
 
 /**
  * 
@@ -122,20 +112,14 @@ public class ControllerUsuario {
 	 * @param telefone O telefone do dono do jogo
 	 * @param nomeItem O nome do jogo que se quer adcionar a informacao sobre a peca perdida
 	 * @param nomePeca O nome da peca perdida
-	 * @throws PecaPerdidaException Caso a informacao nao possa ser adicionada
 	 * @throws ItemNaoEncontradoException Caso o jogo nao esteja cadastrado
 	 * @throws PecaJaRegistrada Caso a informacao da peca perdida ja tenha sido adcionada
 	 * @throws UsuarioInvalidoException 
 	 */
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) 
-			throws PecaPerdidaException, ItemNaoEncontradoException, PecaJaRegistrada, UsuarioInvalidoException {
+			throws ItemNaoEncontradoException, PecaJaRegistrada, UsuarioInvalidoException {
 		
 		Usuario usuario = buscaUsuario(nome, telefone);
-		
-		if (usuario == null) {
-			throw new PecaPerdidaException();
-		}
-
 		usuario.adicionarPecaPerdida(nomeItem, nomePeca);
 	}
 
@@ -198,27 +182,12 @@ public class ControllerUsuario {
 	 * @param atributo O atributo que sera mudado
 	 * @param valor O novo valor do atributo
 	 * 
-	 * @throws UsuarioInvalidoException Caso o usuario seja invalido
 	 * @throws ItemNaoEncontradoException Caso o item nao seja encontrado
-	 * @throws NomeDoItemNuloOuVazioException Caso o nome do item seja nulo ou vazio
-	 * @throws AtributoInvalidoException Caso o atributo seja invalido
-	 * @throws DescricaoInvalidaException Caso a descricao seja invalida
-	 * @throws TemporadaMenorQue1Exception Caso a temporada seja menor do que 1
-	 * @throws NomeDoArtistaNuloOuVazioException Caso o nome do artista seja nulo ou vazio
-	 * @throws AnoDeLancamentoMenorQue0Exception Caso o ano de lancamento seja menor que 0
-	 * @throws GeneroNuloOuVazioException Caso o genero seja nulo ou vazio
-	 * @throws ClassificacaoNulaOuVaziaException Caso a classificacao seja nula ou vazia
-	 * @throws DuracaoInvalidaException Caso a duracao seja invalida
-	 * @throws PlataformaNullOuVaziaException Caso a plataforma seja nula ou vazia
-	 * @throws PrecoInvalidoException Caso o preco seja invalido
-	 * @throws NumeroDeFaixasMenorQue0Exception Caso o numero de faixas seja menor do que 1
+	 * @throws StringInvalidaException 
+	 * @throws IllegalArgumentException 
 	 */
 	public void atualizarItem(String nome, String telefone, String nomeItem, String atributo, String valor)
-			throws UsuarioInvalidoException, ItemNaoEncontradoException, NomeDoItemNuloOuVazioException, 
-			NumeroDeFaixasMenorQue0Exception, PrecoInvalidoException, PlataformaNullOuVaziaException, 
-			DuracaoInvalidaException, ClassificacaoNulaOuVaziaException, GeneroNuloOuVazioException, 
-			AnoDeLancamentoMenorQue0Exception, NomeDoArtistaNuloOuVazioException, TemporadaMenorQue1Exception, 
-			DescricaoInvalidaException, AtributoInvalidoException {
+			throws ItemNaoEncontradoException, IllegalArgumentException, StringInvalidaException {
 
 		Validacoes.validaAtualizarItem(atributo, valor);
 		Usuario usuario = buscaUsuario(nome, telefone);
@@ -474,13 +443,10 @@ public class ControllerUsuario {
 			}
 		}
 		if (retorno.equals("")) {
-			retorno += "Nenhum emprestimos associados ao item";
+			return "Nenhum emprestimos associados ao item";
 		}
-		else {
-			retorno = "Emprestimos associados ao item: " + retorno; 
-		}
-		
-		return retorno;
+
+		return "Emprestimos associados ao item: " + retorno; 
 	}
 	
 	/**

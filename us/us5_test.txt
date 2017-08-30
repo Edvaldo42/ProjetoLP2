@@ -34,4 +34,3 @@ expectError "Usuario invalido" listarEmprestimosUsuarioEmprestando nome="Paulo" 
 expectError "Usuario invalido" listarEmprestimosUsuarioEmprestando nome="Paulo" telefone="56662-1999"
 
 fecharSistema
-

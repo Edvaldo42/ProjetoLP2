@@ -22,7 +22,6 @@ public enum Genero {
 	TERROR ("TERROR"),
 	OUTRO ("OUTRO");
 	
-	
 	private String genero;
 	
 	/**

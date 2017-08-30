@@ -44,7 +44,6 @@ public abstract class BluRay extends Item {
 	 * 
 	 * @return A classificacao do BluRay
 	 */
-
 	public String getClassificacao() {
 		return classificacao.getClassificacao();
 	}
@@ -52,14 +51,17 @@ public abstract class BluRay extends Item {
 	/**
 	 * Estabelece a classificacao de um BluRay
 	 */
-
 	public void setClassificacao(String classificacao) {
 		this.classificacao = Classificacao.valueOf(classificacao);
 	}
 	
+	/**
+	 * Retorna a descricao do bluray
+	 */
 	public String getDescricao() {
 		return "";
 	}
+	
 	/**
 	 * Retorna a representacao textual de um BluRay
 	 */
